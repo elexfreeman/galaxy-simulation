@@ -24,11 +24,11 @@ export class Calculator {
 
   calc(nInteration) {
     for (let n = 0; n < nInteration; n++) {
-      this.centerMassVector = this.getCenterMassVector();
       for (let k = 0; k < this.bodyList.length; k++) {
         this.calcBody(this.bodyList[k], k);
       }
     }
+    this.centerMassVector = this.getCenterMassVector();
   }
 
   static draw(ctx, centerMassVector, bodyList) {
@@ -69,8 +69,9 @@ export class Calculator {
     const vec = Vector.minus(b.coord, a.coord);
     const length = Vector.length(vec);
 
-    F.x = C.G * getFamilyF() * vec.x / length;
-    F.y = C.G * getFamilyF() * vec.y / length;
+
+    F.x = C.G * getFamilyF() * vec.x / (length * length)
+    F.y = C.G * getFamilyF() * vec.y / (length * length);
 
 
     return F;

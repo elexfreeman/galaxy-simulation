@@ -21,6 +21,6 @@ export class Vector {
   }
 
   static length(v) {
-    return Math.sqrt(v.x * v.x + v.y * v.y);
+    return Math.sqrt((v.x * v.x) + (v.y * v.y));
   }
 }
