@@ -1,13 +1,13 @@
 const MAX_Y = 1000;
 const MAX_X = 1000;
-const MAX_DOTS = 400;
+const MAX_DOTS = 500;
 
 const MAX_DOT_X = 100000;
 const MAX_DOT_Y = 100000;
 
-const G = 0.00000001;
+const G = 0.0000001;
 
-const FAMILY_FORCE = 2.0;
+const FAMILY_FORCE = 9.0;
 
 function getRandomInt(min, max) {
   return Math.random() * (max - min) + min;
@@ -57,7 +57,7 @@ class Body {
   }
 
   setCoord2(coord) {
-    const cold = 0.1;
+    const cold = 0.9;
     if (coord.x > MAX_X) {
       this.velocity.x = -this.velocity.x * cold;
     } else if (coord.x < 0) {
