@@ -1,0 +1,70 @@
+{
+  "name": "mindalka-styles",
+  "description": "",
+  "version": "1.0.0",
+  "homepage": "",
+  "author": "John Shepard",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16.x",
+    "npm": ">=8.x"
+  },
+  "scripts": {
+    "work:start": "node scripts/start.cjs",
+    "work": "vite --host",
+    "viteBuild": "vite build",
+    "preview": "vite preview",
+    "checkPackage": "npm run lintfix && npm run stylefix && npm run viteBuild",
+    "buildPackage": "npm version patch -m \"Set version %s\" && npm run checkPackage",
+    "build": "exit 0",
+    "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --reporters=default --reporters jest-sonar",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "lint": "eslint . --ext .js,.cjs --ignore-path .gitignore --ignore-pattern dist/**/*",
+    "lintfix": "npm run lint -- --fix",
+    "style": "stylelint \"**/*.{css,scss}\" -f verbose --ignore-path .gitignore",
+    "stylefix": "npm run style -- --fix",
+    "preversion": "node scripts/preversion.js",
+    "update-readme": "node scripts/version.js",
+    "version": "npm run update-readme && git add -A"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@types/jest": "^28.1.6",
+    "@webui/global-variables": "^1.0.5",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-i18n": "^2.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^26.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-promise": "^5.1.0",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "jest-sonar": "^0.2.12",
+    "lint-staged": "^11.1.1",
+    "sass": "^1.52.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-declaration-strict-value": "^1.7.12",
+    "stylelint-scss": "^3.21.0",
+    "vite": "^2.9.9",
+    "vite-plugin-html": "^3.2.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

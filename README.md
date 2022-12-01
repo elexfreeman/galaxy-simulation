@@ -1,1 +1,1 @@
-# galaxy-simulation
+# Galaxy simulation

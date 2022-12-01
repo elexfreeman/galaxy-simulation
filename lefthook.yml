@@ -1,0 +1,17 @@
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+# to test hooks, run `npx @evilmartians/lefthook run pre-commit`
+
+pre-commit:
+  parallel: false
+  commands:
+    lintfix:
+      run: >
+        npm run lintfix &&
+        git add {staged_files}
+    stylefix:
+      run: >
+        npm run stylefix &&
+        git add {staged_files}
+    test:coverage:
+      run: npm run test:coverage
