@@ -1,11 +1,11 @@
 import * as C from './consts';
-import {GeneratorCircle} from './bodyGenerator';
 import {Calculator} from './calculator';
 
 
 const myWorker = new Worker(new URL('./worker.js', import.meta.url), {
   type: 'module'
-})
+});
+
 const ctx = document.getElementById('canvas').getContext('2d');
 
 function init() {
@@ -24,7 +24,7 @@ myWorker.onmessage = (e) => {
 
   Calculator.draw(ctx,
     e.data.centerMassVector,
-    e.data.bodyList,
+    e.data.data,
   );
 
   window.requestAnimationFrame(draw);

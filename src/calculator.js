@@ -38,17 +38,12 @@ export class Calculator {
   }
 
   calcBody(body, currentN) {
-    let color = 0;
     for (let k = 0; k < this.bodyList.length; k++) {
       if (k != currentN) {
         const otherBody = this.bodyList[k];
         const F = Calculator.getF(body, otherBody);
         body.velocity = Vector.add(body.velocity, F);
-
-        //       const vec = Vector.minus(body.coord, otherBody.coord);
-        //       color += Vector.length(vec);
       }
-      //      body.color = '#' + Math.ceil(1000 * color / this.bodyList.length).toString(16);
     }
 
     for (let k = 0; k < this.bodyList.length; k++) {
