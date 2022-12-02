@@ -15,7 +15,7 @@ export default defineConfig({
     outDir: 'build',
     assetsDir: 'dist',
     publicDir: 'public',
-    // minify: false,
+    minify: false,
     rollupOptions: {
       plugins: [],
       external: {},
