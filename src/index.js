@@ -9,17 +9,22 @@ const myWorker = new Worker(new URL('./worker.js', import.meta.url), {
 const ctx = document.getElementById('canvas').getContext('2d');
 
 function init() {
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
   window.requestAnimationFrame(draw);
 }
 
 function draw() {
-  myWorker.postMessage('next');
+  myWorker.postMessage({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 }
 
 
 myWorker.onmessage = (e) => {
   ctx.globalCompositeOperation = 'destination-over';
-  ctx.clearRect(0, 0, C.MAX_X, C.MAX_Y); // clear canvas
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
   ctx.restore();
 
   Calculator.draw(ctx,
@@ -30,4 +35,8 @@ myWorker.onmessage = (e) => {
   window.requestAnimationFrame(draw);
 }
 
+window.addEventListener('resize', function (event) {
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+}, true);
 init();
