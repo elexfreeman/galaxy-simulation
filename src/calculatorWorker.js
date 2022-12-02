@@ -42,11 +42,9 @@ export class CalculatorWorker {
       }
     }
 
-    for (let k = 0; k < this.bodyList.length; k++) {
-      const coord = Vector.add(body.velocity, body.coord);
-      body.coord.x = coord.x;
-      body.coord.y = coord.y;
-    }
+    const coord = Vector.add(body.velocity, body.coord);
+    body.coord.x = coord.x;
+    body.coord.y = coord.y;
 
   }
 
