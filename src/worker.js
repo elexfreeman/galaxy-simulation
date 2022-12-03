@@ -6,10 +6,8 @@ const workerList = [];
 
 const bodyGenerator = new GeneratorCircle();
 let bodyList = bodyGenerator.generate();
-console.log('len', bodyList.length)
 
-
-const calcData = (workerIdx, bodyList, startIdx, count) => {
+const calcData = (workerIdx, bodyList, startIdx, count, width, height) => {
   return new Promise(resolve => {
     workerList[workerIdx].postMessage(
       {
@@ -17,6 +15,8 @@ const calcData = (workerIdx, bodyList, startIdx, count) => {
         startIdx,
         count,
         workerIdx,
+        width,
+        height
       }
     );
 
@@ -42,11 +42,14 @@ onmessage = async function (e) {
 
   const count = Math.ceil(bodyList.length / THREAD_COUNT);
 
+  const {width, height} = e.data;
+
+
   for (let t = 0; t < ITERATION_COUNT; t++) {
     const promiseList = [];
     for (let k = 0; k < THREAD_COUNT; k++) {
       const startIdx = k * count;
-      promiseList.push(calcData(k, bodyList, startIdx, count));
+      promiseList.push(calcData(k, bodyList, startIdx, count, width, height));
     }
 
     const data = await Promise.all(promiseList);
@@ -56,7 +59,14 @@ onmessage = async function (e) {
   }
 
 
-  const calc = new CalculatorWorker(bodyList, 0, 1);
+  const calc = new CalculatorWorker({
+    bodyList,
+    startIdx: 0,
+    count: 100,
+    workerIdx: 1,
+    width,
+    height
+  });
   const centerMassVector = calc.getCenterMassVector();
   postMessage({
     data: bodyList,

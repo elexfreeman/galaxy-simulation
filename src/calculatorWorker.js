@@ -1,13 +1,15 @@
-import * as C from './consts';
 import {Vector} from './vector';
 import {getF} from './force';
 
 export class CalculatorWorker {
 
-  constructor(bodyList, startIdx, count) {
+  constructor(data) {
+    const {bodyList, startIdx, count, width, height} = data
     this.bodyList = bodyList;
     this.startIdx = startIdx;
     this.count = count;
+    this.width = width;
+    this.height = height;
   }
 
   getCenterMassVector() {
@@ -17,8 +19,8 @@ export class CalculatorWorker {
       centerMassVector.x += this.bodyList[k].coord.x;
       centerMassVector.y += this.bodyList[k].coord.y;
     }
-    centerMassVector.x = (centerMassVector.x / this.bodyList.length) - (C.MAX_X / 2);
-    centerMassVector.y = (centerMassVector.y / this.bodyList.length) - (C.MAX_Y / 2);
+    centerMassVector.x = (centerMassVector.x / this.bodyList.length) - (this.width / 2);
+    centerMassVector.y = (centerMassVector.y / this.bodyList.length) - (this.height / 2);
 
     return centerMassVector;
   }
@@ -45,6 +47,7 @@ export class CalculatorWorker {
     const coord = Vector.add(body.velocity, body.coord);
     body.coord.x = coord.x;
     body.coord.y = coord.y;
+
 
   }
 
