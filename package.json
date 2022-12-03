@@ -65,6 +65,7 @@
     "vite-plugin-html": "^3.2.0"
   },
   "dependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "gpu.js": "^2.16.0"
   }
 }

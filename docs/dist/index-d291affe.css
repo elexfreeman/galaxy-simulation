@@ -5,6 +5,7 @@ body {
 .cc {
   background: #000000;
 }
+
 .canvas {
   overflow: hidden;
   height: 100vh;
