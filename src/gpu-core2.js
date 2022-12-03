@@ -28,8 +28,8 @@ export const kernel = gpu.createKernel(function (GG, len, data) {
 
       //find Radius
       R = sqrt((xMinus * xMinus) + (yMinus * yMinus));
-      R = R*R;
-    
+      R = R * R;
+
 
       // finde force
       FX = GG * xMinus / R;
