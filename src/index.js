@@ -17,39 +17,36 @@ let centerMassVector = new Vector(0, 0);
 const bodyGenerator = new GeneratorCircle();
 let bodyList = bodyGenerator.generate();
 
-const initData2 = () => {
+const initData = () => {
   for (let k = 0; k < bodyList.length; k++) {
     dataArr.push([
       bodyList[k].coord.x,
       bodyList[k].coord.y,
       bodyList[k].velocity.y,
-      bodyList[k].velocity.y
+      bodyList[k].velocity.y,
     ]);
   }
 }
 
-
-
 function init() {
-  initData2();
+  initData();
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
   window.requestAnimationFrame(draw);
 }
 
+
+
 async function draw() {
   ctx.globalCompositeOperation = 'destination-over';
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
-  workerMassCenter.postMessage({
-    dataArr,
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
 
-  var start = new Date();
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
+
+  let start = new Date();
   dataArr = kernel(C.G, C.MAX_DOTS, dataArr);
 
-  var time = new Date() - start;
+  // calc time delay
+  let time = new Date() - start;
   let x = 0;
   let y = 0;
 
@@ -68,6 +65,11 @@ async function draw() {
     ctx.stroke();
   }
 
+  workerMassCenter.postMessage({
+    dataArr,
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 }
 
 

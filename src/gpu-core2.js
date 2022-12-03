@@ -4,7 +4,7 @@ import * as C from './consts';
 const gpu = new GPU();
 
 /**
- * data [x, y, vx, vy ]
+ * data [x, y, vx, vy, massa ]
  *       0, 1,  2,  3
 */
 export const kernel = gpu.createKernel(function (GG, len, data) {
@@ -32,8 +32,8 @@ export const kernel = gpu.createKernel(function (GG, len, data) {
 
 
       // finde force
-      FX = GG * xMinus / R;
-      FY = GG * yMinus / R;
+      FX = GG *  xMinus / R;
+      FY = GG *  yMinus / R;
 
       // F + V
       newVX = FX + newVX;
@@ -45,6 +45,6 @@ export const kernel = gpu.createKernel(function (GG, len, data) {
   newX = newVX + data[this.thread.x][0];
   newY = newVY + data[this.thread.x][1];
 
-  return [newX, newY, newVX, newVY];
+  return [newX, newY, newVX, newVY ];
 }).setOutput([C.MAX_DOTS]);
 
