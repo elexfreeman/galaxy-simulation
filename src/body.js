@@ -53,9 +53,10 @@ export class Body {
   }
 
   static draw(ctx, body, centerMassVector) {
+    console.log(body)
     ctx.beginPath();
     ctx.strokeStyle = body.color;
-    ctx.moveTo(body.coord.x, this.y);
+    ctx.moveTo(body.coord.x, body.coord.y);
     ctx.arc(body.coord.x - centerMassVector.x, body.coord.y - centerMassVector.y, 3, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.stroke();
