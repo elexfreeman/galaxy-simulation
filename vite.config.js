@@ -1,8 +1,10 @@
 import {defineConfig} from 'vite';
-import {createHtmlPlugin} from 'vite-plugin-html';
+import {injectHtml, minifyHtml} from 'vite-plugin-html';
 import {resolve, dirname} from 'path';
 import {readFileSync} from 'fs';
 import {fileURLToPath} from 'url';
+
+import {createVuePlugin} from 'vite-plugin-vue2';
 
 const demoPath = './src/demo/';
 
@@ -17,7 +19,8 @@ export default defineConfig({
     publicDir: 'public',
     minify: false,
     rollupOptions: {
-      plugins: [],
+      plugins: [
+      ],
       external: {},
       output: {
         globals: {},
@@ -46,11 +49,15 @@ export default defineConfig({
     },
   },
   plugins: [
-    createHtmlPlugin({
-      minify: false,
-      inject: {
-        data: {
-          firstSlide,
+    injectHtml({
+      data: {
+        injectSkeleton: firstSlide
+      },
+    }),
+    createVuePlugin({
+      vueTemplateOptions: {
+        compilerOptions: {
+          whitespace: 'preserve',
         },
       },
     }),

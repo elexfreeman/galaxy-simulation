@@ -1,3 +1,6 @@
+import Vue from 'vue';
+import App from './ui/App.vue';
+
 import {Vector} from './vector';
 import {GeneratorCircle} from './bodyGenerator';
 import {kernel} from './gpu-core2'
@@ -85,3 +88,7 @@ window.addEventListener('resize', function (event) {
 }, true);
 
 init();
+
+new Vue({
+  render: (h) => h(App),
+}).$mount('#app');
