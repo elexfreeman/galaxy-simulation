@@ -39,8 +39,6 @@ export default {
   props: {
     /**
      * @param {Boolean} disabled When set to `true`, disables the component's functionality and places it in a disabled state
-     * @example <LeCheckbox disabled />
-     * @example <LeCheckbox :disabled="true" />
      * @default false
      */
     disabled: {
@@ -50,8 +48,6 @@ export default {
 
     /**
      * @param {Object|Array|Boolean|String|Number} value Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array
-     * @example <LeCheckbox :falseValue="null" />
-     * @example <LeCheckbox falseValue="9dbe81fd-04bf-41b6-9045-f5f5be5d83f6" />
      */
     falseValue: {
       type: [Object, Array, Boolean, String, Number],
@@ -60,7 +56,6 @@ export default {
 
     /**
      * @param {String} value Sets the value of the `id` attribute on the form control
-     * @example <LeCheckbox id="subscribe" />
      */
     id: {
       type: [String, undefined],
@@ -70,7 +65,6 @@ export default {
     /**
      * @param {String} label render the `label` into default slot
      * @example
-     * <LeCheckbox label="I agree" />
      */
     label: {
       type: String,
@@ -79,14 +73,6 @@ export default {
 
     /**
      * @param {Object|Array|Boolean|String|Number} modelValue
-     * @description
-     * By default, <LeCheckbox> modelValue will be true when checked and false when unchecked.
-     * You can customize the checked and unchecked values by specifying the `trueValue` and `falseValue` properties.
-     * When multiple checkboxes bound to the same v-model array use the `value` instead of `trueValue` and `falseValue`.
-     * @example
-     * <LeCheckbox v-model="checked" />
-     * @example
-     * <LeCheckbox :modelValue="true" />
      */
     modelValue: {
       type: [Object, Array, Boolean, String, Number],
@@ -95,7 +81,6 @@ export default {
 
     /**
      * @param {String} value Sets the value of the `name` attribute on the form control
-     * @example <LeCheckbox name="subscribe" />
      */
     name: {
       type: [String, undefined],
@@ -104,8 +89,6 @@ export default {
 
     /**
      * @param {Boolean} required Adds the `required` attribute to the form control
-     * @example <LeCheckbox required />
-     * @example <LeCheckbox :required="true" />
      * @default false
      */
     required: {
@@ -115,8 +98,6 @@ export default {
 
     /**
      * @param {Object|Array|Boolean|String|Number} value Value returned when this checkbox is checked. Note not applicable when multiple checkboxes bound to the same v-model array
-     * @example <LeCheckbox :trueValue="{foo: 'bar'}" />
-     * @example <LeCheckbox trueValue="82076fb3-aa4e-48ab-81d0-e95e35264622" />
      */
     trueValue: {
       type: [Object, Array, Boolean, String, Number],
@@ -125,7 +106,6 @@ export default {
 
     /**
      * @param {Object|Array|Boolean|String|Number} value Value returned when this checkbox is checked
-     * @example <LeCheckbox value="yes" />
      */
     value: {
       type: [Object, Array, Boolean, String, Number],

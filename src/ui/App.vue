@@ -1,8 +1,5 @@
 <template>
   <div class="app">
-    App
-    <TInput />
-    <TButton>Click</TButton>
   </div>
 </template>
 
@@ -41,7 +38,6 @@ export default {
   top: 20px;
   right: 20px;
   backdrop-filter: blur(2px);
-
 }
 
 </style>
