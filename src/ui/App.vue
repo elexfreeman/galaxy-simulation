@@ -1,12 +1,22 @@
 <template>
-  <div class="app">App</div>
+  <div class="app">
+    App
+    <TInput />
+    <TButton>Click</TButton>
+  </div>
 </template>
 
 <script>
+import TButton from '@/ui/components/Button.vue';
+import TInput from '@/ui/components/Input.vue';
+
 export default {
   name: 'App',
 
-  components: {},
+  components: {
+    TButton,
+    TInput,
+  },
 
   data() {
     return {};

@@ -13,6 +13,14 @@ const _dirname = dirname(fileURLToPath(import.meta.url));
 const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/global.scss";`,
+        charset: false,
+      },
+    },
+  },
   build: {
     outDir: 'build',
     assetsDir: 'dist',
@@ -37,16 +45,16 @@ export default defineConfig({
       },
     },
   },
-  build1: {
-    lib: {
-      entry: resolve(_dirname, 'src/index.js'),
-      name: 'md-components',
-      formats: ['es'],
-      fileName: () => `index.js`,
-    },
-    rollupOptions: {
-      external: ['marked'],
-    },
+  resolve: {
+    /**
+     * @see https://vitejs.dev/config/#resolve-extensions
+     */
+    // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    alias: [
+      //{ find: 'vue', replacement: resolve('./node_modules/vue/dist/vue.esm.js') },
+      // { find: 'knockout', replacement: resolve('./node_modules/knockout/build/output/knockout-latest.debug.js') },
+      { find: '@', replacement: resolve(_dirname, 'src') },
+    ],
   },
   plugins: [
     injectHtml({

@@ -6,6 +6,8 @@ import {GeneratorCircle} from './bodyGenerator';
 import {kernel} from './gpu-core2'
 import * as C from './consts';
 
+import '@/styles/style.scss';
+
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
   {type: 'module'}
