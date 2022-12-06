@@ -1,7 +1,12 @@
+import Vue from 'vue';
+import App from './ui/App.vue';
+
 import {Vector} from './vector';
 import {GeneratorCircle} from './bodyGenerator';
 import {kernel} from './gpu-core2'
 import * as C from './consts';
+
+import '@/styles/style.scss';
 
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
@@ -85,3 +90,7 @@ window.addEventListener('resize', function (event) {
 }, true);
 
 init();
+
+new Vue({
+  render: (h) => h(App),
+}).$mount('#app');

@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@ko/*": ["src/*"],
+      "@/*": ["src-vue/*"]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "types": [
+      "node",
+      "vite-plugin-svg-icons/client",
+      "jest",
+    ]
+  },
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  },
+  "include": [
+    "src-vue/**/*.ts",
+    "src-vue/**/*.tsx",
+    "src-vue/**/*.vue",
+    "tests/unit/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

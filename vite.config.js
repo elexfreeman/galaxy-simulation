@@ -1,8 +1,10 @@
 import {defineConfig} from 'vite';
-import {createHtmlPlugin} from 'vite-plugin-html';
+import {injectHtml, minifyHtml} from 'vite-plugin-html';
 import {resolve, dirname} from 'path';
 import {readFileSync} from 'fs';
 import {fileURLToPath} from 'url';
+
+import {createVuePlugin} from 'vite-plugin-vue2';
 
 const demoPath = './src/demo/';
 
@@ -11,13 +13,22 @@ const _dirname = dirname(fileURLToPath(import.meta.url));
 const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/global.scss";`,
+        charset: false,
+      },
+    },
+  },
   build: {
     outDir: 'build',
     assetsDir: 'dist',
     publicDir: 'public',
     minify: false,
     rollupOptions: {
-      plugins: [],
+      plugins: [
+      ],
       external: {},
       output: {
         globals: {},
@@ -34,23 +45,27 @@ export default defineConfig({
       },
     },
   },
-  build1: {
-    lib: {
-      entry: resolve(_dirname, 'src/index.js'),
-      name: 'md-components',
-      formats: ['es'],
-      fileName: () => `index.js`,
-    },
-    rollupOptions: {
-      external: ['marked'],
-    },
+  resolve: {
+    /**
+     * @see https://vitejs.dev/config/#resolve-extensions
+     */
+    // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    alias: [
+      //{ find: 'vue', replacement: resolve('./node_modules/vue/dist/vue.esm.js') },
+      // { find: 'knockout', replacement: resolve('./node_modules/knockout/build/output/knockout-latest.debug.js') },
+      { find: '@', replacement: resolve(_dirname, 'src') },
+    ],
   },
   plugins: [
-    createHtmlPlugin({
-      minify: false,
-      inject: {
-        data: {
-          firstSlide,
+    injectHtml({
+      data: {
+        injectSkeleton: firstSlide
+      },
+    }),
+    createVuePlugin({
+      vueTemplateOptions: {
+        compilerOptions: {
+          whitespace: 'preserve',
         },
       },
     }),
