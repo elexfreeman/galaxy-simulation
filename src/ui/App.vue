@@ -1,6 +1,5 @@
 <template>
-  <div class="app">
-  </div>
+  <div id='aaa' ref="app" class="app"></div>
 </template>
 
 <script>
@@ -23,9 +22,9 @@ export default {
 
   watch: {},
 
-  mounted() {},
+  mounted() { },
 
-  methods: {},
+  methods: { },
 };
 </script>
 
@@ -39,5 +38,4 @@ export default {
   right: 20px;
   backdrop-filter: blur(2px);
 }
-
 </style>

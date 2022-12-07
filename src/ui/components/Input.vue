@@ -317,7 +317,6 @@ export default {
   &--success & {
     &__input {
       border-bottom-color: $--color-emerald;
-      background: url('@/assets/icons/input-success.svg') no-repeat 98% 50%;
     }
   }
 

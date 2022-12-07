@@ -1,0 +1,247 @@
+.t-button {
+  --btn-color: inherit;
+  --btn-color-bg: inherit;
+  --btn-color-bg-hover: inherit;
+  --btn-color-disabled: inherit;
+  --btn-color-bg-disabled: inherit;
+  --btn-height: inherit;
+  --btn-padding: inherit;
+  --btn-font-size: inherit;
+  --btn-line-height: inherit;
+  --btn-with-icon-padding: inherit;
+  display: inline-block;
+  min-height: var(--btn-height);
+  margin: 0;
+  padding: var(--btn-padding);
+  border: 0;
+  background-image: none;
+  background-color: var(--btn-color-bg);
+  color: var(--btn-color);
+  font-weight: 500;
+  font-size: var(--btn-font-size);
+  line-height: var(--btn-line-height);
+  text-align: center;
+  black-space: normal;
+  touch-action: manipulation;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.t-button__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.t-button:hover {
+  background-color: var(--btn-color-bg-hover);
+  color: var(--btn-color);
+}
+.t-button--link:hover, .t-button--link:active, .t-button--link:focus {
+  background-color: var(--btn-color-bg-hover);
+  color: var(--btn-color);
+  text-decoration: none;
+}
+.t-button--disabled {
+  color: var(--btn-color-disabled);
+  background-color: var(--btn-color-bg-disabled);
+  cursor: default;
+}
+.t-button--disabled:hover, .t-button--disabled:active {
+  color: var(--btn-color-disabled);
+  background-color: var(--btn-color-bg-disabled);
+}
+.t-button--disabled .t-button__inner {
+  pointer-events: none;
+}
+.t-button:not(.t-button--disabled):active .t-button__inner {
+  opacity: 0.8;
+}
+.t-button--fluid {
+  width: 100%;
+}
+.t-button--rounded {
+  border-radius: 8px;
+}
+.t-button--with-prepend .t-button.t-button--with-prepend .t-button--with-label {
+  padding-left: var(--btn-with-icon-padding);
+}
+.t-button--with-append .t-button.t-button--with-append .t-button--with-label {
+  padding-right: var(--btn-with-icon-padding);
+}
+.t-button--theme-primary {
+  --btn-color: #000000;
+  --btn-color-bg: #ffffff;
+  --btn-color-bg-hover: #323232;
+  --btn-color-disabled: #000000;
+  --btn-color-bg-disabled: #d9d9d9;
+}
+.t-button--theme-secondary {
+  --btn-color: #ffffff;
+  --btn-color-bg: #e8e8e8;
+  --btn-color-bg-hover: #d9d9d9;
+  --btn-color-disabled: #d9d9d9;
+  --btn-color-bg-disabled: #f0f0f0;
+}
+.t-button--theme-black {
+  --btn-color: #ffffff;
+  --btn-color-bg: #000000;
+  --btn-color-bg-hover: #f0f0f0;
+  --btn-color-disabled: #d9d9d9;
+  btn-color-bg-disabled: #f0f0f0;
+}
+.t-button--theme-danger {
+  --btn-color: #000000;
+  --btn-color-bg: #f77f6e;
+  --btn-color-bg-hover: #fbbfb6;
+  --btn-color-disabled: #000000;
+  --btn-color-bg-disabled: #fddfda;
+}
+.t-button--size-sm {
+  --btn-height: 32px;
+  --btn-padding: 7px 20px;
+  --btn-font-size: 12px;
+  --btn-line-height: 18px;
+  --btn-with-icon-padding: 18px;
+}
+.t-button--size-md {
+  --btn-height: 40px;
+  --btn-padding: 10px 24px;
+  --btn-font-size: 14px;
+  --btn-line-height: 20px;
+  --btn-with-icon-padding: 20px;
+}
+.t-button--size-lg {
+  --btn-height: 48px;
+  --btn-padding: 11px 32px 12px;
+  --btn-font-size: 16px;
+  --btn-line-height: 25px;
+  --icon-box-size: 24px;
+  --icon-font-size: 17px;
+  --btn-with-icon-padding: 30px;
+}.t-input {
+  position: relative;
+  color: #999999;
+  font-size: 16px;
+}
+.t-input__label {
+  position: absolute;
+  bottom: 33px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+  line-height: 18px;
+}
+.t-input__label--capitalize::first-letter {
+  text-transform: capitalize;
+}
+.t-input__input {
+  max-width: 100%;
+  min-width: 100%;
+  width: 100%;
+  font-size: 16px;
+  line-height: 25px;
+  box-sizing: border-box;
+  font-weight: 400;
+  border: 0 none;
+  border-bottom: 1px solid #d9d9d9;
+  color: #999999;
+  padding: 10px 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+.t-input__input::placeholder {
+  opacity: 1;
+}
+.t-input__input:focus {
+  outline: none;
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.t-input__input:focus + .t-input__right-icon, .t-input__input:active + .t-input__right-icon {
+  color: #ffffff;
+}
+.t-input__input:focus + .t-input__right-icon--password-eye, .t-input__input:active + .t-input__right-icon--password-eye {
+  display: flex;
+}
+.t-input__error-message {
+  color: #f77f6e;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 8px;
+}
+.t-input__hint {
+  color: #999999;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 8px;
+}
+.t-input__asterisk {
+  color: #f77f6e;
+}
+.t-input--primary {
+  color: #000000;
+}
+.t-input--size-sm {
+  font-size: 12px;
+}
+.t-input--size-md {
+  width: 300px;
+}
+.t-input--size-lg {
+  width: 500px;
+}
+.t-input--size-full {
+  width: 100%;
+}
+.t-input--with-label {
+  padding-top: 10px;
+}
+.t-input--with-label input:focus::placeholder {
+  color: transparent;
+}
+.t-input--disabled .t-input__input {
+  color: #d9d9d9;
+}
+.t-input--disabled .t-input__label {
+  color: #d9d9d9;
+}
+.t-input--disabled .t-input__asterisk {
+  color: #d9d9d9;
+}
+.t-input--error .t-input__input {
+  border-bottom-color: #f77f6e;
+}
+.t-input--success .t-input__input {
+  border-bottom-color: #30cf60;
+}
+.t-input--left-icon .t-input__input {
+  padding-left: 34px;
+}
+.t-input--right-icon .t-input__input {
+  padding-right: 34px;
+}.app {
+  border: 1px solid #ddd;
+  position: absolute;
+  padding: 40px;
+  width: 400px;
+  top: 20px;
+  right: 20px;
+  backdrop-filter: blur(2px);
+}body {
+  background: #ddd;
+}
+
+.cc {
+  background: #000000;
+}
+
+.canvas {
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

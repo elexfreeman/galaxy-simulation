@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import App from './ui/App.vue';
+import * as C from './consts';
 
+import {generateColor} from '@/utils/gradient'
 import {Vector} from './vector';
 import {GeneratorCircle} from './bodyGenerator';
-import {kernel} from './gpu-core2'
-import * as C from './consts';
+import {kernel, kernelForceField} from '@/core/gpu-core'
 
 import '@/styles/style.scss';
 
@@ -14,6 +15,10 @@ const workerMassCenter = new Worker(
 );
 
 const ctx = document.getElementById('canvas').getContext('2d');
+
+const maxColor = 1000;
+const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
+console.log(gradientColorList, maxColor, gradientColorList.length)
 
 let dataArr = [];
 
@@ -40,6 +45,11 @@ function init() {
   window.requestAnimationFrame(draw);
 }
 
+const getDotColorFromField = (field) => {
+  let k = Math.ceil(field);
+  if (field > 1000) k = 1000;
+  return `#${gradientColorList[k]}`;
+}
 
 
 async function draw() {
@@ -48,27 +58,32 @@ async function draw() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
-  dataArr = kernel(C.G, C.MAX_DOTS, dataArr);
+  dataArr = kernel(C.G, dataArr);
+  const dataArrWithField = kernelForceField(dataArr);
 
   // calc time delay
   let time = new Date() - start;
-  let x = 0;
-  let y = 0;
 
   ctx.strokeStyle = '#ffffff'
   ctx.fillStyle = '#ffffff'
   ctx.font = '48px serif';
   ctx.fillText(time, 100, 100);
 
-  for (let k = 0; k < C.MAX_DOTS; k++) {
-    x = dataArr[k][0];
-    y = dataArr[k][1];
+  let x = 0;
+  let y = 0;
+  let field = 0;
+
+  for (let k = 0; k < dataArrWithField.length; k++) {
+    x = dataArrWithField[k][0];
+    y = dataArrWithField[k][1];
+    field = dataArrWithField[k][2];
     ctx.beginPath();
-    ctx.strokeStyle = '#ffffff'
+    ctx.strokeStyle = getDotColorFromField(field);
     ctx.arc(x - centerMassVector.x, y - centerMassVector.y, 3, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.stroke();
   }
+
 
   workerMassCenter.postMessage({
     dataArr,
