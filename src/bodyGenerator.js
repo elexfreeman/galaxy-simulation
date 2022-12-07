@@ -58,9 +58,11 @@ export class GeneratorCircle extends BodyGenerator {
       }
     }
 
-    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(600, 400), 200, '#f8a5a5');
-    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(900, 400), 200, '#faeb9e');
-    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(800, 900), 200, '#d0ecc2');
+//    addDots(Math.ceil(C.MAX_DOTS), new Vector(600, 400), 500, '#f8a5a5');
+
+    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(0, 1200), 200, '#f8a5a5');
+    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(1200, 0), 200, '#faeb9e');
+    addDots(Math.ceil(C.MAX_DOTS / 3), new Vector(1200, 1200), 200, '#d0ecc2');
 
     return bodyList;
 
