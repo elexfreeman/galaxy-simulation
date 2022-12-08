@@ -20,10 +20,6 @@ export const kernel = gpu.createKernel(function (GG, data) {
   let xMinus = 0;
   let yMinus = 0;
 
-  // gravite field
-  let xGField = 0;
-  let yGField = 0;
-
   for (let k = 0; k < len; k++) {
     if (k !== this.thread.x) {
 
@@ -51,9 +47,9 @@ export const kernel = gpu.createKernel(function (GG, data) {
 
 
   return [newX, newY, newVX, newVY];
-}).setOutput([C.MAX_DOTS])
+}).setOutput([C.MAX_DOTS.count])
   .setConstants({
-    len: C.MAX_DOTS
+    len: C.MAX_DOTS.count,
   });
 
 export const kernelForceField = gpu.createKernel(function (data) {
@@ -85,8 +81,8 @@ export const kernelForceField = gpu.createKernel(function (data) {
   GFieldLen = sqrt((xGField * xGField) + (yGField * yGField));
 
   return [data[this.thread.x][0], data[this.thread.x][1], GFieldLen];
-}).setOutput([C.MAX_DOTS])
+}).setOutput([C.MAX_DOTS.count])
   .setConstants({
-    len: C.MAX_DOTS
+    len: C.MAX_DOTS.count,
   });
 

@@ -18,15 +18,14 @@ const workerMassCenter = new Worker(
 
 const ctx = document.getElementById('canvas').getContext('2d');
 
-const maxColor = 1000;
 const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
 
 let centerMassVector = new Vector(0, 0);
 
-const bodyGenerator = new GeneratorCircle();
-let bodyList = bodyGenerator.generate();
-
 const initData = () => {
+  const bodyGenerator = new GeneratorCircle();
+  let bodyList = bodyGenerator.generate();
+
   for (let k = 0; k < bodyList.length; k++) {
     window.dataArr.push([
       bodyList[k].coord.x,
@@ -35,6 +34,8 @@ const initData = () => {
       bodyList[k].velocity.y,
     ]);
   }
+  C.MAX_DOTS.count = window.dataArr.length;
+  console.log(C)
 }
 
 function init() {
@@ -57,8 +58,8 @@ async function draw() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
-  window.dataArr = kernel(C.G, dataArr);
-  const dataArrWithField = kernelForceField(dataArr);
+  window.dataArr = kernel(C.G, window.dataArr);
+  const dataArrWithField = kernelForceField(window.dataArr);
 
   // calc time delay
   let time = new Date() - start;
@@ -88,6 +89,7 @@ async function draw() {
     dataArr: window.dataArr,
     width: window.innerWidth,
     height: window.innerHeight,
+    count: C.MAX_DOTS.count,
   });
 }
 

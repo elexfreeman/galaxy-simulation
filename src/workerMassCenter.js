@@ -1,4 +1,3 @@
-import * as C from './consts';
 import {Vector} from './vector';
 
 onmessage = function (e) {
@@ -6,19 +5,21 @@ onmessage = function (e) {
     dataArr,
     width,
     height,
+    count,
   } = e.data;
 
 
   const getCenterMassVector = () => {
 
     const centerMassVector = new Vector(0, 0);
+    console.log(count)
 
-    for (let k = 0; k < C.MAX_DOTS; k++) {
+    for (let k = 0; k < count; k++) {
       centerMassVector.x += dataArr[k][0];
       centerMassVector.y += dataArr[k][1];
     }
-    centerMassVector.x = (centerMassVector.x / C.MAX_DOTS) - (width / 2);
-    centerMassVector.y = (centerMassVector.y / C.MAX_DOTS) - (height / 2);
+    centerMassVector.x = (centerMassVector.x / count) - (width / 2);
+    centerMassVector.y = (centerMassVector.y / count) - (height / 2);
 
     return centerMassVector;
   }
