@@ -9,6 +9,8 @@ import {kernel, kernelForceField} from '@/core/gpu-core'
 
 import '@/styles/style.scss';
 
+window.dataArr = [];
+
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
   {type: 'module'}
@@ -18,9 +20,6 @@ const ctx = document.getElementById('canvas').getContext('2d');
 
 const maxColor = 1000;
 const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
-console.log(gradientColorList, maxColor, gradientColorList.length)
-
-let dataArr = [];
 
 let centerMassVector = new Vector(0, 0);
 
@@ -29,7 +28,7 @@ let bodyList = bodyGenerator.generate();
 
 const initData = () => {
   for (let k = 0; k < bodyList.length; k++) {
-    dataArr.push([
+    window.dataArr.push([
       bodyList[k].coord.x,
       bodyList[k].coord.y,
       bodyList[k].velocity.y,
@@ -58,7 +57,7 @@ async function draw() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
-  dataArr = kernel(C.G, dataArr);
+  window.dataArr = kernel(C.G, dataArr);
   const dataArrWithField = kernelForceField(dataArr);
 
   // calc time delay
@@ -86,7 +85,7 @@ async function draw() {
 
 
   workerMassCenter.postMessage({
-    dataArr,
+    dataArr: window.dataArr,
     width: window.innerWidth,
     height: window.innerHeight,
   });

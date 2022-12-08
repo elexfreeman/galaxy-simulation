@@ -1,17 +1,17 @@
 <template>
-  <div id='aaa' ref="app" class="app"></div>
+  <div ref="app" class="app">
+    <SaveFileForm />
+  </div>
 </template>
 
 <script>
-import TButton from '@/ui/components/Button.vue';
-import TInput from '@/ui/components/Input.vue';
+import SaveFileForm from '@/ui/saveFile/SaveFileForm.vue';
 
 export default {
   name: 'App',
 
   components: {
-    TButton,
-    TInput,
+    SaveFileForm,
   },
 
   data() {
@@ -22,9 +22,9 @@ export default {
 
   watch: {},
 
-  mounted() { },
+  mounted() {},
 
-  methods: { },
+  methods: {},
 };
 </script>
 
@@ -36,6 +36,5 @@ export default {
   width: 400px;
   top: 20px;
   right: 20px;
-  backdrop-filter: blur(2px);
 }
 </style>

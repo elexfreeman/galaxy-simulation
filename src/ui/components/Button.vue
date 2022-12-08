@@ -252,161 +252,18 @@ export default {
 </script>
 
 <style lang="scss">
-$--icon-indent: 8px;
-$--spinner-size: 24px;
-
 .t-button {
-  --btn-color: inherit;
-  --btn-color-bg: inherit;
-  --btn-color-bg-hover: inherit;
-  --btn-color-disabled: inherit;
-  --btn-color-bg-disabled: inherit;
-  --btn-height: inherit;
-  --btn-padding: inherit;
-  --btn-font-size: inherit;
-  --btn-line-height: inherit;
-  --btn-with-icon-padding: inherit;
-
-  display: inline-block;
-  min-height: var(--btn-height);
-  margin: 0;
-  padding: var(--btn-padding);
-  border: 0;
-  background-image: none;
-  background-color: var(--btn-color-bg);
-  color: var(--btn-color);
-  font-weight: $--font-weight-medium;
-  font-size: var(--btn-font-size);
-  line-height: var(--btn-line-height);
-  text-align: center;
-  black-space: normal;
-  touch-action: manipulation;
-  user-select: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #FFFFFF;
+  background: #1a1a1a;
+  color: #FFFFFF;
+  padding: 5px 30px;
   cursor: pointer;
 
-  &__inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: $--icon-indent;
-  }
-
   &:hover {
-    background-color: var(--btn-color-bg-hover);
-    color: var(--btn-color);
+    background: #3c3c3c;
   }
-
-  &--link:hover,
-  &--link:active,
-  &--link:focus {
-    background-color: var(--btn-color-bg-hover);
-    color: var(--btn-color);
-    text-decoration: none;
-  }
-
-  &--disabled {
-    color: var(--btn-color-disabled);
-    background-color: var(--btn-color-bg-disabled);
-    cursor: default;
-
-    &:hover,
-    &:active {
-      color: var(--btn-color-disabled);
-      background-color: var(--btn-color-bg-disabled);
-    }
-  }
-
-  &--disabled & {
-    &__inner {
-      pointer-events: none;
-    }
-  }
-
-  &:not(#{&}--disabled):active & {
-    &__inner {
-      opacity: 0.8;
-    }
-  }
-
-  &--fluid {
-    width: 100%;
-  }
-
-  &--rounded {
-    border-radius: 8px;
-  }
-
-  &--with-prepend & {
-    &#{&}--with-label {
-      padding-left: var(--btn-with-icon-padding);
-    }
-  }
-
-  &--with-append & {
-    &#{&}--with-label {
-      padding-right: var(--btn-with-icon-padding);
-    }
-  }
-
-  &--theme-primary {
-    --btn-color: #{$--color-black};
-    --btn-color-bg: #{$--color-white};
-    --btn-color-bg-hover: #{$--color-mine-shaft};
-    --btn-color-disabled: #{$--color-black};
-    --btn-color-bg-disabled: #{$--color-alto};
-  }
-
-  &--theme-secondary {
-    --btn-color: #{$--color-white};
-    --btn-color-bg: #{$--color-mercury};
-    --btn-color-bg-hover: #{$--color-alto};
-    --btn-color-disabled: #{$--color-alto};
-    --btn-color-bg-disabled: #{$--color-gallery};
-  }
-
-  &--theme-black {
-    --btn-color: #{$--color-white};
-    --btn-color-bg: #{$--color-black};
-    --btn-color-bg-hover: #{$--color-gallery};
-    --btn-color-disabled: #{$--color-alto};
-    btn-color-bg-disabled: #{$--color-gallery};
-  }
-
-  &--theme-danger {
-    --btn-color: #{$--color-black};
-    --btn-color-bg: #{$--color-froly};
-    --btn-color-bg-hover: #{$--color-apricot-peach};
-    --btn-color-disabled: #{$--color-black};
-    --btn-color-bg-disabled: #{$--color-cinderella};
-  }
-
-  &--size-sm {
-    --btn-height: 32px;
-    --btn-padding: 7px 20px;
-    --btn-font-size: #{$--font-size-12};
-    --btn-line-height: 18px;
-    --btn-with-icon-padding: 18px;
-  }
-
-  &--size-md {
-    --btn-height: 40px;
-    --btn-padding: 10px 24px;
-    --btn-font-size: #{$--font-size-14};
-    --btn-line-height: 20px;
-    --btn-with-icon-padding: 20px;
-  }
-
-  &--size-lg {
-    --btn-height: 48px;
-    --btn-padding: 11px 32px 12px;
-    --btn-font-size: #{$--font-size-16};
-    --btn-line-height: 25px;
-    --icon-box-size: 24px;
-    --icon-font-size: #{$--font-size-17};
-    --btn-with-icon-padding: 30px;
-  }
-
 }
 </style>
