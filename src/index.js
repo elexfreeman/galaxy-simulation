@@ -1,28 +1,46 @@
 import Vue from 'vue';
-import App from './ui/App.vue';
-import * as C from './consts';
+import App from '@/ui/App.vue';
+import * as C from '@/consts';
 
 import {generateColor} from '@/utils/gradient'
-import {Vector} from './vector';
-import {GeneratorCircle} from './bodyGenerator';
+import {Vector} from '@/vector';
+import {GeneratorCircle} from '@/bodyGenerator';
 import {kernel, kernelForceField} from '@/core/gpu-core'
+
+import {addPointInit} from '@/mode/addPoint';
+import {mouseCoordInit} from '@/mode/mouseCursor';
+
 
 import '@/styles/style.scss';
 
+const ctx = document.getElementById('canvas').getContext('2d');
+
 window.dataArr = [];
+window.isPause = false;
+window.canvasElem = {
+  elem: document.getElementById('canvas'),
+  x: 0,
+  y: 0,
+  ctx: ctx,
+}
+window.MAX_DOTS = C.MAX_DOTS.count;
 
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
   {type: 'module'}
 );
 
-const ctx = document.getElementById('canvas').getContext('2d');
 
 const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
 
-let centerMassVector = new Vector(0, 0);
+window.centerMassVector = new Vector(0, 0);
 
-const initData = () => {
+const paintMouseCross = () => {
+
+  ctx.fillRect(25, 25, 100, 100);
+}
+
+const INIT = () => {
   const bodyGenerator = new GeneratorCircle();
   let bodyList = bodyGenerator.generate();
 
@@ -34,12 +52,11 @@ const initData = () => {
       bodyList[k].velocity.y,
     ]);
   }
-  C.MAX_DOTS.count = window.dataArr.length;
-  console.log(C)
-}
+  window.MAX_DOTS = window.dataArr.length;
 
-function init() {
-  initData();
+  addPointInit();
+  mouseCoordInit();
+
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
   window.requestAnimationFrame(draw);
@@ -53,8 +70,13 @@ const getDotColorFromField = (field) => {
 
 
 async function draw() {
-  ctx.globalCompositeOperation = 'destination-over';
 
+  if (window.isPause) {
+    window.requestAnimationFrame(draw);
+    return;
+  }
+
+  ctx.globalCompositeOperation = 'destination-over';
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
@@ -79,7 +101,7 @@ async function draw() {
     field = dataArrWithField[k][2];
     ctx.beginPath();
     ctx.strokeStyle = getDotColorFromField(field);
-    ctx.arc(x - centerMassVector.x, y - centerMassVector.y, 3, 0, Math.PI * 2, false);
+    ctx.arc(x - window.centerMassVector.x, y - window.centerMassVector.y, 3, 0, Math.PI * 2, false);
     ctx.closePath();
     ctx.stroke();
   }
@@ -89,13 +111,13 @@ async function draw() {
     dataArr: window.dataArr,
     width: window.innerWidth,
     height: window.innerHeight,
-    count: C.MAX_DOTS.count,
+    count: window.MAX_DOTS,
   });
 }
 
 
 workerMassCenter.onmessage = (e) => {
-  centerMassVector = e.data;
+  window.centerMassVector = e.data;
   window.requestAnimationFrame(draw);
 };
 
@@ -105,7 +127,7 @@ window.addEventListener('resize', function (event) {
   ctx.canvas.height = window.innerHeight;
 }, true);
 
-init();
+INIT();
 
 new Vue({
   render: (h) => h(App),
