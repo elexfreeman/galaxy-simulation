@@ -1,19 +1,22 @@
 import Vue from 'vue';
+import {GPU} from 'gpu.js';
+
 import App from '@/ui/App.vue';
 import * as C from '@/consts';
 
 import {generateColor} from '@/utils/gradient'
 import {Vector} from '@/vector';
 import {GeneratorCircle} from '@/bodyGenerator';
-import {kernel, kernelForceField} from '@/core/gpu-core'
+import {kernelXY, kernelForceField} from '@/core/gpu-core'
 
-import {addPointInit} from '@/mode/addPoint';
-import {mouseCoordInit} from '@/mode/mouseCursor';
+import {addPointInit} from '@/module/addPoint';
+import {mouseCoordInit} from '@/module/mouseCursor';
 
 
 import '@/styles/style.scss';
 
 const ctx = document.getElementById('canvas').getContext('2d');
+const gpu = new GPU();
 
 window.dataArr = [];
 window.isPause = false;
@@ -68,6 +71,12 @@ const getDotColorFromField = (field) => {
   return `#${gradientColorList[k]}`;
 }
 
+const kernel = gpu.createKernel(kernelXY)
+  .setDynamicArguments(true)
+  .setDynamicOutput(true);
+const kernelForce = gpu.createKernel(kernelForceField)
+  .setDynamicArguments(true)
+  .setDynamicOutput(true);
 
 async function draw() {
 
@@ -80,8 +89,17 @@ async function draw() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
-  window.dataArr = kernel(C.G, window.dataArr);
-  const dataArrWithField = kernelForceField(window.dataArr);
+  window.dataArr = kernel
+    .setOutput([window.dataArr.length])
+    .setConstants({
+      len: window.dataArr.length
+    })(C.G, window.dataArr);
+
+  const dataArrWithField = kernelForce
+    .setOutput([window.dataArr.length])
+    .setConstants({
+      len: window.dataArr.length,
+    })(window.dataArr);
 
   // calc time delay
   let time = new Date() - start;
@@ -100,8 +118,13 @@ async function draw() {
     y = dataArrWithField[k][1];
     field = dataArrWithField[k][2];
     ctx.beginPath();
-    ctx.strokeStyle = getDotColorFromField(field);
-    ctx.arc(x - window.centerMassVector.x, y - window.centerMassVector.y, 3, 0, Math.PI * 2, false);
+    ctx.fillStyle = getDotColorFromField(field);
+    ctx.fillRect(
+      x - window.centerMassVector.x,
+      y - window.centerMassVector.y,
+      1,
+      1,
+    )
     ctx.closePath();
     ctx.stroke();
   }

@@ -1,13 +1,11 @@
-import {GPU} from 'gpu.js';
 import * as C from '@/consts';
 
-const gpu = new GPU();
 
 /**
  * data [x, y, vx, vy, massa ]
  *       0, 1,  2,  3
 */
-export const kernel = gpu.createKernel(function (GG, data) {
+export const kernelXY = function (GG, data) {
   const {len} = this.constants;
   let newX = 0;
   let newY = 0;
@@ -47,12 +45,9 @@ export const kernel = gpu.createKernel(function (GG, data) {
 
 
   return [newX, newY, newVX, newVY];
-}).setOutput([C.MAX_DOTS.count])
-  .setConstants({
-    len: C.MAX_DOTS.count,
-  });
+}
 
-export const kernelForceField = gpu.createKernel(function (data) {
+export const kernelForceField = function (data) {
   const {len} = this.constants;
 
   // gravite field
@@ -81,8 +76,4 @@ export const kernelForceField = gpu.createKernel(function (data) {
   GFieldLen = sqrt((xGField * xGField) + (yGField * yGField));
 
   return [data[this.thread.x][0], data[this.thread.x][1], GFieldLen];
-}).setOutput([C.MAX_DOTS.count])
-  .setConstants({
-    len: C.MAX_DOTS.count,
-  });
-
+}

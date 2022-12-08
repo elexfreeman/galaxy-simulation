@@ -12,7 +12,6 @@ onmessage = function (e) {
   const getCenterMassVector = () => {
 
     const centerMassVector = new Vector(0, 0);
-    console.log(e.data)
 
     for (let k = 0; k < dataArr.length; k++) {
       centerMassVector.x += dataArr[k][0];
