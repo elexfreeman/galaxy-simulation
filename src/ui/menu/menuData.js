@@ -1,5 +1,8 @@
 export const menuData = [
   {
+    title: 'Navigation',
+  },
+  {
     title: 'Add point',
   },
   {

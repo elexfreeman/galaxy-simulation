@@ -31,6 +31,7 @@ window.centerMassVector = new Vector(0, 0);
 window.centerMassVectorV = new Vector(0, 0);
 
 window.isPause = false;
+window.zoom = 1.0;
 
 window.canvasElem = {
   elem: document.getElementById('canvas'),
@@ -106,19 +107,27 @@ async function draw() {
 
   let x = 0;
   let y = 0;
+  let dx, dy = 0;
   let field = 0;
 
   for (let k = 0; k < dataArrWithField.length; k++) {
     x = dataArrWithField[k][0];
     y = dataArrWithField[k][1];
     field = dataArrWithField[k][2];
+
+    dx = (x - centerMassVector.x) * window.zoom;
+    dy = (y - centerMassVector.y) * window.zoom;
+
+    dx = dx + window.innerWidth / 2;
+    dy = dy + window.innerHeight / 2;
+
+
+
     ctx.beginPath();
     ctx.fillStyle = getDotColorFromField(field);
     ctx.fillRect(
-      x - window.centerMassVector.x,
-      y - window.centerMassVector.y,
-      1,
-      1,
+      dx, dy,
+      1, 1,
     )
     ctx.closePath();
     ctx.stroke();

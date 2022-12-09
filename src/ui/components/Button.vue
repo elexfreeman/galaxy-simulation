@@ -264,7 +264,7 @@ export default {
   border: 1px solid #FFFFFF;
   background: #1a1a1a;
   color: #FFFFFF;
-  padding: 5px 30px;
+  padding: 5px 5px;
   cursor: pointer;
 
   &:hover {

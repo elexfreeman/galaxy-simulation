@@ -21,8 +21,8 @@ onmessage = function (e) {
       centerMassVectorV.y += dataArr[k][3];
     }
 
-    centerMassVectorXY.x = (centerMassVectorXY.x / count) - (width / 2);
-    centerMassVectorXY.y = (centerMassVectorXY.y / count) - (height / 2);
+    centerMassVectorXY.x = (centerMassVectorXY.x / count);
+    centerMassVectorXY.y = (centerMassVectorXY.y / count);
 
     centerMassVectorV.x = (centerMassVectorV.x / count);
     centerMassVectorV.y = (centerMassVectorV.y / count);
