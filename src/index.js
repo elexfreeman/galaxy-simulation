@@ -71,7 +71,8 @@ const INIT = () => {
 
 const getDotColorFromField = (field) => {
   let k = Math.ceil(field);
-  if (field > 1000) k = 1000;
+  const maxColor = gradientColorList.length;
+  if (field > maxColor) k = maxColor;
   return `#${gradientColorList[k]}`;
 }
 
@@ -115,8 +116,8 @@ async function draw() {
     y = dataArrWithField[k][1];
     field = dataArrWithField[k][2];
 
-    dx = (x - centerMassVector.x) * window.zoom;
-    dy = (y - centerMassVector.y) * window.zoom;
+    dx = (x - window.centerMassVector.x) * window.zoom;
+    dy = (y - window.centerMassVector.y) * window.zoom;
 
     dx = dx + window.innerWidth / 2;
     dy = dy + window.innerHeight / 2;

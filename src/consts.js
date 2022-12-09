@@ -1,5 +1,5 @@
 export const MAX_DOTS = {
-  count: 10000,
+  count: 1000,
 }
 
 export const G = 0.01;

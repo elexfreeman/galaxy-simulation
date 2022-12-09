@@ -5,10 +5,12 @@
     <Navigation v-if="selectedMenuIdx == 0" />
     <div v-if="selectedMenuIdx == 1" class="app_add-point">Mouse click point</div>
     <SaveFileForm v-if="selectedMenuIdx == 2" />
+    <LoadFileForm v-if="selectedMenuIdx == 3" />
   </div>
 </template>
 
 <script>
+import LoadFileForm from '@/ui/saveLoadFile/LoadFileForm.vue';
 import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
 
@@ -19,6 +21,7 @@ export default {
 
   components: {
     SaveFileForm,
+    LoadFileForm,
     Navigation,
     Menu,
   },

@@ -3,13 +3,12 @@ import {Vector} from './vector';
 onmessage = function (e) {
   const {
     dataArr,
-    width,
-    height,
-    count,
   } = e.data;
 
 
   const getCenterMassVector = () => {
+
+    const count = dataArr.length;
 
     const centerMassVectorXY = new Vector(0, 0);
     const centerMassVectorV = new Vector(0, 0);

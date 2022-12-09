@@ -13,9 +13,6 @@ export const addPointInit = () => {
     x += window.centerMassVector.x;
     y += window.centerMassVector.y;
 
-
-
-
     const newStar = [
       x, y,
       0, 0,
