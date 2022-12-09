@@ -11,16 +11,27 @@ onmessage = function (e) {
 
   const getCenterMassVector = () => {
 
-    const centerMassVector = new Vector(0, 0);
+    const centerMassVectorXY = new Vector(0, 0);
+    const centerMassVectorV = new Vector(0, 0);
+
 
     for (let k = 0; k < dataArr.length; k++) {
-      centerMassVector.x += dataArr[k][0];
-      centerMassVector.y += dataArr[k][1];
+      centerMassVectorXY.x += dataArr[k][0];
+      centerMassVectorXY.y += dataArr[k][1];
+      centerMassVectorV.x += dataArr[k][2];
+      centerMassVectorV.y += dataArr[k][3];
     }
-    centerMassVector.x = (centerMassVector.x / count) - (width / 2);
-    centerMassVector.y = (centerMassVector.y / count) - (height / 2);
 
-    return centerMassVector;
+    centerMassVectorXY.x = (centerMassVectorXY.x / count) - (width / 2);
+    centerMassVectorXY.y = (centerMassVectorXY.y / count) - (height / 2);
+
+    centerMassVectorV.x = (centerMassVectorV.x / count);
+    centerMassVectorV.y = (centerMassVectorV.y / count);
+
+    return {
+      centerMassVectorXY,
+      centerMassVectorV,
+    }
   }
 
   postMessage(getCenterMassVector());

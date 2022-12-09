@@ -27,6 +27,7 @@ window.canvasElem = {
   ctx: ctx,
 }
 window.MAX_DOTS = C.MAX_DOTS.count;
+window.centerMassVectorV = new Vector(0, 0);
 
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
@@ -129,6 +130,12 @@ async function draw() {
     ctx.stroke();
   }
 
+  ctx.strokeStyle = '#ffffff'
+  ctx.fillStyle = '#ffffff'
+  ctx.font = '48px serif';
+  const textCenterV =
+    `${Math.ceil(window.centerMassVectorV.x*1000)/ 1000}, ${Math.ceil(window.centerMassVectorV.y*1000)/1000}`;
+  ctx.fillText(textCenterV, 100, 200);
 
   workerMassCenter.postMessage({
     dataArr: window.dataArr,
@@ -140,7 +147,8 @@ async function draw() {
 
 
 workerMassCenter.onmessage = (e) => {
-  window.centerMassVector = e.data;
+  window.centerMassVector = e.data.centerMassVectorXY
+  window.centerMassVectorV = e.data.centerMassVectorV;
   window.requestAnimationFrame(draw);
 };
 
