@@ -1,5 +1,5 @@
-import * as C from './consts';
-import {Vector} from './vector';
+import * as C from '@/consts';
+import {Vector} from '@/vector';
 
 export class Body {
 

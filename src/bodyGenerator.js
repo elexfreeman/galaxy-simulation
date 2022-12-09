@@ -1,7 +1,7 @@
-import * as C from './consts';
-import {Vector} from './vector';
-import {Body} from './body';
-import {getRandomInt} from './utils';
+import * as C from '@/consts';
+import {Vector} from '@/vector';
+import {Body} from '@/body';
+import {getRandomInt} from '@/utils/utils';
 
 export class BodyGenerator {
 

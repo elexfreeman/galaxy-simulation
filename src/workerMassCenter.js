@@ -14,7 +14,6 @@ onmessage = function (e) {
     const centerMassVectorXY = new Vector(0, 0);
     const centerMassVectorV = new Vector(0, 0);
 
-
     for (let k = 0; k < dataArr.length; k++) {
       centerMassVectorXY.x += dataArr[k][0];
       centerMassVectorXY.y += dataArr[k][1];

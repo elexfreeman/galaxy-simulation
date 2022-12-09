@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SaveFileForm from '@/ui/saveFile/SaveFileForm.vue';
+import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 
 export default {
   name: 'App',
