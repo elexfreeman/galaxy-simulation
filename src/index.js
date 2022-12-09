@@ -12,37 +12,39 @@ import {kernelXY, kernelForceField} from '@/core/gpu-core'
 import {addPointInit} from '@/module/addPoint';
 import {mouseCoordInit} from '@/module/mouseCursor';
 
-
 import '@/styles/style.scss';
 
 const ctx = document.getElementById('canvas').getContext('2d');
+
+const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
+
 const gpu = new GPU();
+const kernel = gpu.createKernel(kernelXY)
+  .setDynamicArguments(true)
+  .setDynamicOutput(true);
+const kernelForce = gpu.createKernel(kernelForceField)
+  .setDynamicArguments(true)
+  .setDynamicOutput(true);
 
 window.dataArr = [];
+window.centerMassVector = new Vector(0, 0);
+window.centerMassVectorV = new Vector(0, 0);
+
 window.isPause = false;
+
 window.canvasElem = {
   elem: document.getElementById('canvas'),
   x: 0,
   y: 0,
   ctx: ctx,
 }
+
 window.MAX_DOTS = C.MAX_DOTS.count;
-window.centerMassVectorV = new Vector(0, 0);
 
 const workerMassCenter = new Worker(
   new URL('./workerMassCenter.js', import.meta.url),
   {type: 'module'}
 );
-
-
-const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
-
-window.centerMassVector = new Vector(0, 0);
-
-const paintMouseCross = () => {
-
-  ctx.fillRect(25, 25, 100, 100);
-}
 
 const INIT = () => {
   const bodyGenerator = new GeneratorCircle();
@@ -72,15 +74,7 @@ const getDotColorFromField = (field) => {
   return `#${gradientColorList[k]}`;
 }
 
-const kernel = gpu.createKernel(kernelXY)
-  .setDynamicArguments(true)
-  .setDynamicOutput(true);
-const kernelForce = gpu.createKernel(kernelForceField)
-  .setDynamicArguments(true)
-  .setDynamicOutput(true);
-
 async function draw() {
-
   if (window.isPause) {
     window.requestAnimationFrame(draw);
     return;
@@ -130,13 +124,6 @@ async function draw() {
     ctx.stroke();
   }
 
-  ctx.strokeStyle = '#ffffff'
-  ctx.fillStyle = '#ffffff'
-  ctx.font = '48px serif';
-  const textCenterV =
-    `${Math.ceil(window.centerMassVectorV.x*1000)/ 1000}, ${Math.ceil(window.centerMassVectorV.y*1000)/1000}`;
-  ctx.fillText(textCenterV, 100, 200);
-
   workerMassCenter.postMessage({
     dataArr: window.dataArr,
     width: window.innerWidth,
@@ -145,13 +132,11 @@ async function draw() {
   });
 }
 
-
 workerMassCenter.onmessage = (e) => {
   window.centerMassVector = e.data.centerMassVectorXY
   window.centerMassVectorV = e.data.centerMassVectorV;
   window.requestAnimationFrame(draw);
 };
-
 
 window.addEventListener('resize', function (event) {
   ctx.canvas.width = window.innerWidth;
@@ -163,3 +148,4 @@ INIT();
 new Vue({
   render: (h) => h(App),
 }).$mount('#app');
+
