@@ -3,7 +3,7 @@ export const menuData = [
     title: 'Navigation',
   },
   {
-    title: 'Add point',
+    title: 'Add 500 points',
   },
   {
     title: 'Save to file',

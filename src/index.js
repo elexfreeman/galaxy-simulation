@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import {GPU} from 'gpu.js';
 
 import App from '@/ui/App.vue';
 import * as C from '@/consts';
@@ -7,24 +6,20 @@ import * as C from '@/consts';
 import {generateColor} from '@/utils/gradient'
 import {Vector} from '@/vector';
 import {GeneratorCircle} from '@/bodyGenerator';
-import {kernelXY, kernelForceField} from '@/core/gpu-core'
+import {Core} from '@/core/core';
 
 import {addPointInit} from '@/module/addPoint';
+import {addSphereInit} from '@/module/addSphere';
 import {mouseCoordInit} from '@/module/mouseCursor';
 
 import '@/styles/style.scss';
 
 const ctx = document.getElementById('canvas').getContext('2d');
 
-const gradientColorList = generateColor('#0ecf9e', '#f58484', 1000);
+const gradientColorList = generateColor('#f58484','#0ecf9e',  10000);
 
-const gpu = new GPU();
-const kernel = gpu.createKernel(kernelXY)
-  .setDynamicArguments(true)
-  .setDynamicOutput(true);
-const kernelForce = gpu.createKernel(kernelForceField)
-  .setDynamicArguments(true)
-  .setDynamicOutput(true);
+window.core = new Core();
+
 
 window.dataArr = [];
 window.centerMassVector = new Vector(0, 0);
@@ -61,8 +56,9 @@ const INIT = () => {
   }
   window.MAX_DOTS = window.dataArr.length;
 
-  addPointInit();
+  //addPointInit();
   mouseCoordInit();
+  addSphereInit();
 
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
@@ -70,8 +66,8 @@ const INIT = () => {
 }
 
 const getDotColorFromField = (field) => {
-  let k = Math.ceil(field);
   const maxColor = gradientColorList.length;
+  let k = Math.ceil(maxColor*field/window.maxField);
   if (field > maxColor) k = maxColor;
   return `#${gradientColorList[k]}`;
 }
@@ -86,17 +82,18 @@ async function draw() {
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
   let start = new Date();
-  window.dataArr = kernel
+  window.dataArr = window.core.kernel
     .setOutput([window.dataArr.length])
     .setConstants({
       len: window.dataArr.length
     })(C.G, window.dataArr);
 
-  const dataArrWithField = kernelForce
+  const dataArrWithField = window.core.kernelForce
     .setOutput([window.dataArr.length])
     .setConstants({
       len: window.dataArr.length,
-    })(window.dataArr);
+    })(C.G, window.dataArr);
+
 
   // calc time delay
   let time = new Date() - start;
@@ -135,7 +132,7 @@ async function draw() {
   }
 
   workerMassCenter.postMessage({
-    dataArr: window.dataArr,
+    dataArr: dataArrWithField,
     width: window.innerWidth,
     height: window.innerHeight,
     count: window.MAX_DOTS,
@@ -145,6 +142,7 @@ async function draw() {
 workerMassCenter.onmessage = (e) => {
   window.centerMassVector = e.data.centerMassVectorXY
   window.centerMassVectorV = e.data.centerMassVectorV;
+  window.maxField = e.data.maxField;
   window.requestAnimationFrame(draw);
 };
 

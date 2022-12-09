@@ -19,6 +19,9 @@ export const addPointInit = () => {
     ];
     window.dataArr.push(newStar);
     window.MAX_DOTS++;
+
+    window.core.refresh();
+
     setTimeout(() => {
       window.isPause = false;
     }, 1);
