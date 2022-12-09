@@ -146,6 +146,10 @@ export default {
       default: false,
     },
 
+    isSelected: {
+      type: Boolean,
+      default: false,
+    },
     /**
      * @param {boolean} disabled - Makes the button inactive
      * @default false
@@ -201,6 +205,7 @@ export default {
           't-button--disabled': this.hasDisabled,
           't-button--loading': this.loading,
           't-button--icon': this.icon,
+          't-button--selected': this.isSelected,
         },
       ];
     },
@@ -264,6 +269,14 @@ export default {
 
   &:hover {
     background: #3c3c3c;
+  }
+
+  &--selected {
+    background: #646464;
+
+    &:hover {
+      background: #646464;
+    }
   }
 }
 </style>

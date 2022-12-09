@@ -1,11 +1,17 @@
 <template>
   <div class="menu">
-    <TButton :isSelected="isMenuSelected(0)">Add point</TButton>
-    <TButton :isSelected="isMenuSelected(1)">Save to file</TButton>
+    <TButton
+    v-for="(item, key) in menuData" :key="key"
+    @click="onSelectMenu(key)"
+    :isSelected="isMenuSelected(key)"
+    >
+    {{ item.title }}
+    </TButton>
   </div>
 </template>
 
 <script>
+import { menuData } from '@/ui/menu/menuData';
 import TButton from '@/ui/components/Button.vue';
 
 export default {
@@ -18,24 +24,28 @@ export default {
   },
 
   props: {
-    menuIdx: {
+    selectedMenuIdx: {
       type: Number,
       required: true,
       default: 0,
     },
   },
-  computed: {},
+  computed: {
+    menuData() {
+      return menuData;
+    },
+  },
 
   watch: {},
 
   mounted() {},
 
   methods: {
-    onSelectMenuItem(idx) {
-      this.$emit('onSelectMenuItem', idx);
+    onSelectMenu(idx) {
+      this.$emit('onSelectMenu', idx);
     },
-    isMenuSelected(menuIdx) {
-      return this.menuIdx = menuIdx;
+    isMenuSelected(key) {
+      return this.selectedMenuIdx === key;
     }
   },
 };
