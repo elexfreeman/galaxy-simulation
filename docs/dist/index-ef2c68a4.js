@@ -2946,7 +2946,7 @@ function initState(vm) {
   if (opts2.methods)
     initMethods(vm, opts2.methods);
   if (opts2.data) {
-    initData$1(vm);
+    initData(vm);
   } else {
     var ob = observe(vm._data = {});
     ob && ob.vmCount++;
@@ -2980,7 +2980,7 @@ function initProps$1(vm, propsOptions) {
   }
   toggleObserving(true);
 }
-function initData$1(vm) {
+function initData(vm) {
   var data = vm.$options.data;
   data = vm._data = isFunction(data) ? getData(data, vm) : data || {};
   if (!isPlainObject(data)) {
@@ -5473,657 +5473,6 @@ if (inBrowser) {
     }
   }, 0);
 }
-var render$2 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(_vm.componentTag, _vm._g(_vm._b({
-    tag: "component",
-    staticClass: "t-button",
-    class: _vm.rootClasses,
-    attrs: {
-      "href": _vm.href,
-      "to": _vm.currentTo,
-      "type": _vm.currentType,
-      "disabled": _vm.hasDisabled
-    },
-    on: {
-      "!click": function($event) {
-        $event.stopPropagation();
-        return _vm.onClick.apply(null, arguments);
-      }
-    }
-  }, "component", _vm.$attrs, false), _vm.$listeners), [_c("span", {
-    staticClass: "t-button__inner"
-  }, [_vm.hasLabelShow ? _c("span", {
-    staticClass: "t-button__label",
-    attrs: {
-      "data-testid": "button-label"
-    }
-  }, [_vm._t("default", function() {
-    return [_vm._v(_vm._s(_vm.label))];
-  })], 2) : _vm._e()])]);
-};
-var staticRenderFns$2 = [];
-var Button_vue_vue_type_style_index_0_lang = "";
-function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-  if (render2) {
-    options.render = render2;
-    options.staticRenderFns = staticRenderFns2;
-    options._compiled = true;
-  }
-  if (functionalTemplate) {
-    options.functional = true;
-  }
-  if (scopeId) {
-    options._scopeId = "data-v-" + scopeId;
-  }
-  var hook;
-  if (moduleIdentifier) {
-    hook = function(context) {
-      context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-        context = __VUE_SSR_CONTEXT__;
-      }
-      if (injectStyles) {
-        injectStyles.call(this, context);
-      }
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier);
-      }
-    };
-    options._ssrRegister = hook;
-  } else if (injectStyles) {
-    hook = shadowMode ? function() {
-      injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
-    } : injectStyles;
-  }
-  if (hook) {
-    if (options.functional) {
-      options._injectStyles = hook;
-      var originalRender = options.render;
-      options.render = function renderWithStyleInjection(h, context) {
-        hook.call(context);
-        return originalRender(h, context);
-      };
-    } else {
-      var existing = options.beforeCreate;
-      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-    }
-  }
-  return {
-    exports: scriptExports,
-    options
-  };
-}
-const __vue2_script$2 = {
-  name: "TButton",
-  components: {},
-  props: {
-    label: {
-      type: String,
-      default: ""
-    },
-    href: {
-      type: String,
-      default: void 0
-    },
-    to: {
-      type: [String, Object],
-      default: void 0
-    },
-    theme: {
-      type: String,
-      default: "primary",
-      validator: (value2) => ["primary", "secondary", "black", "danger"].includes(value2)
-    },
-    size: {
-      type: String,
-      default: "md",
-      validator: (value2) => ["sm", "md", "lg"].includes(value2)
-    },
-    type: {
-      type: String,
-      default: "button"
-    },
-    prependIcon: {
-      type: String,
-      default: ""
-    },
-    appendIcon: {
-      type: String,
-      default: ""
-    },
-    isPrependIconStroke: {
-      type: Boolean,
-      default: false
-    },
-    isAppendIconStroke: {
-      type: Boolean,
-      default: false
-    },
-    icon: {
-      type: Boolean,
-      default: false
-    },
-    isFluid: {
-      type: Boolean,
-      default: false
-    },
-    isRounded: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    stopPropagation: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    componentTag() {
-      if (this.href !== void 0) {
-        return "a";
-      }
-      return this.to !== void 0 ? "router-link" : "button";
-    },
-    currentTo() {
-      return this.componentTag === "router-link" ? this.to : void 0;
-    },
-    rootClasses() {
-      return [
-        `t-button--theme-${this.theme}`,
-        `t-button--size-${this.size}`,
-        {
-          "t-button--link": this.hasLinkButton,
-          "t-button--with-prepend": this.hasPrependShow,
-          "t-button--with-append": this.hasAppendShow,
-          "t-button--with-label": this.hasLabelShow,
-          "t-button--fluid": this.isFluid,
-          "t-button--rounded": this.isRounded,
-          "t-button--disabled": this.hasDisabled,
-          "t-button--loading": this.loading,
-          "t-button--icon": this.icon
-        }
-      ];
-    },
-    currentType() {
-      return this.hasLinkButton ? null : this.type;
-    },
-    hasLinkButton() {
-      return !!(this.href || this.to);
-    },
-    hasDisabled() {
-      return this.disabled || this.loading;
-    },
-    hasPrependShow() {
-      return !!(this.prependIcon || this.$slots.prepend);
-    },
-    hasLabelShow() {
-      return !!(this.label || this.$slots.default);
-    },
-    hasAppendShow() {
-      return !!(this.appendIcon || this.$slots.append);
-    }
-  },
-  methods: {
-    onClick(event) {
-      if (this.stopPropagation) {
-        event.stopPropagation();
-      }
-      if (this.hasDisabled) {
-        if (this.hasLinkButton) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        return;
-      }
-      this.$emit("click", event);
-    }
-  }
-};
-const __cssModules$2 = {};
-var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
-function __vue2_injectStyles$2(context) {
-  for (let o in __cssModules$2) {
-    this[o] = __cssModules$2[o];
-  }
-}
-var TButton = /* @__PURE__ */ function() {
-  return __component__$2.exports;
-}();
-var render$1 = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", {
-    directives: [{
-      name: "fragment",
-      rawName: "v-fragment"
-    }]
-  }, [_c("div", {
-    staticClass: "t-input",
-    class: _vm.classes
-  }, [_c("label", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.showLabel,
-      expression: "showLabel"
-    }],
-    staticClass: "t-input__label",
-    class: _vm.labelClassModifier
-  }, [_vm._v("\n      " + _vm._s(_vm.label) + " "), _vm.required ? _c("span", {
-    staticClass: "t-input__asterisk"
-  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c("input", {
-    ref: "inputField",
-    staticClass: "t-input__input",
-    class: _vm.computedInputClasses,
-    attrs: {
-      "maxlength": _vm.maxlength,
-      "disabled": _vm.disabled,
-      "placeholder": _vm.inputPlaceholder,
-      "type": _vm.inputType,
-      "inputmode": _vm.inputMode
-    },
-    domProps: {
-      "value": _vm.value
-    },
-    on: {
-      "input": function($event) {
-        return _vm.updateValue($event.target.value);
-      },
-      "focus": function($event) {
-        return _vm.onFocus(true);
-      },
-      "blur": function($event) {
-        return _vm.onBlur(false);
-      },
-      "click": _vm.emitClick
-    }
-  })]), _vm._v(" "), _c("div", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.showError,
-      expression: "showError"
-    }],
-    staticClass: "t-input__error-message",
-    class: _vm.errorMessageClass
-  }, [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]), _vm._v(" "), _c("div", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: _vm.isHintNeeded,
-      expression: "isHintNeeded"
-    }],
-    staticClass: "t-input__hint"
-  }, [_vm._v("\n    " + _vm._s(_vm.hint) + "\n  ")])]);
-};
-var staticRenderFns$1 = [];
-var Input_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$1 = {
-  name: "TInput",
-  props: {
-    value: {
-      type: String,
-      default: ""
-    },
-    label: {
-      type: String,
-      default: ""
-    },
-    labelClassModifier: {
-      type: String,
-      default: ""
-    },
-    primary: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String,
-      default: "full",
-      validator: (value2) => ["sm", "md", "lg", "full"].includes(value2)
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    placeholder: {
-      type: String,
-      default: " "
-    },
-    error: {
-      type: Boolean,
-      default: false
-    },
-    errorMessage: {
-      type: String,
-      default: ""
-    },
-    inputClass: {
-      type: String,
-      default: ""
-    },
-    inputType: {
-      type: String,
-      default: "text"
-    },
-    inputMode: {
-      type: String,
-      default: "text"
-    },
-    hint: {
-      type: String,
-      default: ""
-    },
-    errorMessageClass: {
-      type: String,
-      default: ""
-    },
-    success: {
-      type: Boolean,
-      default: false
-    },
-    isNeedHideHint: {
-      type: Boolean,
-      default: false
-    },
-    isHintHidden: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    maxlength: {
-      type: Number,
-      default: 9999
-    }
-  },
-  data() {
-    return {
-      isLabelVisible: false,
-      isHintVisible: true
-    };
-  },
-  computed: {
-    classes() {
-      return {
-        "t-input--primary": this.primary,
-        "t-input--secondary": !this.primary,
-        "t-input--with-label": !!this.label,
-        "t-input--disabled": this.disabled,
-        "t-input--error": this.error,
-        "t-input--success": this.success,
-        [`t-input--size-${this.size}`]: true,
-        [this.inputClass]: true
-      };
-    },
-    showLabel() {
-      return this.label && this.value || this.isLabelVisible;
-    },
-    computedInputClasses() {
-      return {
-        "t-input__input--value-exists": this.value
-      };
-    },
-    showError() {
-      return this.error && this.errorMessage;
-    },
-    inputPlaceholder() {
-      return this.required ? `${this.placeholder} *` : this.placeholder;
-    },
-    isHintNeeded() {
-      return !this.isHintHidden && this.hint && this.isHintVisible;
-    }
-  },
-  methods: {
-    updateValue(value2) {
-      if (this.isDropdownMode) {
-        this.isDropdownOpened = true;
-      }
-      this.$emit("input", value2);
-    },
-    displayLabel(isVisible) {
-      if (this.label) {
-        this.isLabelVisible = isVisible;
-      }
-    },
-    emitClick() {
-      this.$emit("click");
-    },
-    onFocus(isVisible) {
-      this.changeHintVisibility();
-      this.displayLabel(isVisible);
-      this.$emit("focus");
-    },
-    onBlur(isVisible) {
-      this.displayLabel(isVisible);
-      this.$emit("blur");
-    },
-    changeHintVisibility() {
-      if (this.isNeedHideHint) {
-        this.isHintVisible = false;
-      }
-    }
-  }
-};
-const __cssModules$1 = {};
-var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
-function __vue2_injectStyles$1(context) {
-  for (let o in __cssModules$1) {
-    this[o] = __cssModules$1[o];
-  }
-}
-var TInput = /* @__PURE__ */ function() {
-  return __component__$1.exports;
-}();
-var render = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("div", {
-    ref: "app",
-    staticClass: "app",
-    attrs: {
-      "id": "aaa"
-    }
-  });
-};
-var staticRenderFns = [];
-var App_vue_vue_type_style_index_0_lang = "";
-const __vue2_script = {
-  name: "App",
-  components: {
-    TButton,
-    TInput
-  },
-  data() {
-    return {};
-  },
-  computed: {},
-  watch: {},
-  mounted() {
-  },
-  methods: {}
-};
-const __cssModules = {};
-var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
-function __vue2_injectStyles(context) {
-  for (let o in __cssModules) {
-    this[o] = __cssModules[o];
-  }
-}
-var App = /* @__PURE__ */ function() {
-  return __component__.exports;
-}();
-const MAX_DOTS = 1e4;
-const G = 0.01;
-function hex(c) {
-  var s = "0123456789abcdef";
-  var i = parseInt(c);
-  if (i == 0 || isNaN(c))
-    return "00";
-  i = Math.round(Math.min(Math.max(0, i), 255));
-  return s.charAt((i - i % 16) / 16) + s.charAt(i % 16);
-}
-function convertToHex(rgb) {
-  return hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
-}
-function trim(s) {
-  return s.charAt(0) == "#" ? s.substring(1, 7) : s;
-}
-function convertToRGB(hex2) {
-  var color = [];
-  color[0] = parseInt(trim(hex2).substring(0, 2), 16);
-  color[1] = parseInt(trim(hex2).substring(2, 4), 16);
-  color[2] = parseInt(trim(hex2).substring(4, 6), 16);
-  return color;
-}
-function generateColor(colorStart, colorEnd, colorCount) {
-  var start = convertToRGB(colorStart);
-  var end = convertToRGB(colorEnd);
-  var len = colorCount;
-  var alpha = 0;
-  var saida = [];
-  for (let i = 0; i < len; i++) {
-    var c = [];
-    alpha += 1 / len;
-    c[0] = start[0] * alpha + (1 - alpha) * end[0];
-    c[1] = start[1] * alpha + (1 - alpha) * end[1];
-    c[2] = start[2] * alpha + (1 - alpha) * end[2];
-    saida.push(convertToHex(c));
-  }
-  return saida;
-}
-class Vector {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-  static add(v1, v2) {
-    return new Vector(v1.x + v2.x, v1.y + v2.y);
-  }
-  static minus(v1, v2) {
-    return new Vector(v1.x - v2.x, v1.y - v2.y);
-  }
-  static addScalar(d) {
-    return new Vector(this.x + d, this.y + d);
-  }
-  static mult(v1, v2) {
-    return new Vector(v1.x * v2.x, v1.y * v2.y);
-  }
-  static length(v) {
-    return Math.sqrt(v.x * v.x + v.y * v.y);
-  }
-}
-class Body {
-  constructor(coord, massa, color = "#000000") {
-    this.coord = coord;
-    this.massa = massa;
-    this.velocity = new Vector(0, 0);
-    this.color = color;
-    this.family = 0;
-  }
-  setCoord2(coord) {
-    const cold = 0.9;
-    if (coord.x > void 0) {
-      this.velocity.x = -this.velocity.x * cold;
-    } else if (coord.x < 0) {
-      this.velocity.x = -this.velocity.x * cold;
-    }
-    this.coord.x = coord.x;
-    if (coord.y > void 0) {
-      this.velocity.y = -this.velocity.y * cold;
-    } else if (coord.y < 0) {
-      this.velocity.y = -this.velocity.y * cold;
-    }
-    this.coord.y = coord.y;
-  }
-  setCoord(coord) {
-    if (coord.x > MAX_DOT_X) {
-      this.coord.x = coord.x - MAX_DOT_X;
-    } else if (coord.x < 0) {
-      this.coord.x = MAX_DOT_X - coord.x;
-    } else {
-      this.coord.x = coord.x;
-    }
-    if (coord.y > MAX_DOT_Y) {
-      this.coord.y = coord.y - MAX_DOT_Y;
-    } else if (coord.y < 0) {
-      this.coord.y = MAX_DOT_Y - coord.y;
-    } else {
-      this.coord.y = coord.y;
-    }
-  }
-  setCoord3(coord) {
-    this.coord.x = coord.x;
-    this.coord.y = coord.y;
-  }
-  static draw(ctx2, body, centerMassVector2) {
-    console.log(body);
-    ctx2.beginPath();
-    ctx2.strokeStyle = body.color;
-    ctx2.moveTo(body.coord.x, body.coord.y);
-    ctx2.arc(body.coord.x - centerMassVector2.x, body.coord.y - centerMassVector2.y, 3, 0, Math.PI * 2, false);
-    ctx2.closePath();
-    ctx2.stroke();
-  }
-}
-const getRandomInt = (min, max) => {
-  return Math.random() * (max - min) + min;
-};
-class BodyGenerator {
-  generate() {
-    const bodyList2 = [];
-    for (let k = 0; k < MAX_DOTS; k++) {
-      bodyList2.push(new Body(new Vector(getRandomInt(300, 600), getRandomInt(300, 600)), 5));
-    }
-    for (let k = 0; k < MAX_DOTS; k++) {
-      bodyList2.push(new Body(new Vector(getRandomInt(400, 800), getRandomInt(400, 800)), 5));
-    }
-    return bodyList2;
-  }
-}
-class GeneratorCircle extends BodyGenerator {
-  generate() {
-    const bodyList2 = [];
-    let family = 0;
-    const getX = (rad, grad) => {
-      return rad * Math.sin(grad);
-    };
-    const getY = (rad, grad) => {
-      return rad * Math.cos(grad);
-    };
-    const addDots = (count, vec, radius, color = "#ffffff") => {
-      for (let k = 0; k < count; k++) {
-        const grad = getRandomInt(0, 360) * 3.14 / 180;
-        const rad = getRandomInt(1, radius);
-        if (k % 2) {
-          family++;
-        }
-        const body = new Body(new Vector(getX(rad, grad) + vec.x, getY(rad, grad) + vec.y), 5, color);
-        body.family = family;
-        bodyList2.push(body);
-      }
-    };
-    addDots(Math.ceil(MAX_DOTS / 3), new Vector(0, 1200), 200, "#f8a5a5");
-    addDots(Math.ceil(MAX_DOTS / 3), new Vector(1200, 0), 200, "#faeb9e");
-    addDots(Math.ceil(MAX_DOTS / 3), new Vector(1200, 1200), 200, "#d0ecc2");
-    return bodyList2;
-  }
-}
 function commonjsRequire(path) {
   throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
 }
@@ -6918,7 +6267,7 @@ var gpuBrowser = { exports: {} };
             return this.parseFor(node, init$1);
           }
           var refDestructuringErrors = new DestructuringErrors();
-          var init2 = this.parseExpression(true, refDestructuringErrors);
+          var init = this.parseExpression(true, refDestructuringErrors);
           if (this.type === types._in || this.options.ecmaVersion >= 6 && this.isContextual("of")) {
             if (this.options.ecmaVersion >= 9) {
               if (this.type === types._in) {
@@ -6929,16 +6278,16 @@ var gpuBrowser = { exports: {} };
                 node.await = awaitAt > -1;
               }
             }
-            this.toAssignable(init2, false, refDestructuringErrors);
-            this.checkLVal(init2);
-            return this.parseForIn(node, init2);
+            this.toAssignable(init, false, refDestructuringErrors);
+            this.checkLVal(init);
+            return this.parseForIn(node, init);
           } else {
             this.checkExpressionErrors(refDestructuringErrors, true);
           }
           if (awaitAt > -1) {
             this.unexpected(awaitAt);
           }
-          return this.parseFor(node, init2);
+          return this.parseFor(node, init);
         };
         pp$1.parseFunctionStatement = function(node, isAsync, declarationPosition) {
           this.next();
@@ -7120,8 +6469,8 @@ var gpuBrowser = { exports: {} };
           }
           return this.finishNode(node, "BlockStatement");
         };
-        pp$1.parseFor = function(node, init2) {
-          node.init = init2;
+        pp$1.parseFor = function(node, init) {
+          node.init = init;
           this.expect(types.semi);
           node.test = this.type === types.semi ? null : this.parseExpression();
           this.expect(types.semi);
@@ -7132,15 +6481,15 @@ var gpuBrowser = { exports: {} };
           this.labels.pop();
           return this.finishNode(node, "ForStatement");
         };
-        pp$1.parseForIn = function(node, init2) {
+        pp$1.parseForIn = function(node, init) {
           var isForIn = this.type === types._in;
           this.next();
-          if (init2.type === "VariableDeclaration" && init2.declarations[0].init != null && (!isForIn || this.options.ecmaVersion < 8 || this.strict || init2.kind !== "var" || init2.declarations[0].id.type !== "Identifier")) {
-            this.raise(init2.start, (isForIn ? "for-in" : "for-of") + " loop variable declaration may not have an initializer");
-          } else if (init2.type === "AssignmentPattern") {
-            this.raise(init2.start, "Invalid left-hand side in for-loop");
+          if (init.type === "VariableDeclaration" && init.declarations[0].init != null && (!isForIn || this.options.ecmaVersion < 8 || this.strict || init.kind !== "var" || init.declarations[0].id.type !== "Identifier")) {
+            this.raise(init.start, (isForIn ? "for-in" : "for-of") + " loop variable declaration may not have an initializer");
+          } else if (init.type === "AssignmentPattern") {
+            this.raise(init.start, "Invalid left-hand side in for-loop");
           }
-          node.left = init2;
+          node.left = init;
           node.right = isForIn ? this.parseExpression() : this.parseMaybeAssign();
           this.expect(types.parenR);
           node.body = this.parseStatement("for");
@@ -12972,19 +12321,19 @@ ${cpuKernel._kernelString}
           for (let i = 0; i < declarations.length; i++) {
             const declaration = declarations[i];
             const { ast: ast2, inForLoopInit, inForLoopTest } = declaration;
-            const { init: init2 } = ast2;
-            const dependencies = this.getDependencies(init2);
+            const { init } = ast2;
+            const dependencies = this.getDependencies(init);
             let valueType = null;
             if (inForLoopInit && inForLoopTest) {
               valueType = "Integer";
             } else {
-              if (init2) {
-                const realType = this.getType(init2);
+              if (init) {
+                const realType = this.getType(init);
                 switch (realType) {
                   case "Integer":
                   case "Float":
                   case "Number":
-                    if (init2.type === "MemberExpression") {
+                    if (init.type === "MemberExpression") {
                       valueType = realType;
                     } else {
                       valueType = "Number";
@@ -17846,7 +17195,7 @@ ${updateArr.join("")};`);
           let declarationSet = [];
           for (let i = 0; i < declarations.length; i++) {
             const declaration = declarations[i];
-            const init2 = declaration.init;
+            const init = declaration.init;
             const info = this.getDeclaration(declaration.id);
             const actualType = this.getType(declaration.init);
             let type = actualType;
@@ -17872,7 +17221,7 @@ ${updateArr.join("")};`);
               lastType = type;
               declarationResult.push(`user_${utils.sanitizeName(declaration.id.name)}=`);
               declarationResult.push("float(");
-              this.astGeneric(init2, declarationResult);
+              this.astGeneric(init, declarationResult);
               declarationResult.push(")");
             } else {
               info.valueType = type;
@@ -17886,17 +17235,17 @@ ${updateArr.join("")};`);
               lastType = type;
               declarationResult.push(`user_${utils.sanitizeName(declaration.id.name)}=`);
               if (actualType === "Number" && type === "Integer") {
-                if (init2.left && init2.left.type === "Literal") {
-                  this.astGeneric(init2, declarationResult);
+                if (init.left && init.left.type === "Literal") {
+                  this.astGeneric(init, declarationResult);
                 } else {
                   declarationResult.push("int(");
-                  this.astGeneric(init2, declarationResult);
+                  this.astGeneric(init, declarationResult);
                   declarationResult.push(")");
                 }
               } else if (actualType === "LiteralInteger" && type === "Integer") {
-                this.castLiteralToInteger(init2, declarationResult);
+                this.castLiteralToInteger(init, declarationResult);
               } else {
-                this.astGeneric(init2, declarationResult);
+                this.astGeneric(init, declarationResult);
               }
             }
             declarationSet.push(declarationResult.join(""));
@@ -24241,8 +23590,8 @@ ${result2.join("")}}`;
         getMinifySafeName: (fn) => {
           try {
             const ast = acorn.parse(`const value = ${fn.toString()}`);
-            const { init: init2 } = ast.body[0].declarations[0];
-            return init2.body.name || init2.body.body[0].argument.name;
+            const { init } = ast.body[0].declarations[0];
+            return init.body.name || init.body.body[0].argument.name;
           } catch (e) {
             throw new Error("Unrecognized function type.  Please use `() => yourFunctionVariableHere` or function() { return yourFunctionVariableHere; }");
           }
@@ -24269,8 +23618,1007 @@ ${result2.join("")}}`;
     }, { "./input": 110, "./texture": 113, "acorn": 1 }] }, {}, [107])(107);
   });
 })(gpuBrowser);
-const gpu = new gpuBrowser.exports.GPU();
-const kernel = gpu.createKernel(function(GG, data) {
+var render$7 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c(_vm.componentTag, _vm._g(_vm._b({
+    tag: "component",
+    staticClass: "t-button",
+    class: _vm.rootClasses,
+    attrs: {
+      "href": _vm.href,
+      "to": _vm.currentTo,
+      "type": _vm.currentType,
+      "disabled": _vm.hasDisabled
+    },
+    on: {
+      "!click": function($event) {
+        $event.stopPropagation();
+        return _vm.onClick.apply(null, arguments);
+      }
+    }
+  }, "component", _vm.$attrs, false), _vm.$listeners), [_c("span", {
+    staticClass: "t-button__inner"
+  }, [_vm.hasLabelShow ? _c("span", {
+    staticClass: "t-button__label",
+    attrs: {
+      "data-testid": "button-label"
+    }
+  }, [_vm._t("default", function() {
+    return [_vm._v(_vm._s(_vm.label))];
+  })], 2) : _vm._e()])]);
+};
+var staticRenderFns$7 = [];
+var Button_vue_vue_type_style_index_0_lang = "";
+function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+  if (render2) {
+    options.render = render2;
+    options.staticRenderFns = staticRenderFns2;
+    options._compiled = true;
+  }
+  if (functionalTemplate) {
+    options.functional = true;
+  }
+  if (scopeId) {
+    options._scopeId = "data-v-" + scopeId;
+  }
+  var hook;
+  if (moduleIdentifier) {
+    hook = function(context) {
+      context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+        context = __VUE_SSR_CONTEXT__;
+      }
+      if (injectStyles) {
+        injectStyles.call(this, context);
+      }
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    };
+    options._ssrRegister = hook;
+  } else if (injectStyles) {
+    hook = shadowMode ? function() {
+      injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
+    } : injectStyles;
+  }
+  if (hook) {
+    if (options.functional) {
+      options._injectStyles = hook;
+      var originalRender = options.render;
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+    }
+  }
+  return {
+    exports: scriptExports,
+    options
+  };
+}
+const __vue2_script$7 = {
+  name: "TButton",
+  components: {},
+  props: {
+    label: {
+      type: String,
+      default: ""
+    },
+    href: {
+      type: String,
+      default: void 0
+    },
+    to: {
+      type: [String, Object],
+      default: void 0
+    },
+    theme: {
+      type: String,
+      default: "primary",
+      validator: (value2) => ["primary", "secondary", "black", "danger"].includes(value2)
+    },
+    size: {
+      type: String,
+      default: "md",
+      validator: (value2) => ["sm", "md", "lg"].includes(value2)
+    },
+    type: {
+      type: String,
+      default: "button"
+    },
+    prependIcon: {
+      type: String,
+      default: ""
+    },
+    appendIcon: {
+      type: String,
+      default: ""
+    },
+    isPrependIconStroke: {
+      type: Boolean,
+      default: false
+    },
+    isAppendIconStroke: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: Boolean,
+      default: false
+    },
+    isFluid: {
+      type: Boolean,
+      default: false
+    },
+    isRounded: {
+      type: Boolean,
+      default: false
+    },
+    isSelected: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    stopPropagation: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    componentTag() {
+      if (this.href !== void 0) {
+        return "a";
+      }
+      return this.to !== void 0 ? "router-link" : "button";
+    },
+    currentTo() {
+      return this.componentTag === "router-link" ? this.to : void 0;
+    },
+    rootClasses() {
+      return [
+        `t-button--theme-${this.theme}`,
+        `t-button--size-${this.size}`,
+        {
+          "t-button--link": this.hasLinkButton,
+          "t-button--with-prepend": this.hasPrependShow,
+          "t-button--with-append": this.hasAppendShow,
+          "t-button--with-label": this.hasLabelShow,
+          "t-button--fluid": this.isFluid,
+          "t-button--rounded": this.isRounded,
+          "t-button--disabled": this.hasDisabled,
+          "t-button--loading": this.loading,
+          "t-button--icon": this.icon,
+          "t-button--selected": this.isSelected
+        }
+      ];
+    },
+    currentType() {
+      return this.hasLinkButton ? null : this.type;
+    },
+    hasLinkButton() {
+      return !!(this.href || this.to);
+    },
+    hasDisabled() {
+      return this.disabled || this.loading;
+    },
+    hasPrependShow() {
+      return !!(this.prependIcon || this.$slots.prepend);
+    },
+    hasLabelShow() {
+      return !!(this.label || this.$slots.default);
+    },
+    hasAppendShow() {
+      return !!(this.appendIcon || this.$slots.append);
+    }
+  },
+  methods: {
+    onClick(event) {
+      if (this.stopPropagation) {
+        event.stopPropagation();
+      }
+      if (this.hasDisabled) {
+        if (this.hasLinkButton) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        return;
+      }
+      this.$emit("click", event);
+    }
+  }
+};
+const __cssModules$7 = {};
+var __component__$7 = /* @__PURE__ */ normalizeComponent(__vue2_script$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$7, null, null, null);
+function __vue2_injectStyles$7(context) {
+  for (let o in __cssModules$7) {
+    this[o] = __cssModules$7[o];
+  }
+}
+var TButton = /* @__PURE__ */ function() {
+  return __component__$7.exports;
+}();
+var render$6 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "load-file-form"
+  }, [_c("div", {
+    staticClass: "load-file-form__title"
+  }, [_vm._v("Load view from JSON")]), _vm._v(" "), _c("input", {
+    ref: "jsonFile",
+    staticClass: "load-file-form__file",
+    attrs: {
+      "type": "file"
+    }
+  }), _vm._v(" "), !_vm.isOnLoad ? _c("TButton", {
+    on: {
+      "click": _vm.onLoadToFile
+    }
+  }, [_vm._v("Load")]) : _vm._e(), _vm._v(" "), _vm.isOnLoad ? _c("TButton", {
+    on: {
+      "click": _vm.onResume
+    }
+  }, [_vm._v("Resume")]) : _vm._e()], 1);
+};
+var staticRenderFns$6 = [];
+var LoadFileForm_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$6 = {
+  components: {
+    TButton
+  },
+  data() {
+    return {
+      isOnLoad: false
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onLoadToFile() {
+      this.isOnLoad = true;
+      window.isPause = true;
+      let file = this.$refs["jsonFile"].files[0];
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function() {
+        const addStartJSON = JSON.parse(reader.result);
+        for (let k in addStartJSON) {
+          const item = [
+            addStartJSON[k][0] - window.centerMassVector.x,
+            addStartJSON[k][1] - window.centerMassVector.y,
+            addStartJSON[k][2],
+            addStartJSON[k][3]
+          ];
+          window.dataArr.push(item);
+        }
+      };
+      reader.onerror = function() {
+        console.log(reader.error);
+      };
+    },
+    onResume() {
+      this.isOnLoad = false;
+      window.isPause = false;
+    }
+  }
+};
+const __cssModules$6 = {};
+var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$6, null, null, null);
+function __vue2_injectStyles$6(context) {
+  for (let o in __cssModules$6) {
+    this[o] = __cssModules$6[o];
+  }
+}
+var LoadFileForm = /* @__PURE__ */ function() {
+  return __component__$6.exports;
+}();
+var render$5 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    directives: [{
+      name: "fragment",
+      rawName: "v-fragment"
+    }]
+  }, [_c("div", {
+    staticClass: "t-input",
+    class: _vm.classes
+  }, [_c("label", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.showLabel,
+      expression: "showLabel"
+    }],
+    staticClass: "t-input__label",
+    class: _vm.labelClassModifier
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + " "), _vm.required ? _c("span", {
+    staticClass: "t-input__asterisk"
+  }, [_vm._v("*")]) : _vm._e()]), _vm._v(" "), _c("input", {
+    ref: "inputField",
+    staticClass: "t-input__input",
+    class: _vm.computedInputClasses,
+    attrs: {
+      "maxlength": _vm.maxlength,
+      "disabled": _vm.disabled,
+      "placeholder": _vm.inputPlaceholder,
+      "type": _vm.inputType,
+      "inputmode": _vm.inputMode
+    },
+    domProps: {
+      "value": _vm.value
+    },
+    on: {
+      "input": function($event) {
+        return _vm.updateValue($event.target.value);
+      },
+      "focus": function($event) {
+        return _vm.onFocus(true);
+      },
+      "blur": function($event) {
+        return _vm.onBlur(false);
+      },
+      "click": _vm.emitClick
+    }
+  })]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.showError,
+      expression: "showError"
+    }],
+    staticClass: "t-input__error-message",
+    class: _vm.errorMessageClass
+  }, [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.isHintNeeded,
+      expression: "isHintNeeded"
+    }],
+    staticClass: "t-input__hint"
+  }, [_vm._v("\n    " + _vm._s(_vm.hint) + "\n  ")])]);
+};
+var staticRenderFns$5 = [];
+var Input_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$5 = {
+  name: "TInput",
+  props: {
+    value: {
+      type: String,
+      default: ""
+    },
+    label: {
+      type: String,
+      default: ""
+    },
+    labelClassModifier: {
+      type: String,
+      default: ""
+    },
+    primary: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: "full",
+      validator: (value2) => ["sm", "md", "lg", "full"].includes(value2)
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String,
+      default: " "
+    },
+    error: {
+      type: Boolean,
+      default: false
+    },
+    errorMessage: {
+      type: String,
+      default: ""
+    },
+    inputClass: {
+      type: String,
+      default: ""
+    },
+    inputType: {
+      type: String,
+      default: "text"
+    },
+    inputMode: {
+      type: String,
+      default: "text"
+    },
+    hint: {
+      type: String,
+      default: ""
+    },
+    errorMessageClass: {
+      type: String,
+      default: ""
+    },
+    success: {
+      type: Boolean,
+      default: false
+    },
+    isNeedHideHint: {
+      type: Boolean,
+      default: false
+    },
+    isHintHidden: {
+      type: Boolean,
+      default: false
+    },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    maxlength: {
+      type: Number,
+      default: 9999
+    }
+  },
+  data() {
+    return {
+      isLabelVisible: false,
+      isHintVisible: true
+    };
+  },
+  computed: {
+    classes() {
+      return {
+        "t-input--primary": this.primary,
+        "t-input--secondary": !this.primary,
+        "t-input--with-label": !!this.label,
+        "t-input--disabled": this.disabled,
+        "t-input--error": this.error,
+        "t-input--success": this.success,
+        [`t-input--size-${this.size}`]: true,
+        [this.inputClass]: true
+      };
+    },
+    showLabel() {
+      return this.label && this.value || this.isLabelVisible;
+    },
+    computedInputClasses() {
+      return {
+        "t-input__input--value-exists": this.value
+      };
+    },
+    showError() {
+      return this.error && this.errorMessage;
+    },
+    inputPlaceholder() {
+      return this.required ? `${this.placeholder} *` : this.placeholder;
+    },
+    isHintNeeded() {
+      return !this.isHintHidden && this.hint && this.isHintVisible;
+    }
+  },
+  methods: {
+    updateValue(value2) {
+      if (this.isDropdownMode) {
+        this.isDropdownOpened = true;
+      }
+      this.$emit("input", value2);
+    },
+    displayLabel(isVisible) {
+      if (this.label) {
+        this.isLabelVisible = isVisible;
+      }
+    },
+    emitClick() {
+      this.$emit("click");
+    },
+    onFocus(isVisible) {
+      this.changeHintVisibility();
+      this.displayLabel(isVisible);
+      this.$emit("focus");
+    },
+    onBlur(isVisible) {
+      this.displayLabel(isVisible);
+      this.$emit("blur");
+    },
+    changeHintVisibility() {
+      if (this.isNeedHideHint) {
+        this.isHintVisible = false;
+      }
+    }
+  }
+};
+const __cssModules$5 = {};
+var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
+function __vue2_injectStyles$5(context) {
+  for (let o in __cssModules$5) {
+    this[o] = __cssModules$5[o];
+  }
+}
+var TInput = /* @__PURE__ */ function() {
+  return __component__$5.exports;
+}();
+var render$4 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "save-file-form"
+  }, [_c("div", {
+    staticClass: "save-file-form__title"
+  }, [_vm._v("Save view to JSON")]), _vm._v(" "), !_vm.isOnSave ? _c("TButton", {
+    on: {
+      "click": _vm.onSaveToFile
+    }
+  }, [_vm._v("Save")]) : _vm._e(), _vm._v(" "), _vm.isOnSave ? _c("TButton", {
+    on: {
+      "click": _vm.onResume
+    }
+  }, [_vm._v("Resume")]) : _vm._e()], 1);
+};
+var staticRenderFns$4 = [];
+var SaveFileForm_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$4 = {
+  components: {
+    TButton,
+    TInput
+  },
+  data() {
+    return {
+      isOnSave: false
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onSaveToFile() {
+      this.isOnSave = true;
+      const link = document.createElement("a");
+      window.isPause = true;
+      const content = JSON.stringify(window.dataArr);
+      const file = new Blob([content], { type: "text/plain" });
+      link.href = URL.createObjectURL(file);
+      link.download = "data.txt";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    },
+    onResume() {
+      this.isOnSave = false;
+      window.isPause = false;
+    }
+  }
+};
+const __cssModules$4 = {};
+var __component__$4 = /* @__PURE__ */ normalizeComponent(__vue2_script$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+function __vue2_injectStyles$4(context) {
+  for (let o in __cssModules$4) {
+    this[o] = __cssModules$4[o];
+  }
+}
+var SaveFileForm = /* @__PURE__ */ function() {
+  return __component__$4.exports;
+}();
+const MAX_DOTS = {
+  count: 5e3
+};
+const G = 0.01;
+const ZOOM_FACTOR = 0.2;
+const ZOOM_FACTOR_MIN = 0.02;
+var render$3 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "zoom"
+  }, [_c("div", {
+    staticClass: "zoom__title"
+  }, [_vm._v("Zoom:")]), _vm._v(" "), _c("div", {
+    staticClass: "zoom__wraper"
+  }, [_c("TButton", {
+    staticClass: "zoom__button",
+    on: {
+      "click": _vm.onMinusZoom
+    }
+  }, [_vm._v("-")]), _vm._v(" "), _c("div", {
+    staticClass: "zoom__data"
+  }, [_vm._v("\n      " + _vm._s(_vm.roudedZoom) + "\n    ")]), _vm._v(" "), _c("TButton", {
+    staticClass: "zoom__button",
+    on: {
+      "click": _vm.onPlusZoom
+    }
+  }, [_vm._v("+")])], 1)]);
+};
+var staticRenderFns$3 = [];
+var Zoom_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$3 = {
+  components: {
+    TButton
+  },
+  data() {
+    return {
+      zoom: window.zoom
+    };
+  },
+  computed: {
+    roudedZoom() {
+      return Math.ceil(this.zoom * 1e3) / 1e3;
+    },
+    zoomFactor() {
+      if (this.zoom < 0.1) {
+        return ZOOM_FACTOR_MIN * 0.1;
+      }
+      if (this.zoom < 1) {
+        return ZOOM_FACTOR_MIN;
+      }
+      return ZOOM_FACTOR;
+    }
+  },
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onMinusZoom() {
+      this.zoom = this.zoom - this.zoomFactor;
+      if (this.zoom <= 0)
+        this.zoom = 0.25;
+      window.zoom = this.zoom;
+    },
+    onPlusZoom() {
+      this.zoom = this.zoom + this.zoomFactor;
+      window.zoom = this.zoom;
+    }
+  }
+};
+const __cssModules$3 = {};
+var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
+function __vue2_injectStyles$3(context) {
+  for (let o in __cssModules$3) {
+    this[o] = __cssModules$3[o];
+  }
+}
+var Zoom = /* @__PURE__ */ function() {
+  return __component__$3.exports;
+}();
+var render$2 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "navigation"
+  }, [_c("Zoom")], 1);
+};
+var staticRenderFns$2 = [];
+var Navigation_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$2 = {
+  components: {
+    TButton,
+    Zoom
+  },
+  data() {
+    return {};
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {}
+};
+const __cssModules$2 = {};
+var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
+function __vue2_injectStyles$2(context) {
+  for (let o in __cssModules$2) {
+    this[o] = __cssModules$2[o];
+  }
+}
+var Navigation = /* @__PURE__ */ function() {
+  return __component__$2.exports;
+}();
+const menuData = [
+  {
+    title: "Navigation"
+  },
+  {
+    title: "Add point"
+  },
+  {
+    title: "Save to file"
+  },
+  {
+    title: "Load from file"
+  }
+];
+var render$1 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "menu"
+  }, _vm._l(_vm.menuData, function(item, key) {
+    return _c("TButton", {
+      key,
+      attrs: {
+        "isSelected": _vm.isMenuSelected(key)
+      },
+      on: {
+        "click": function($event) {
+          return _vm.onSelectMenu(key);
+        }
+      }
+    }, [_vm._v("\n  " + _vm._s(item.title) + "\n  ")]);
+  }), 1);
+};
+var staticRenderFns$1 = [];
+var Menu_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$1 = {
+  components: {
+    TButton
+  },
+  data() {
+    return {};
+  },
+  props: {
+    selectedMenuIdx: {
+      type: Number,
+      required: true,
+      default: 0
+    }
+  },
+  computed: {
+    menuData() {
+      return menuData;
+    }
+  },
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onSelectMenu(idx) {
+      this.$emit("onSelectMenu", idx);
+    },
+    isMenuSelected(key) {
+      return this.selectedMenuIdx === key;
+    }
+  }
+};
+const __cssModules$1 = {};
+var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
+function __vue2_injectStyles$1(context) {
+  for (let o in __cssModules$1) {
+    this[o] = __cssModules$1[o];
+  }
+}
+var Menu = /* @__PURE__ */ function() {
+  return __component__$1.exports;
+}();
+var render = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    ref: "app",
+    staticClass: "app"
+  }, [_c("div", {
+    staticClass: "app__title"
+  }, [_vm._v("Galaxy simulation")]), _vm._v(" "), _c("Menu", {
+    attrs: {
+      "selectedMenuIdx": _vm.selectedMenuIdx
+    },
+    on: {
+      "onSelectMenu": _vm.onSelectMenu
+    }
+  }), _vm._v(" "), _vm.selectedMenuIdx == 0 ? _c("Navigation") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 1 ? _c("div", {
+    staticClass: "app_add-point"
+  }, [_vm._v("Mouse click point")]) : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 2 ? _c("SaveFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 3 ? _c("LoadFileForm") : _vm._e()], 1);
+};
+var staticRenderFns = [];
+var App_vue_vue_type_style_index_0_lang = "";
+const __vue2_script = {
+  name: "App",
+  components: {
+    SaveFileForm,
+    LoadFileForm,
+    Navigation,
+    Menu
+  },
+  data() {
+    return {
+      selectedMenuIdx: 0
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onSelectMenu(idx) {
+      this.selectedMenuIdx = idx;
+    }
+  }
+};
+const __cssModules = {};
+var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
+function __vue2_injectStyles(context) {
+  for (let o in __cssModules) {
+    this[o] = __cssModules[o];
+  }
+}
+var App = /* @__PURE__ */ function() {
+  return __component__.exports;
+}();
+function hex(c) {
+  var s = "0123456789abcdef";
+  var i = parseInt(c);
+  if (i == 0 || isNaN(c))
+    return "00";
+  i = Math.round(Math.min(Math.max(0, i), 255));
+  return s.charAt((i - i % 16) / 16) + s.charAt(i % 16);
+}
+function convertToHex(rgb) {
+  return hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
+}
+function trim(s) {
+  return s.charAt(0) == "#" ? s.substring(1, 7) : s;
+}
+function convertToRGB(hex2) {
+  var color = [];
+  color[0] = parseInt(trim(hex2).substring(0, 2), 16);
+  color[1] = parseInt(trim(hex2).substring(2, 4), 16);
+  color[2] = parseInt(trim(hex2).substring(4, 6), 16);
+  return color;
+}
+function generateColor(colorStart, colorEnd, colorCount) {
+  var start = convertToRGB(colorStart);
+  var end = convertToRGB(colorEnd);
+  var len = colorCount;
+  var alpha = 0;
+  var saida = [];
+  for (let i = 0; i < len; i++) {
+    var c = [];
+    alpha += 1 / len;
+    c[0] = start[0] * alpha + (1 - alpha) * end[0];
+    c[1] = start[1] * alpha + (1 - alpha) * end[1];
+    c[2] = start[2] * alpha + (1 - alpha) * end[2];
+    saida.push(convertToHex(c));
+  }
+  return saida;
+}
+class Vector {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  static add(v1, v2) {
+    return new Vector(v1.x + v2.x, v1.y + v2.y);
+  }
+  static minus(v1, v2) {
+    return new Vector(v1.x - v2.x, v1.y - v2.y);
+  }
+  static addScalar(d) {
+    return new Vector(this.x + d, this.y + d);
+  }
+  static mult(v1, v2) {
+    return new Vector(v1.x * v2.x, v1.y * v2.y);
+  }
+  static length(v) {
+    return Math.sqrt(v.x * v.x + v.y * v.y);
+  }
+}
+class Body {
+  constructor(coord, massa, color = "#000000") {
+    this.coord = coord;
+    this.massa = massa;
+    this.velocity = new Vector(0, 0);
+    this.color = color;
+    this.family = 0;
+  }
+  setCoord2(coord) {
+    const cold = 0.9;
+    if (coord.x > void 0) {
+      this.velocity.x = -this.velocity.x * cold;
+    } else if (coord.x < 0) {
+      this.velocity.x = -this.velocity.x * cold;
+    }
+    this.coord.x = coord.x;
+    if (coord.y > void 0) {
+      this.velocity.y = -this.velocity.y * cold;
+    } else if (coord.y < 0) {
+      this.velocity.y = -this.velocity.y * cold;
+    }
+    this.coord.y = coord.y;
+  }
+  setCoord(coord) {
+    if (coord.x > MAX_DOT_X) {
+      this.coord.x = coord.x - MAX_DOT_X;
+    } else if (coord.x < 0) {
+      this.coord.x = MAX_DOT_X - coord.x;
+    } else {
+      this.coord.x = coord.x;
+    }
+    if (coord.y > MAX_DOT_Y) {
+      this.coord.y = coord.y - MAX_DOT_Y;
+    } else if (coord.y < 0) {
+      this.coord.y = MAX_DOT_Y - coord.y;
+    } else {
+      this.coord.y = coord.y;
+    }
+  }
+  setCoord3(coord) {
+    this.coord.x = coord.x;
+    this.coord.y = coord.y;
+  }
+  static draw(ctx2, body, centerMassVector) {
+    console.log(body);
+    ctx2.beginPath();
+    ctx2.strokeStyle = body.color;
+    ctx2.moveTo(body.coord.x, body.coord.y);
+    ctx2.arc(body.coord.x - centerMassVector.x, body.coord.y - centerMassVector.y, 3, 0, Math.PI * 2, false);
+    ctx2.closePath();
+    ctx2.stroke();
+  }
+}
+const getRandomInt = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
+class BodyGenerator {
+  generate() {
+    const bodyList = [];
+    for (let k = 0; k < MAX_DOTS.count; k++) {
+      bodyList.push(new Body(new Vector(getRandomInt(300, 600), getRandomInt(300, 600)), 5));
+    }
+    for (let k = 0; k < MAX_DOTS.count; k++) {
+      bodyList.push(new Body(new Vector(getRandomInt(400, 800), getRandomInt(400, 800)), 5));
+    }
+    return bodyList;
+  }
+}
+class GeneratorCircle extends BodyGenerator {
+  generate() {
+    const bodyList = [];
+    let family = 0;
+    const getX = (rad, grad) => {
+      return rad * Math.sin(grad);
+    };
+    const getY = (rad, grad) => {
+      return rad * Math.cos(grad);
+    };
+    const addDots = (count, vec, radius, color = "#ffffff") => {
+      for (let k = 0; k < count; k++) {
+        const grad = getRandomInt(0, 360) * 3.14 / 180;
+        const rad = getRandomInt(1, radius);
+        if (k % 2) {
+          family++;
+        }
+        const body = new Body(new Vector(getX(rad, grad) + vec.x, getY(rad, grad) + vec.y), 5, color);
+        body.family = family;
+        bodyList.push(body);
+      }
+    };
+    addDots(Math.ceil(MAX_DOTS.count), new Vector(600, 400), 500, "#f8a5a5");
+    return bodyList;
+  }
+}
+const kernelXY = function(GG, data) {
   const { len } = this.constants;
   let newX = 0;
   let newY = 0;
@@ -24296,10 +24644,8 @@ const kernel = gpu.createKernel(function(GG, data) {
   newX = newVX + data[this.thread.x][0];
   newY = newVY + data[this.thread.x][1];
   return [newX, newY, newVX, newVY];
-}).setOutput([MAX_DOTS]).setConstants({
-  len: MAX_DOTS
-});
-const kernelForceField = gpu.createKernel(function(data) {
+};
+const kernelForceField = function(data) {
   const { len } = this.constants;
   let xGField = 0;
   let yGField = 0;
@@ -24318,47 +24664,95 @@ const kernelForceField = gpu.createKernel(function(data) {
   yGField = yGField / len;
   GFieldLen = sqrt(xGField * xGField + yGField * yGField);
   return [data[this.thread.x][0], data[this.thread.x][1], GFieldLen];
-}).setOutput([MAX_DOTS]).setConstants({
-  len: MAX_DOTS
-});
+};
+const addPointInit = () => {
+  window.canvasElem.elem.addEventListener("click", (event) => {
+    window.isPause = true;
+    let x = window.canvasElem.x;
+    let y = window.canvasElem.y;
+    x -= window.innerWidth / 2;
+    y -= window.innerHeight / 2;
+    x = x / window.zoom;
+    y = y / window.zoom;
+    x += window.centerMassVector.x;
+    y += window.centerMassVector.y;
+    const newStar = [
+      x,
+      y,
+      0,
+      0
+    ];
+    window.dataArr.push(newStar);
+    window.MAX_DOTS++;
+    setTimeout(() => {
+      window.isPause = false;
+    }, 1);
+  });
+};
+const mouseCoordInit = () => {
+  window.canvasElem.elem.onmousemove = (event) => {
+    window.canvasElem.x = event.x;
+    window.canvasElem.y = event.y;
+  };
+};
 var style = "";
-const workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.e60c9e19.js", { type: "module" });
 const ctx = document.getElementById("canvas").getContext("2d");
-const maxColor = 1e3;
 const gradientColorList = generateColor("#0ecf9e", "#f58484", 1e3);
-console.log(gradientColorList, maxColor, gradientColorList.length);
-let dataArr = [];
-let centerMassVector = new Vector(0, 0);
-const bodyGenerator = new GeneratorCircle();
-let bodyList = bodyGenerator.generate();
-const initData = () => {
+const gpu = new gpuBrowser.exports.GPU();
+const kernel = gpu.createKernel(kernelXY).setDynamicArguments(true).setDynamicOutput(true);
+const kernelForce = gpu.createKernel(kernelForceField).setDynamicArguments(true).setDynamicOutput(true);
+window.dataArr = [];
+window.centerMassVector = new Vector(0, 0);
+window.centerMassVectorV = new Vector(0, 0);
+window.isPause = false;
+window.zoom = 1;
+window.canvasElem = {
+  elem: document.getElementById("canvas"),
+  x: 0,
+  y: 0,
+  ctx
+};
+window.MAX_DOTS = MAX_DOTS.count;
+const workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.4d644ef4.js", { type: "module" });
+const INIT = () => {
+  const bodyGenerator = new GeneratorCircle();
+  let bodyList = bodyGenerator.generate();
   for (let k = 0; k < bodyList.length; k++) {
-    dataArr.push([
+    window.dataArr.push([
       bodyList[k].coord.x,
       bodyList[k].coord.y,
       bodyList[k].velocity.y,
       bodyList[k].velocity.y
     ]);
   }
-};
-function init() {
-  initData();
+  window.MAX_DOTS = window.dataArr.length;
+  addPointInit();
+  mouseCoordInit();
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
   window.requestAnimationFrame(draw);
-}
+};
 const getDotColorFromField = (field) => {
   let k = Math.ceil(field);
-  if (field > 1e3)
-    k = 1e3;
+  const maxColor = gradientColorList.length;
+  if (field > maxColor)
+    k = maxColor;
   return `#${gradientColorList[k]}`;
 };
 async function draw() {
+  if (window.isPause) {
+    window.requestAnimationFrame(draw);
+    return;
+  }
   ctx.globalCompositeOperation = "destination-over";
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   let start = new Date();
-  dataArr = kernel(G, dataArr);
-  const dataArrWithField = kernelForceField(dataArr);
+  window.dataArr = kernel.setOutput([window.dataArr.length]).setConstants({
+    len: window.dataArr.length
+  })(G, window.dataArr);
+  const dataArrWithField = kernelForce.setOutput([window.dataArr.length]).setConstants({
+    len: window.dataArr.length
+  })(window.dataArr);
   let time = new Date() - start;
   ctx.strokeStyle = "#ffffff";
   ctx.fillStyle = "#ffffff";
@@ -24366,33 +24760,40 @@ async function draw() {
   ctx.fillText(time, 100, 100);
   let x = 0;
   let y = 0;
+  let dx, dy = 0;
   let field = 0;
   for (let k = 0; k < dataArrWithField.length; k++) {
     x = dataArrWithField[k][0];
     y = dataArrWithField[k][1];
     field = dataArrWithField[k][2];
+    dx = (x - window.centerMassVector.x) * window.zoom;
+    dy = (y - window.centerMassVector.y) * window.zoom;
+    dx = dx + window.innerWidth / 2;
+    dy = dy + window.innerHeight / 2;
     ctx.beginPath();
-    ctx.strokeStyle = getDotColorFromField(field);
-    ctx.arc(x - centerMassVector.x, y - centerMassVector.y, 3, 0, Math.PI * 2, false);
+    ctx.fillStyle = getDotColorFromField(field);
+    ctx.fillRect(dx, dy, 1, 1);
     ctx.closePath();
     ctx.stroke();
   }
   workerMassCenter.postMessage({
-    dataArr,
+    dataArr: window.dataArr,
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
+    count: window.MAX_DOTS
   });
 }
 workerMassCenter.onmessage = (e) => {
-  centerMassVector = e.data;
+  window.centerMassVector = e.data.centerMassVectorXY;
+  window.centerMassVectorV = e.data.centerMassVectorV;
   window.requestAnimationFrame(draw);
 };
 window.addEventListener("resize", function(event) {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
 }, true);
-init();
+INIT();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-14085887.js.map
+//# sourceMappingURL=index-ef2c68a4.js.map

@@ -10,7 +10,7 @@ const demoPath = './src/demo/';
 
 const _dirname = dirname(fileURLToPath(import.meta.url));
 
-const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
+//const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
 
 export default defineConfig({
   css: {
@@ -52,14 +52,13 @@ export default defineConfig({
     // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     alias: [
       //{ find: 'vue', replacement: resolve('./node_modules/vue/dist/vue.esm.js') },
-      // { find: 'knockout', replacement: resolve('./node_modules/knockout/build/output/knockout-latest.debug.js') },
       { find: '@', replacement: resolve(_dirname, 'src') },
     ],
   },
   plugins: [
     injectHtml({
       data: {
-        injectSkeleton: firstSlide
+//        injectSkeleton: firstSlide
       },
     }),
     createVuePlugin({
