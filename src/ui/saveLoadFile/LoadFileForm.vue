@@ -38,17 +38,18 @@ export default {
       reader.readAsText(file);
 
       reader.onload = function () {
-        const addStartJSON = JSON.parse(reader.result)
-        
-        for(let k in addStartJSON) {
+        const addStartJSON = JSON.parse(reader.result);
+
+        for (let k in addStartJSON) {
           const item = [
             addStartJSON[k][0] - window.centerMassVector.x,
             addStartJSON[k][1] - window.centerMassVector.y,
             addStartJSON[k][2],
             addStartJSON[k][3],
-          ]
-         window.dataArr.push(item)
+          ];
+          window.dataArr.push(item);
         }
+        window.core.refresh();
       };
 
       reader.onerror = function () {

@@ -40,6 +40,7 @@ export default {
 
   methods: {
     onSelectMenu(idx) {
+      window.menuState = idx;
       this.selectedMenuIdx = idx;
     },
   },
