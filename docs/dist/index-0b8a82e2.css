@@ -1,0 +1,185 @@
+.t-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #FFFFFF;
+  background: #1a1a1a;
+  color: #FFFFFF;
+  padding: 5px 5px;
+  cursor: pointer;
+}
+.t-button:hover {
+  background: #3c3c3c;
+}
+.t-button--selected {
+  background: #646464;
+}
+.t-button--selected:hover {
+  background: #646464;
+}.load-file-form {
+  color: #ffffff;
+}
+.load-file-form__file {
+  margin: 10px 0;
+}.t-input {
+  position: relative;
+  color: #999999;
+  font-size: 16px;
+}
+.t-input__label {
+  position: absolute;
+  bottom: 33px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+  line-height: 18px;
+}
+.t-input__label--capitalize::first-letter {
+  text-transform: capitalize;
+}
+.t-input__input {
+  max-width: 100%;
+  min-width: 100%;
+  width: 100%;
+  font-size: 16px;
+  line-height: 25px;
+  box-sizing: border-box;
+  font-weight: 400;
+  border: 0 none;
+  border-bottom: 1px solid #d9d9d9;
+  color: #999999;
+  padding: 10px 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+.t-input__input::placeholder {
+  opacity: 1;
+}
+.t-input__input:focus {
+  outline: none;
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.t-input__input:focus + .t-input__right-icon, .t-input__input:active + .t-input__right-icon {
+  color: #ffffff;
+}
+.t-input__input:focus + .t-input__right-icon--password-eye, .t-input__input:active + .t-input__right-icon--password-eye {
+  display: flex;
+}
+.t-input__error-message {
+  color: #f77f6e;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 8px;
+}
+.t-input__hint {
+  color: #999999;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 8px;
+}
+.t-input__asterisk {
+  color: #f77f6e;
+}
+.t-input--primary {
+  color: #000000;
+}
+.t-input--size-sm {
+  font-size: 12px;
+}
+.t-input--size-md {
+  width: 300px;
+}
+.t-input--size-lg {
+  width: 500px;
+}
+.t-input--size-full {
+  width: 100%;
+}
+.t-input--with-label {
+  padding-top: 10px;
+}
+.t-input--with-label input:focus::placeholder {
+  color: transparent;
+}
+.t-input--disabled .t-input__input {
+  color: #d9d9d9;
+}
+.t-input--disabled .t-input__label {
+  color: #d9d9d9;
+}
+.t-input--disabled .t-input__asterisk {
+  color: #d9d9d9;
+}
+.t-input--error .t-input__input {
+  border-bottom-color: #f77f6e;
+}
+.t-input--success .t-input__input {
+  border-bottom-color: #30cf60;
+}
+.t-input--left-icon .t-input__input {
+  padding-left: 34px;
+}
+.t-input--right-icon .t-input__input {
+  padding-right: 34px;
+}.save-file-form {
+  color: #ffffff;
+}.zoom {
+  display: flex;
+  width: 170px;
+  justify-content: space-between;
+  align-items: center;
+}
+.zoom__wraper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.zoom__button {
+  width: 30px;
+}
+.zoom__data {
+  width: 40px;
+  text-align: center;
+}.menu {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fff;
+}.app {
+  border: 1px solid #ffffff;
+  position: absolute;
+  padding: 0px 40px 40px 40px;
+  width: 400px;
+  top: 20px;
+  right: 20px;
+  color: #ffffff;
+}
+.app__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff;
+  padding: 5px;
+  margin-top: -1px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}body {
+  background: #ddd;
+  font-family: "Abel";
+}
+
+.cc {
+  background: #000000;
+}
+
+.canvas {
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
