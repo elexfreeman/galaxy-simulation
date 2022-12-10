@@ -2,6 +2,7 @@
 <template>
   <div class="status-bar">
     <div class="status-bar__item status-bar__item-fps">fps: {{ fps }}</div>
+    <div class="status-bar__item">Worker fps: {{ workerFps }}</div>
     <div class="status-bar__item">Dots count: {{ dotsCount }}</div>
   </div>
 </template>
@@ -14,6 +15,7 @@ export default {
     return {
       fps: window.fps,
       dotsCount: window.dataArr.length,
+      workerFps: window.workerFps,
     };
   },
 
@@ -25,6 +27,7 @@ export default {
   mounted() {
     this.fpsWatcher();
     this.dotsCountWatcher();
+    this.workerFpsWatcher();
   },
 
   methods: {
@@ -41,6 +44,14 @@ export default {
       setTimeout(() => {
         if (this.dotsCountWatcher) {
           this.dotsCountWatcher();
+        }
+      }, 500);
+    },
+    workerFpsWatcher() {
+      this.workerFps = window.workerFps;
+      setTimeout(() => {
+        if (this.workerFpsWatcher) {
+          this.workerFpsWatcher();
         }
       }, 500);
     },
