@@ -2,10 +2,13 @@
   <div ref="app" class="app">
     <div class="app__title">Galaxy simulation</div>
     <Menu :selectedMenuIdx="selectedMenuIdx" @onSelectMenu="onSelectMenu" />
-    <Navigation v-if="selectedMenuIdx == 0" />
-    <div v-if="selectedMenuIdx == 1" class="app_add-point">Mouse click point</div>
-    <SaveFileForm v-if="selectedMenuIdx == 2" />
-    <LoadFileForm v-if="selectedMenuIdx == 3" />
+    <div class="app__wraper">
+      <Navigation v-if="selectedMenuIdx == 0" />
+      <div v-if="selectedMenuIdx == 1" class="app_add-point">Mouse click point</div>
+      <SaveFileForm v-if="selectedMenuIdx == 2" />
+      <LoadFileForm v-if="selectedMenuIdx == 3" />
+    </div>
+    <StatusBar />
   </div>
 </template>
 
@@ -15,6 +18,7 @@ import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
 
 import Menu from '@/ui/menu/Menu.vue';
+import StatusBar from '@/ui/StatusBar.vue';
 
 export default {
   name: 'App',
@@ -24,6 +28,7 @@ export default {
     LoadFileForm,
     Navigation,
     Menu,
+    StatusBar,
   },
 
   data() {
@@ -51,11 +56,14 @@ export default {
 .app {
   border: 1px solid #ffffff;
   position: absolute;
-  padding: 0px 40px 40px 40px;
   width: 400px;
   top: 20px;
   right: 20px;
   color: #ffffff;
+
+  &__wraper {
+    padding: 10px 20px;
+  }
 
   &__title {
     display: flex;

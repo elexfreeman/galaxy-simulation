@@ -16,7 +16,7 @@ import '@/styles/style.scss';
 
 const ctx = document.getElementById('canvas').getContext('2d');
 
-const gradientColorList = generateColor('#f58484','#0ecf9e',  10000);
+const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
 
 window.core = new Core();
 
@@ -67,10 +67,14 @@ const INIT = () => {
 
 const getDotColorFromField = (field) => {
   const maxColor = gradientColorList.length;
-  let k = Math.ceil(maxColor*field/window.maxField);
+  let k = Math.ceil(maxColor * field / window.maxField);
   if (field > maxColor) k = maxColor;
   return `#${gradientColorList[k]}`;
 }
+
+/////////////////////
+/////////////////////
+/////////////////////
 
 async function draw() {
   if (window.isPause) {
@@ -78,10 +82,11 @@ async function draw() {
     return;
   }
 
+  let start = new Date();
+
   ctx.globalCompositeOperation = 'destination-over';
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
 
-  let start = new Date();
   window.dataArr = window.core.kernel
     .setOutput([window.dataArr.length])
     .setConstants({
@@ -95,13 +100,6 @@ async function draw() {
     })(C.G, window.dataArr);
 
 
-  // calc time delay
-  let time = new Date() - start;
-
-  ctx.strokeStyle = '#ffffff'
-  ctx.fillStyle = '#ffffff'
-  ctx.font = '48px serif';
-  ctx.fillText(time, 100, 100);
 
   let x = 0;
   let y = 0;
@@ -130,6 +128,11 @@ async function draw() {
     ctx.closePath();
     ctx.stroke();
   }
+
+  // calc time delay
+  let time = Math.ceil(100* 1000 / (new Date() - start))/100;
+  window.fps = time;
+
 
   workerMassCenter.postMessage({
     dataArr: dataArrWithField,
