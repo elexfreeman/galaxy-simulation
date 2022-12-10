@@ -155,12 +155,12 @@ function nativeBind(fn, ctx2) {
   return fn.bind(ctx2);
 }
 var bind = Function.prototype.bind ? nativeBind : polyfillBind;
-function toArray(list, start) {
-  start = start || 0;
-  var i = list.length - start;
+function toArray(list, start2) {
+  start2 = start2 || 0;
+  var i = list.length - start2;
   var ret = new Array(i);
   while (i--) {
-    ret[i] = list[i + start];
+    ret[i] = list[i + start2];
   }
   return ret;
 }
@@ -4020,8 +4020,8 @@ function createPatchFunction(backend) {
       removeVnodes(oldCh, oldStartIdx, oldEndIdx);
     }
   }
-  function findIdxInOld(node, oldCh, start, end) {
-    for (var i_5 = start; i_5 < end; i_5++) {
+  function findIdxInOld(node, oldCh, start2, end) {
+    for (var i_5 = start2; i_5 < end; i_5++) {
       var c = oldCh[i_5];
       if (isDef(c) && sameVnode(node, c))
         return i_5;
@@ -5473,7 +5473,7 @@ if (inBrowser) {
     }
   }, 0);
 }
-var render$7 = function() {
+var render$8 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5504,7 +5504,7 @@ var render$7 = function() {
     return [_vm._v(_vm._s(_vm.label))];
   })], 2) : _vm._e()])]);
 };
-var staticRenderFns$7 = [];
+var staticRenderFns$8 = [];
 var Button_vue_vue_type_style_index_0_lang = "";
 function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
   var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
@@ -5557,7 +5557,7 @@ function normalizeComponent(scriptExports, render2, staticRenderFns2, functional
     options
   };
 }
-const __vue2_script$7 = {
+const __vue2_script$8 = {
   name: "TButton",
   components: {},
   props: {
@@ -5695,17 +5695,17 @@ const __vue2_script$7 = {
     }
   }
 };
-const __cssModules$7 = {};
-var __component__$7 = /* @__PURE__ */ normalizeComponent(__vue2_script$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$7, null, null, null);
-function __vue2_injectStyles$7(context) {
-  for (let o in __cssModules$7) {
-    this[o] = __cssModules$7[o];
+const __cssModules$8 = {};
+var __component__$8 = /* @__PURE__ */ normalizeComponent(__vue2_script$8, render$8, staticRenderFns$8, false, __vue2_injectStyles$8, null, null, null);
+function __vue2_injectStyles$8(context) {
+  for (let o in __cssModules$8) {
+    this[o] = __cssModules$8[o];
   }
 }
 var TButton = /* @__PURE__ */ function() {
-  return __component__$7.exports;
+  return __component__$8.exports;
 }();
-var render$6 = function() {
+var render$7 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5729,9 +5729,9 @@ var render$6 = function() {
     }
   }, [_vm._v("Resume")]) : _vm._e()], 1);
 };
-var staticRenderFns$6 = [];
+var staticRenderFns$7 = [];
 var LoadFileForm_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$6 = {
+const __vue2_script$7 = {
   components: {
     TButton
   },
@@ -5774,17 +5774,17 @@ const __vue2_script$6 = {
     }
   }
 };
-const __cssModules$6 = {};
-var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$6, null, null, null);
-function __vue2_injectStyles$6(context) {
-  for (let o in __cssModules$6) {
-    this[o] = __cssModules$6[o];
+const __cssModules$7 = {};
+var __component__$7 = /* @__PURE__ */ normalizeComponent(__vue2_script$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$7, null, null, null);
+function __vue2_injectStyles$7(context) {
+  for (let o in __cssModules$7) {
+    this[o] = __cssModules$7[o];
   }
 }
 var LoadFileForm = /* @__PURE__ */ function() {
-  return __component__$6.exports;
+  return __component__$7.exports;
 }();
-var render$5 = function() {
+var render$6 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5852,9 +5852,9 @@ var render$5 = function() {
     staticClass: "t-input__hint"
   }, [_vm._v("\n    " + _vm._s(_vm.hint) + "\n  ")])]);
 };
-var staticRenderFns$5 = [];
+var staticRenderFns$6 = [];
 var Input_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$5 = {
+const __vue2_script$6 = {
   name: "TInput",
   props: {
     value: {
@@ -6003,17 +6003,17 @@ const __vue2_script$5 = {
     }
   }
 };
-const __cssModules$5 = {};
-var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
-function __vue2_injectStyles$5(context) {
-  for (let o in __cssModules$5) {
-    this[o] = __cssModules$5[o];
+const __cssModules$6 = {};
+var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$6, null, null, null);
+function __vue2_injectStyles$6(context) {
+  for (let o in __cssModules$6) {
+    this[o] = __cssModules$6[o];
   }
 }
 var TInput = /* @__PURE__ */ function() {
-  return __component__$5.exports;
+  return __component__$6.exports;
 }();
-var render$4 = function() {
+var render$5 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6031,9 +6031,9 @@ var render$4 = function() {
     }
   }, [_vm._v("Resume")]) : _vm._e()], 1);
 };
-var staticRenderFns$4 = [];
+var staticRenderFns$5 = [];
 var SaveFileForm_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$4 = {
+const __vue2_script$5 = {
   components: {
     TButton,
     TInput
@@ -6065,15 +6065,15 @@ const __vue2_script$4 = {
     }
   }
 };
-const __cssModules$4 = {};
-var __component__$4 = /* @__PURE__ */ normalizeComponent(__vue2_script$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
-function __vue2_injectStyles$4(context) {
-  for (let o in __cssModules$4) {
-    this[o] = __cssModules$4[o];
+const __cssModules$5 = {};
+var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
+function __vue2_injectStyles$5(context) {
+  for (let o in __cssModules$5) {
+    this[o] = __cssModules$5[o];
   }
 }
 var SaveFileForm = /* @__PURE__ */ function() {
-  return __component__$4.exports;
+  return __component__$5.exports;
 }();
 const MAX_DOTS = {
   count: 1e3
@@ -6081,7 +6081,7 @@ const MAX_DOTS = {
 const G = 0.01;
 const ZOOM_FACTOR = 0.2;
 const ZOOM_FACTOR_MIN = 0.02;
-var render$3 = function() {
+var render$4 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6105,9 +6105,9 @@ var render$3 = function() {
     }
   }, [_vm._v("+")])], 1)]);
 };
-var staticRenderFns$3 = [];
+var staticRenderFns$4 = [];
 var Zoom_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$3 = {
+const __vue2_script$4 = {
   components: {
     TButton
   },
@@ -6146,17 +6146,17 @@ const __vue2_script$3 = {
     }
   }
 };
-const __cssModules$3 = {};
-var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
-function __vue2_injectStyles$3(context) {
-  for (let o in __cssModules$3) {
-    this[o] = __cssModules$3[o];
+const __cssModules$4 = {};
+var __component__$4 = /* @__PURE__ */ normalizeComponent(__vue2_script$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+function __vue2_injectStyles$4(context) {
+  for (let o in __cssModules$4) {
+    this[o] = __cssModules$4[o];
   }
 }
 var Zoom = /* @__PURE__ */ function() {
-  return __component__$3.exports;
+  return __component__$4.exports;
 }();
-var render$2 = function() {
+var render$3 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6164,9 +6164,9 @@ var render$2 = function() {
     staticClass: "navigation"
   }, [_c("Zoom")], 1);
 };
-var staticRenderFns$2 = [];
+var staticRenderFns$3 = [];
 var Navigation_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$2 = {
+const __vue2_script$3 = {
   components: {
     TButton,
     Zoom
@@ -6180,15 +6180,15 @@ const __vue2_script$2 = {
   },
   methods: {}
 };
-const __cssModules$2 = {};
-var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
-function __vue2_injectStyles$2(context) {
-  for (let o in __cssModules$2) {
-    this[o] = __cssModules$2[o];
+const __cssModules$3 = {};
+var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
+function __vue2_injectStyles$3(context) {
+  for (let o in __cssModules$3) {
+    this[o] = __cssModules$3[o];
   }
 }
 var Navigation = /* @__PURE__ */ function() {
-  return __component__$2.exports;
+  return __component__$3.exports;
 }();
 const menuData = [
   {
@@ -6204,7 +6204,7 @@ const menuData = [
     title: "Load from file"
   }
 ];
-var render$1 = function() {
+var render$2 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6224,9 +6224,9 @@ var render$1 = function() {
     }, [_vm._v("\n  " + _vm._s(item.title) + "\n  ")]);
   }), 1);
 };
-var staticRenderFns$1 = [];
+var staticRenderFns$2 = [];
 var Menu_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$1 = {
+const __vue2_script$2 = {
   components: {
     TButton
   },
@@ -6257,6 +6257,76 @@ const __vue2_script$1 = {
     }
   }
 };
+const __cssModules$2 = {};
+var __component__$2 = /* @__PURE__ */ normalizeComponent(__vue2_script$2, render$2, staticRenderFns$2, false, __vue2_injectStyles$2, null, null, null);
+function __vue2_injectStyles$2(context) {
+  for (let o in __cssModules$2) {
+    this[o] = __cssModules$2[o];
+  }
+}
+var Menu = /* @__PURE__ */ function() {
+  return __component__$2.exports;
+}();
+var render$1 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "status-bar"
+  }, [_c("div", {
+    staticClass: "status-bar__item status-bar__item-fps"
+  }, [_vm._v("fps: " + _vm._s(_vm.fps))]), _vm._v(" "), _c("div", {
+    staticClass: "status-bar__item"
+  }, [_vm._v("Worker fps: " + _vm._s(_vm.workerFps))]), _vm._v(" "), _c("div", {
+    staticClass: "status-bar__item"
+  }, [_vm._v("Dots count: " + _vm._s(_vm.dotsCount))])]);
+};
+var staticRenderFns$1 = [];
+var StatusBar_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$1 = {
+  components: {},
+  data() {
+    return {
+      fps: window.fps,
+      dotsCount: window.dataArr.length,
+      workerFps: window.workerFps
+    };
+  },
+  props: {},
+  computed: {},
+  watch: {},
+  mounted() {
+    this.fpsWatcher();
+    this.dotsCountWatcher();
+    this.workerFpsWatcher();
+  },
+  methods: {
+    fpsWatcher() {
+      this.fps = window.fps;
+      setTimeout(() => {
+        if (this.fpsWatcher) {
+          this.fpsWatcher();
+        }
+      }, 500);
+    },
+    dotsCountWatcher() {
+      this.dotsCount = window.dataArr.length;
+      setTimeout(() => {
+        if (this.dotsCountWatcher) {
+          this.dotsCountWatcher();
+        }
+      }, 500);
+    },
+    workerFpsWatcher() {
+      this.workerFps = window.workerFps;
+      setTimeout(() => {
+        if (this.workerFpsWatcher) {
+          this.workerFpsWatcher();
+        }
+      }, 500);
+    }
+  }
+};
 const __cssModules$1 = {};
 var __component__$1 = /* @__PURE__ */ normalizeComponent(__vue2_script$1, render$1, staticRenderFns$1, false, __vue2_injectStyles$1, null, null, null);
 function __vue2_injectStyles$1(context) {
@@ -6264,7 +6334,7 @@ function __vue2_injectStyles$1(context) {
     this[o] = __cssModules$1[o];
   }
 }
-var Menu = /* @__PURE__ */ function() {
+var StatusBar = /* @__PURE__ */ function() {
   return __component__$1.exports;
 }();
 var render = function() {
@@ -6283,9 +6353,11 @@ var render = function() {
     on: {
       "onSelectMenu": _vm.onSelectMenu
     }
-  }), _vm._v(" "), _vm.selectedMenuIdx == 0 ? _c("Navigation") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 1 ? _c("div", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "app__wraper"
+  }, [_vm.selectedMenuIdx == 0 ? _c("Navigation") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 1 ? _c("div", {
     staticClass: "app_add-point"
-  }, [_vm._v("Mouse click point")]) : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 2 ? _c("SaveFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 3 ? _c("LoadFileForm") : _vm._e()], 1);
+  }, [_vm._v("Mouse click point")]) : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 2 ? _c("SaveFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == 3 ? _c("LoadFileForm") : _vm._e()], 1), _vm._v(" "), _c("StatusBar")], 1);
 };
 var staticRenderFns = [];
 var App_vue_vue_type_style_index_0_lang = "";
@@ -6295,7 +6367,8 @@ const __vue2_script = {
     SaveFileForm,
     LoadFileForm,
     Navigation,
-    Menu
+    Menu,
+    StatusBar
   },
   data() {
     return {
@@ -6345,7 +6418,7 @@ function convertToRGB(hex2) {
   return color;
 }
 function generateColor(colorStart, colorEnd, colorCount) {
-  var start = convertToRGB(colorStart);
+  var start2 = convertToRGB(colorStart);
   var end = convertToRGB(colorEnd);
   var len = colorCount;
   var alpha = 0;
@@ -6353,9 +6426,9 @@ function generateColor(colorStart, colorEnd, colorCount) {
   for (let i = 0; i < len; i++) {
     var c = [];
     alpha += 1 / len;
-    c[0] = start[0] * alpha + (1 - alpha) * end[0];
-    c[1] = start[1] * alpha + (1 - alpha) * end[1];
-    c[2] = start[2] * alpha + (1 - alpha) * end[2];
+    c[0] = start2[0] * alpha + (1 - alpha) * end[0];
+    c[1] = start2[1] * alpha + (1 - alpha) * end[1];
+    c[2] = start2[2] * alpha + (1 - alpha) * end[2];
     saida.push(convertToHex(c));
   }
   return saida;
@@ -6736,8 +6809,8 @@ var gpuBrowser = { exports: {} };
         Position.prototype.offset = function offset(n) {
           return new Position(this.line, this.column + n);
         };
-        var SourceLocation = function SourceLocation2(p2, start, end) {
-          this.start = start;
+        var SourceLocation = function SourceLocation2(p2, start2, end) {
+          this.start = start2;
           this.end = end;
           if (p2.sourceFile !== null) {
             this.source = p2.sourceFile;
@@ -6797,18 +6870,18 @@ var gpuBrowser = { exports: {} };
           return options;
         }
         function pushComment(options, array) {
-          return function(block, text, start, end, startLoc, endLoc) {
+          return function(block, text, start2, end, startLoc, endLoc) {
             var comment = {
               type: block ? "Block" : "Line",
               value: text,
-              start,
+              start: start2,
               end
             };
             if (options.locations) {
               comment.loc = new SourceLocation(this, startLoc, endLoc);
             }
             if (options.ranges) {
-              comment.range = [start, end];
+              comment.range = [start2, end];
             }
             array.push(comment);
           };
@@ -6919,22 +6992,22 @@ var gpuBrowser = { exports: {} };
         Object.defineProperties(Parser.prototype, prototypeAccessors);
         var pp = Parser.prototype;
         var literal = /^(?:'((?:\\.|[^'])*?)'|"((?:\\.|[^"])*?)")/;
-        pp.strictDirective = function(start) {
+        pp.strictDirective = function(start2) {
           for (; ; ) {
-            skipWhiteSpace.lastIndex = start;
-            start += skipWhiteSpace.exec(this.input)[0].length;
-            var match = literal.exec(this.input.slice(start));
+            skipWhiteSpace.lastIndex = start2;
+            start2 += skipWhiteSpace.exec(this.input)[0].length;
+            var match = literal.exec(this.input.slice(start2));
             if (!match) {
               return false;
             }
             if ((match[1] || match[2]) === "use strict") {
               return true;
             }
-            start += match[0].length;
-            skipWhiteSpace.lastIndex = start;
-            start += skipWhiteSpace.exec(this.input)[0].length;
-            if (this.input[start] === ";") {
-              start++;
+            start2 += match[0].length;
+            skipWhiteSpace.lastIndex = start2;
+            start2 += skipWhiteSpace.exec(this.input)[0].length;
+            if (this.input[start2] === ";") {
+              start2++;
             }
           }
         };
@@ -7596,7 +7669,7 @@ var gpuBrowser = { exports: {} };
           var tryContextual = function(k, noLineBreak) {
             if (noLineBreak === void 0)
               noLineBreak = false;
-            var start = this$1$1.start, startLoc = this$1$1.startLoc;
+            var start2 = this$1$1.start, startLoc = this$1$1.startLoc;
             if (!this$1$1.eatContextual(k)) {
               return false;
             }
@@ -7607,7 +7680,7 @@ var gpuBrowser = { exports: {} };
               this$1$1.unexpected();
             }
             method.computed = false;
-            method.key = this$1$1.startNodeAt(start, startLoc);
+            method.key = this$1$1.startNodeAt(start2, startLoc);
             method.key.name = k;
             this$1$1.finishNode(method.key, "Identifier");
             return false;
@@ -8420,13 +8493,13 @@ var gpuBrowser = { exports: {} };
               this.next();
               return this.finishNode(node, "Literal");
             case types.parenL:
-              var start = this.start, expr = this.parseParenAndDistinguishExpression(canBeArrow);
+              var start2 = this.start, expr = this.parseParenAndDistinguishExpression(canBeArrow);
               if (refDestructuringErrors) {
                 if (refDestructuringErrors.parenthesizedAssign < 0 && !this.isSimpleAssignTarget(expr)) {
-                  refDestructuringErrors.parenthesizedAssign = start;
+                  refDestructuringErrors.parenthesizedAssign = start2;
                 }
                 if (refDestructuringErrors.parenthesizedBind < 0) {
-                  refDestructuringErrors.parenthesizedBind = start;
+                  refDestructuringErrors.parenthesizedBind = start2;
                 }
               }
               return expr;
@@ -8732,11 +8805,11 @@ var gpuBrowser = { exports: {} };
             prop.value = this.parseMethod(false);
             var paramCount = prop.kind === "get" ? 0 : 1;
             if (prop.value.params.length !== paramCount) {
-              var start = prop.value.start;
+              var start2 = prop.value.start;
               if (prop.kind === "get") {
-                this.raiseRecoverable(start, "getter should have no params");
+                this.raiseRecoverable(start2, "getter should have no params");
               } else {
-                this.raiseRecoverable(start, "setter should have exactly one param");
+                this.raiseRecoverable(start2, "setter should have exactly one param");
               }
             } else {
               if (prop.kind === "set" && prop.value.params[0].type === "RestElement") {
@@ -8903,27 +8976,27 @@ var gpuBrowser = { exports: {} };
           return elts;
         };
         pp$3.checkUnreserved = function(ref3) {
-          var start = ref3.start;
+          var start2 = ref3.start;
           var end = ref3.end;
           var name2 = ref3.name;
           if (this.inGenerator && name2 === "yield") {
-            this.raiseRecoverable(start, "Cannot use 'yield' as identifier inside a generator");
+            this.raiseRecoverable(start2, "Cannot use 'yield' as identifier inside a generator");
           }
           if (this.inAsync && name2 === "await") {
-            this.raiseRecoverable(start, "Cannot use 'await' as identifier inside an async function");
+            this.raiseRecoverable(start2, "Cannot use 'await' as identifier inside an async function");
           }
           if (this.keywords.test(name2)) {
-            this.raise(start, "Unexpected keyword '" + name2 + "'");
+            this.raise(start2, "Unexpected keyword '" + name2 + "'");
           }
-          if (this.options.ecmaVersion < 6 && this.input.slice(start, end).indexOf("\\") !== -1) {
+          if (this.options.ecmaVersion < 6 && this.input.slice(start2, end).indexOf("\\") !== -1) {
             return;
           }
           var re = this.strict ? this.reservedWordsStrict : this.reservedWords;
           if (re.test(name2)) {
             if (!this.inAsync && name2 === "await") {
-              this.raiseRecoverable(start, "Cannot use keyword 'await' outside an async function");
+              this.raiseRecoverable(start2, "Cannot use keyword 'await' outside an async function");
             }
-            this.raiseRecoverable(start, "The keyword '" + name2 + "' is reserved");
+            this.raiseRecoverable(start2, "The keyword '" + name2 + "' is reserved");
           }
         };
         pp$3.parseIdent = function(liberal, isBinding) {
@@ -9287,9 +9360,9 @@ var gpuBrowser = { exports: {} };
           this.groupNames = [];
           this.backReferenceNames = [];
         };
-        RegExpValidationState.prototype.reset = function reset(start, pattern, flags) {
+        RegExpValidationState.prototype.reset = function reset(start2, pattern, flags) {
           var unicode = flags.indexOf("u") !== -1;
-          this.start = start | 0;
+          this.start = start2 | 0;
           this.source = pattern + "";
           this.flags = flags;
           this.switchU = unicode && this.parser.options.ecmaVersion >= 6;
@@ -9426,7 +9499,7 @@ var gpuBrowser = { exports: {} };
           return false;
         };
         pp$8.regexp_eatAssertion = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           state.lastAssertionIsQuantifiable = false;
           if (state.eat(94) || state.eat(36)) {
             return true;
@@ -9435,7 +9508,7 @@ var gpuBrowser = { exports: {} };
             if (state.eat(66) || state.eat(98)) {
               return true;
             }
-            state.pos = start;
+            state.pos = start2;
           }
           if (state.eat(40) && state.eat(63)) {
             var lookbehind = false;
@@ -9451,7 +9524,7 @@ var gpuBrowser = { exports: {} };
               return true;
             }
           }
-          state.pos = start;
+          state.pos = start2;
           return false;
         };
         pp$8.regexp_eatQuantifier = function(state, noError) {
@@ -9467,7 +9540,7 @@ var gpuBrowser = { exports: {} };
           return state.eat(42) || state.eat(43) || state.eat(63) || this.regexp_eatBracedQuantifier(state, noError);
         };
         pp$8.regexp_eatBracedQuantifier = function(state, noError) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(123)) {
             var min = 0, max = -1;
             if (this.regexp_eatDecimalDigits(state)) {
@@ -9485,7 +9558,7 @@ var gpuBrowser = { exports: {} };
             if (state.switchU && !noError) {
               state.raise("Incomplete quantifier");
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
@@ -9493,17 +9566,17 @@ var gpuBrowser = { exports: {} };
           return this.regexp_eatPatternCharacters(state) || state.eat(46) || this.regexp_eatReverseSolidusAtomEscape(state) || this.regexp_eatCharacterClass(state) || this.regexp_eatUncapturingGroup(state) || this.regexp_eatCapturingGroup(state);
         };
         pp$8.regexp_eatReverseSolidusAtomEscape = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(92)) {
             if (this.regexp_eatAtomEscape(state)) {
               return true;
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
         pp$8.regexp_eatUncapturingGroup = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(40)) {
             if (state.eat(63) && state.eat(58)) {
               this.regexp_disjunction(state);
@@ -9512,7 +9585,7 @@ var gpuBrowser = { exports: {} };
               }
               state.raise("Unterminated group");
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
@@ -9554,12 +9627,12 @@ var gpuBrowser = { exports: {} };
           return ch === 36 || ch >= 40 && ch <= 43 || ch === 46 || ch === 63 || ch >= 91 && ch <= 94 || ch >= 123 && ch <= 125;
         }
         pp$8.regexp_eatPatternCharacters = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           var ch = 0;
           while ((ch = state.current()) !== -1 && !isSyntaxCharacter(ch)) {
             state.advance();
           }
-          return state.pos !== start;
+          return state.pos !== start2;
         };
         pp$8.regexp_eatExtendedPatternCharacter = function(state) {
           var ch = state.current();
@@ -9603,7 +9676,7 @@ var gpuBrowser = { exports: {} };
           return false;
         };
         pp$8.regexp_eatRegExpIdentifierStart = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           var ch = state.current();
           state.advance();
           if (ch === 92 && this.regexp_eatRegExpUnicodeEscapeSequence(state)) {
@@ -9613,14 +9686,14 @@ var gpuBrowser = { exports: {} };
             state.lastIntValue = ch;
             return true;
           }
-          state.pos = start;
+          state.pos = start2;
           return false;
         };
         function isRegExpIdentifierStart(ch) {
           return isIdentifierStart(ch, true) || ch === 36 || ch === 95;
         }
         pp$8.regexp_eatRegExpIdentifierPart = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           var ch = state.current();
           state.advance();
           if (ch === 92 && this.regexp_eatRegExpUnicodeEscapeSequence(state)) {
@@ -9630,7 +9703,7 @@ var gpuBrowser = { exports: {} };
             state.lastIntValue = ch;
             return true;
           }
-          state.pos = start;
+          state.pos = start2;
           return false;
         };
         function isRegExpIdentifierPart(ch) {
@@ -9649,7 +9722,7 @@ var gpuBrowser = { exports: {} };
           return false;
         };
         pp$8.regexp_eatBackReference = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (this.regexp_eatDecimalEscape(state)) {
             var n = state.lastIntValue;
             if (state.switchU) {
@@ -9661,7 +9734,7 @@ var gpuBrowser = { exports: {} };
             if (n <= state.numCapturingParens) {
               return true;
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
@@ -9679,12 +9752,12 @@ var gpuBrowser = { exports: {} };
           return this.regexp_eatControlEscape(state) || this.regexp_eatCControlLetter(state) || this.regexp_eatZero(state) || this.regexp_eatHexEscapeSequence(state) || this.regexp_eatRegExpUnicodeEscapeSequence(state) || !state.switchU && this.regexp_eatLegacyOctalEscapeSequence(state) || this.regexp_eatIdentityEscape(state);
         };
         pp$8.regexp_eatCControlLetter = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(99)) {
             if (this.regexp_eatControlLetter(state)) {
               return true;
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
@@ -9738,7 +9811,7 @@ var gpuBrowser = { exports: {} };
           return ch >= 65 && ch <= 90 || ch >= 97 && ch <= 122;
         }
         pp$8.regexp_eatRegExpUnicodeEscapeSequence = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(117)) {
             if (this.regexp_eatFixedHexDigits(state, 4)) {
               var lead = state.lastIntValue;
@@ -9762,7 +9835,7 @@ var gpuBrowser = { exports: {} };
             if (state.switchU) {
               state.raise("Invalid unicode escape");
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
@@ -9821,7 +9894,7 @@ var gpuBrowser = { exports: {} };
           return ch === 100 || ch === 68 || ch === 115 || ch === 83 || ch === 119 || ch === 87;
         }
         pp$8.regexp_eatUnicodePropertyValueExpression = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (this.regexp_eatUnicodePropertyName(state) && state.eat(61)) {
             var name2 = state.lastStringValue;
             if (this.regexp_eatUnicodePropertyValue(state)) {
@@ -9830,7 +9903,7 @@ var gpuBrowser = { exports: {} };
               return true;
             }
           }
-          state.pos = start;
+          state.pos = start2;
           if (this.regexp_eatLoneUnicodePropertyNameOrValue(state)) {
             var nameOrValue = state.lastStringValue;
             this.regexp_validateUnicodePropertyNameOrValue(state, nameOrValue);
@@ -9904,7 +9977,7 @@ var gpuBrowser = { exports: {} };
           }
         };
         pp$8.regexp_eatClassAtom = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(92)) {
             if (this.regexp_eatClassEscape(state)) {
               return true;
@@ -9916,7 +9989,7 @@ var gpuBrowser = { exports: {} };
               }
               state.raise("Invalid escape");
             }
-            state.pos = start;
+            state.pos = start2;
           }
           var ch = state.current();
           if (ch !== 93) {
@@ -9927,7 +10000,7 @@ var gpuBrowser = { exports: {} };
           return false;
         };
         pp$8.regexp_eatClassEscape = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(98)) {
             state.lastIntValue = 8;
             return true;
@@ -9940,7 +10013,7 @@ var gpuBrowser = { exports: {} };
             if (this.regexp_eatClassControlLetter(state)) {
               return true;
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return this.regexp_eatCharacterClassEscape(state) || this.regexp_eatCharacterEscape(state);
         };
@@ -9954,7 +10027,7 @@ var gpuBrowser = { exports: {} };
           return false;
         };
         pp$8.regexp_eatHexEscapeSequence = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           if (state.eat(120)) {
             if (this.regexp_eatFixedHexDigits(state, 2)) {
               return true;
@@ -9962,32 +10035,32 @@ var gpuBrowser = { exports: {} };
             if (state.switchU) {
               state.raise("Invalid escape");
             }
-            state.pos = start;
+            state.pos = start2;
           }
           return false;
         };
         pp$8.regexp_eatDecimalDigits = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           var ch = 0;
           state.lastIntValue = 0;
           while (isDecimalDigit(ch = state.current())) {
             state.lastIntValue = 10 * state.lastIntValue + (ch - 48);
             state.advance();
           }
-          return state.pos !== start;
+          return state.pos !== start2;
         };
         function isDecimalDigit(ch) {
           return ch >= 48 && ch <= 57;
         }
         pp$8.regexp_eatHexDigits = function(state) {
-          var start = state.pos;
+          var start2 = state.pos;
           var ch = 0;
           state.lastIntValue = 0;
           while (isHexDigit(ch = state.current())) {
             state.lastIntValue = 16 * state.lastIntValue + hexToInt(ch);
             state.advance();
           }
-          return state.pos !== start;
+          return state.pos !== start2;
         };
         function isHexDigit(ch) {
           return ch >= 48 && ch <= 57 || ch >= 65 && ch <= 70 || ch >= 97 && ch <= 102;
@@ -10032,12 +10105,12 @@ var gpuBrowser = { exports: {} };
           return ch >= 48 && ch <= 55;
         }
         pp$8.regexp_eatFixedHexDigits = function(state, length) {
-          var start = state.pos;
+          var start2 = state.pos;
           state.lastIntValue = 0;
           for (var i = 0; i < length; ++i) {
             var ch = state.current();
             if (!isHexDigit(ch)) {
-              state.pos = start;
+              state.pos = start2;
               return false;
             }
             state.lastIntValue = 16 * state.lastIntValue + hexToInt(ch);
@@ -10126,13 +10199,13 @@ var gpuBrowser = { exports: {} };
         };
         pp$9.skipBlockComment = function() {
           var startLoc = this.options.onComment && this.curPosition();
-          var start = this.pos, end = this.input.indexOf("*/", this.pos += 2);
+          var start2 = this.pos, end = this.input.indexOf("*/", this.pos += 2);
           if (end === -1) {
             this.raise(this.pos - 2, "Unterminated comment");
           }
           this.pos = end + 2;
           if (this.options.locations) {
-            lineBreakG.lastIndex = start;
+            lineBreakG.lastIndex = start2;
             var match;
             while ((match = lineBreakG.exec(this.input)) && match.index < this.pos) {
               ++this.curLine;
@@ -10140,18 +10213,18 @@ var gpuBrowser = { exports: {} };
             }
           }
           if (this.options.onComment) {
-            this.options.onComment(true, this.input.slice(start + 2, end), start, this.pos, startLoc, this.curPosition());
+            this.options.onComment(true, this.input.slice(start2 + 2, end), start2, this.pos, startLoc, this.curPosition());
           }
         };
         pp$9.skipLineComment = function(startSkip) {
-          var start = this.pos;
+          var start2 = this.pos;
           var startLoc = this.options.onComment && this.curPosition();
           var ch = this.input.charCodeAt(this.pos += startSkip);
           while (this.pos < this.input.length && !isNewLine(ch)) {
             ch = this.input.charCodeAt(++this.pos);
           }
           if (this.options.onComment) {
-            this.options.onComment(false, this.input.slice(start + startSkip, this.pos), start, this.pos, startLoc, this.curPosition());
+            this.options.onComment(false, this.input.slice(start2 + startSkip, this.pos), start2, this.pos, startLoc, this.curPosition());
           }
         };
         pp$9.skipSpace = function() {
@@ -10405,14 +10478,14 @@ var gpuBrowser = { exports: {} };
           return this.finishToken(type, str);
         };
         pp$9.readRegexp = function() {
-          var escaped, inClass, start = this.pos;
+          var escaped, inClass, start2 = this.pos;
           for (; ; ) {
             if (this.pos >= this.input.length) {
-              this.raise(start, "Unterminated regular expression");
+              this.raise(start2, "Unterminated regular expression");
             }
             var ch = this.input.charAt(this.pos);
             if (lineBreak.test(ch)) {
-              this.raise(start, "Unterminated regular expression");
+              this.raise(start2, "Unterminated regular expression");
             }
             if (!escaped) {
               if (ch === "[") {
@@ -10428,7 +10501,7 @@ var gpuBrowser = { exports: {} };
             }
             ++this.pos;
           }
-          var pattern = this.input.slice(start, this.pos);
+          var pattern = this.input.slice(start2, this.pos);
           ++this.pos;
           var flagsStart = this.pos;
           var flags = this.readWord1();
@@ -10436,7 +10509,7 @@ var gpuBrowser = { exports: {} };
             this.unexpected(flagsStart);
           }
           var state = this.regexpState || (this.regexpState = new RegExpValidationState(this));
-          state.reset(start, pattern, flags);
+          state.reset(start2, pattern, flags);
           this.validateRegExpFlags(state);
           this.validateRegExpPattern(state);
           var value2 = null;
@@ -10447,7 +10520,7 @@ var gpuBrowser = { exports: {} };
           return this.finishToken(types.regexp, { pattern, flags, value: value2 });
         };
         pp$9.readInt = function(radix, len) {
-          var start = this.pos, total = 0;
+          var start2 = this.pos, total = 0;
           for (var i = 0, e = len == null ? Infinity : len; i < e; ++i) {
             var code = this.input.charCodeAt(this.pos), val = void 0;
             if (code >= 97) {
@@ -10465,20 +10538,20 @@ var gpuBrowser = { exports: {} };
             ++this.pos;
             total = total * radix + val;
           }
-          if (this.pos === start || len != null && this.pos - start !== len) {
+          if (this.pos === start2 || len != null && this.pos - start2 !== len) {
             return null;
           }
           return total;
         };
         pp$9.readRadixNumber = function(radix) {
-          var start = this.pos;
+          var start2 = this.pos;
           this.pos += 2;
           var val = this.readInt(radix);
           if (val == null) {
             this.raise(this.start + 2, "Expected number in radix " + radix);
           }
           if (this.options.ecmaVersion >= 11 && this.input.charCodeAt(this.pos) === 110) {
-            val = typeof BigInt !== "undefined" ? BigInt(this.input.slice(start, this.pos)) : null;
+            val = typeof BigInt !== "undefined" ? BigInt(this.input.slice(start2, this.pos)) : null;
             ++this.pos;
           } else if (isIdentifierStart(this.fullCharCodeAtPos())) {
             this.raise(this.pos, "Identifier directly after number");
@@ -10486,17 +10559,17 @@ var gpuBrowser = { exports: {} };
           return this.finishToken(types.num, val);
         };
         pp$9.readNumber = function(startsWithDot) {
-          var start = this.pos;
+          var start2 = this.pos;
           if (!startsWithDot && this.readInt(10) === null) {
-            this.raise(start, "Invalid number");
+            this.raise(start2, "Invalid number");
           }
-          var octal = this.pos - start >= 2 && this.input.charCodeAt(start) === 48;
+          var octal = this.pos - start2 >= 2 && this.input.charCodeAt(start2) === 48;
           if (octal && this.strict) {
-            this.raise(start, "Invalid number");
+            this.raise(start2, "Invalid number");
           }
           var next = this.input.charCodeAt(this.pos);
           if (!octal && !startsWithDot && this.options.ecmaVersion >= 11 && next === 110) {
-            var str$1 = this.input.slice(start, this.pos);
+            var str$1 = this.input.slice(start2, this.pos);
             var val$1 = typeof BigInt !== "undefined" ? BigInt(str$1) : null;
             ++this.pos;
             if (isIdentifierStart(this.fullCharCodeAtPos())) {
@@ -10504,7 +10577,7 @@ var gpuBrowser = { exports: {} };
             }
             return this.finishToken(types.num, val$1);
           }
-          if (octal && /[89]/.test(this.input.slice(start, this.pos))) {
+          if (octal && /[89]/.test(this.input.slice(start2, this.pos))) {
             octal = false;
           }
           if (next === 46 && !octal) {
@@ -10518,13 +10591,13 @@ var gpuBrowser = { exports: {} };
               ++this.pos;
             }
             if (this.readInt(10) === null) {
-              this.raise(start, "Invalid number");
+              this.raise(start2, "Invalid number");
             }
           }
           if (isIdentifierStart(this.fullCharCodeAtPos())) {
             this.raise(this.pos, "Identifier directly after number");
           }
-          var str = this.input.slice(start, this.pos);
+          var str = this.input.slice(start2, this.pos);
           var val = octal ? parseInt(str, 8) : parseFloat(str);
           return this.finishToken(types.num, val);
         };
@@ -23993,14 +24066,14 @@ highp float nrand(highp vec2 n) {
         },
         getAstString(source, ast) {
           const lines = Array.isArray(source) ? source : source.split(/\r?\n/g);
-          const start = ast.loc.start;
+          const start2 = ast.loc.start;
           const end = ast.loc.end;
           const result = [];
-          if (start.line === end.line) {
-            result.push(lines[start.line - 1].substring(start.column, end.column));
+          if (start2.line === end.line) {
+            result.push(lines[start2.line - 1].substring(start2.column, end.column));
           } else {
-            result.push(lines[start.line - 1].slice(start.column));
-            for (let i = start.line; i < end.line; i++) {
+            result.push(lines[start2.line - 1].slice(start2.column));
+            for (let i = start2.line; i < end.line; i++) {
               result.push(lines[i]);
             }
             result.push(lines[end.line - 1].slice(0, end.column));
@@ -24693,6 +24766,36 @@ class Core {
     this.kernelForce = kk.kernelForce;
   }
 }
+class WorkerCore {
+  constructor() {
+    window.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.85dd6833.js", { type: "module" });
+    this.startWorker = new Date();
+  }
+  init() {
+    let that = this;
+    this.isInProgress = false;
+    window.workerMassCenter.onmessage = (e) => {
+      window.centerMassVector = e.data.centerMassVectorXY;
+      window.centerMassVectorV = e.data.centerMassVectorV;
+      window.maxField = e.data.maxField;
+      that.isInProgress = false;
+      that.startWorker = new Date();
+    };
+  }
+  calc() {
+    if (this.isInProgress)
+      return;
+    this.isInProgress = true;
+    let timeWorker = Math.ceil(100 * 1e3 / (new Date() - this.startWorker)) / 100;
+    window.workerFps = timeWorker;
+    window.workerMassCenter.postMessage({
+      dataArr: window.dataArrWithField,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      count: window.MAX_DOTS
+    });
+  }
+}
 const addSphereInit = () => {
   window.addSphereCount = 500;
   window.addSphereRadius = 100;
@@ -24733,10 +24836,12 @@ const mouseCoordInit = () => {
   };
 };
 var style = "";
+const workerCore = new WorkerCore();
 const ctx = document.getElementById("canvas").getContext("2d");
 const gradientColorList = generateColor("#f58484", "#0ecf9e", 1e4);
 window.core = new Core();
 window.dataArr = [];
+window.dataArrWithField = [];
 window.centerMassVector = new Vector(0, 0);
 window.centerMassVectorV = new Vector(0, 0);
 window.isPause = false;
@@ -24748,7 +24853,6 @@ window.canvasElem = {
   ctx
 };
 window.MAX_DOTS = MAX_DOTS.count;
-const workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.6fd42888.js", { type: "module" });
 const INIT = () => {
   const bodyGenerator = new GeneratorCircle();
   let bodyList = bodyGenerator.generate();
@@ -24763,6 +24867,7 @@ const INIT = () => {
   window.MAX_DOTS = window.dataArr.length;
   mouseCoordInit();
   addSphereInit();
+  workerCore.init();
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
   window.requestAnimationFrame(draw);
@@ -24774,33 +24879,31 @@ const getDotColorFromField = (field) => {
     k = maxColor;
   return `#${gradientColorList[k]}`;
 };
+let start = new Date();
 async function draw() {
   if (window.isPause) {
     window.requestAnimationFrame(draw);
     return;
   }
+  workerCore.calc();
+  start = new Date();
   ctx.globalCompositeOperation = "destination-over";
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  let start = new Date();
+  start = new Date();
   window.dataArr = window.core.kernel.setOutput([window.dataArr.length]).setConstants({
     len: window.dataArr.length
   })(G, window.dataArr);
-  const dataArrWithField = window.core.kernelForce.setOutput([window.dataArr.length]).setConstants({
+  window.dataArrWithField = window.core.kernelForce.setOutput([window.dataArr.length]).setConstants({
     len: window.dataArr.length
   })(G, window.dataArr);
-  let time = new Date() - start;
-  ctx.strokeStyle = "#ffffff";
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "48px serif";
-  ctx.fillText(time, 100, 100);
   let x = 0;
   let y = 0;
   let dx, dy = 0;
   let field = 0;
-  for (let k = 0; k < dataArrWithField.length; k++) {
-    x = dataArrWithField[k][0];
-    y = dataArrWithField[k][1];
-    field = dataArrWithField[k][2];
+  for (let k = 0; k < window.dataArrWithField.length; k++) {
+    x = window.dataArrWithField[k][0];
+    y = window.dataArrWithField[k][1];
+    field = window.dataArrWithField[k][2];
     dx = (x - window.centerMassVector.x) * window.zoom;
     dy = (y - window.centerMassVector.y) * window.zoom;
     dx = dx + window.innerWidth / 2;
@@ -24811,19 +24914,10 @@ async function draw() {
     ctx.closePath();
     ctx.stroke();
   }
-  workerMassCenter.postMessage({
-    dataArr: dataArrWithField,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    count: window.MAX_DOTS
-  });
-}
-workerMassCenter.onmessage = (e) => {
-  window.centerMassVector = e.data.centerMassVectorXY;
-  window.centerMassVectorV = e.data.centerMassVectorV;
-  window.maxField = e.data.maxField;
+  let time = Math.ceil(100 * 1e3 / (new Date() - start)) / 100;
+  window.fps = time;
   window.requestAnimationFrame(draw);
-};
+}
 window.addEventListener("resize", function(event) {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
@@ -24832,4 +24926,4 @@ INIT();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-e0c27353.js.map
+//# sourceMappingURL=index-3a33d672.js.map

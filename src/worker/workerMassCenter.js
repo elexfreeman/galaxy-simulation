@@ -1,4 +1,4 @@
-import {Vector} from './vector';
+import {Vector} from '../vector';
 
 onmessage = function (e) {
   const {
@@ -7,6 +7,7 @@ onmessage = function (e) {
 
 
   const getCenterMassVector = () => {
+    let startWorker = new Date();
     const count = dataArr.length;
     const centerMassVectorXY = new Vector(0, 0);
     let maxField = 0;
@@ -22,10 +23,13 @@ onmessage = function (e) {
     centerMassVectorXY.x = (centerMassVectorXY.x / count);
     centerMassVectorXY.y = (centerMassVectorXY.y / count);
 
+    //let workerFps = Math.ceil(100 * 1000 / (new Date() - startWorker)) / 100;
+    let workerFps = new Date() - startWorker;
 
     return {
       centerMassVectorXY,
       maxField,
+      workerFps,
     }
   }
 
