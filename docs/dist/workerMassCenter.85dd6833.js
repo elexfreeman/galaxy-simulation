@@ -26,6 +26,7 @@
       dataArr
     } = e.data;
     const getCenterMassVector = () => {
+      let startWorker = new Date();
       const count = dataArr.length;
       const centerMassVectorXY = new Vector(0, 0);
       let maxField = 0;
@@ -38,9 +39,11 @@
       }
       centerMassVectorXY.x = centerMassVectorXY.x / count;
       centerMassVectorXY.y = centerMassVectorXY.y / count;
+      let workerFps = new Date() - startWorker;
       return {
         centerMassVectorXY,
-        maxField
+        maxField,
+        workerFps
       };
     };
     postMessage(getCenterMassVector());

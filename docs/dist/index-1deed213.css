@@ -148,14 +148,27 @@
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
+}.status-bar {
+  display: flex;
+  gap: 5px;
+  border-top: 1px solid #ffffff;
+}
+.status-bar__item {
+  border-right: 1px solid #ffffff;
+  padding: 5px;
+}
+.status-bar__item-fps {
+  width: 72px;
 }.app {
   border: 1px solid #ffffff;
   position: absolute;
-  padding: 0px 40px 40px 40px;
   width: 400px;
   top: 20px;
   right: 20px;
   color: #ffffff;
+}
+.app__wraper {
+  padding: 10px 20px;
 }
 .app__title {
   display: flex;
