@@ -13,6 +13,7 @@ import {WorkerCore} from '@/worker/worker-core'
 import {addSphereInit} from '@/module/addSphere';
 import {mouseCoordInit} from '@/module/mouseCursor';
 import {FpsMeter} from '@/module/fps'
+import {starTrackerInit} from '@/module/starTracker';
 
 import '@/styles/style.scss';
 
@@ -44,30 +45,6 @@ window.canvasElem = {
 
 window.MAX_DOTS = C.MAX_DOTS;
 
-const main = () => {
-  const bodyGenerator = new GeneratorCircle();
-  let bodyList = bodyGenerator.generate();
-
-  for (let k = 0; k < bodyList.length; k++) {
-    window.dataArr.push([
-      bodyList[k].coord.x,
-      bodyList[k].coord.y,
-      bodyList[k].velocity.y,
-      bodyList[k].velocity.y,
-    ]);
-  }
-  window.MAX_DOTS = window.dataArr.length;
-
-  //addPointInit();
-  mouseCoordInit();
-  addSphereInit();
-
-  workerCore.init();
-
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
-  window.requestAnimationFrame(draw);
-}
 
 const getDotColorFromField = (field) => {
   const maxColor = gradientColorList.length;
@@ -127,28 +104,56 @@ const calcStars = () => {
 /////////////////////
 /////////////////////
 async function draw() {
+  fpsMeter.start();
   clearCanvas();
-  if (window.isPause) {
-    drawStars();
-    window.requestAnimationFrame(draw);
-    return;
+
+  if (!window.isPause) {
+    workerCore.calc();
+    calcStars();
   }
 
-  fpsMeter.start();
-
-  workerCore.calc();
-  calcStars();
   drawStars();
-
   fpsMeter.finish();
+  window.requestAnimationFrame(draw);
+}
+
+const initDataArr = () => {
+  const bodyGenerator = new GeneratorCircle();
+  let bodyList = bodyGenerator.generate();
+
+  for (let k = 0; k < bodyList.length; k++) {
+    window.dataArr.push([
+      bodyList[k].coord.x,
+      bodyList[k].coord.y,
+      bodyList[k].velocity.y,
+      bodyList[k].velocity.y,
+    ]);
+  }
+
+  window.MAX_DOTS = window.dataArr.length;
+}
+
+const main = () => {
+  initDataArr();
+
+  // init modules
+  starTrackerInit();
+  mouseCoordInit();
+  addSphereInit();
+
+  workerCore.init();
+
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+  }, true);
 
   window.requestAnimationFrame(draw);
 }
 
-window.addEventListener('resize', () => {
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
-}, true);
 
 main();
 
