@@ -20,6 +20,7 @@ export default {
     return {
       isOnSave: false,
       isStartSelect: false,
+      isStartRect: false,
     };
   },
 
@@ -27,7 +28,17 @@ export default {
 
   watch: {},
 
-  mounted() {},
+  mounted() {
+    window.canvasElem.elem.addEventListener('mousedown', this.onMouseDown);
+    window.canvasElem.elem.addEventListener('mouseup', this.onMouseUp);
+    window.canvasElem.elem.addEventListener('mousemove', this.onMouseMove);
+  },
+
+  destroyed() {
+    window.canvasElem.elem.removeEventListener('mousedown', this.onMouseDown);
+    window.canvasElem.elem.removeEventListener('mouseup', this.onMouseUp);
+    window.canvasElem.elem.removeEventListener('mousemove', this.onMouseMove);
+  },
 
   methods: {
     onStartSelect() {
@@ -37,7 +48,27 @@ export default {
     onAbortSelect() {
       window.isPause = false;
       this.isStartSelect = false;
-    }
+    },
+    onMouseDown(event) {
+      if (!this.isStartSelect) return;
+      this.isStartRect = true;
+      window.mouseRect.x1 = event.x;
+      window.mouseRect.y1 = event.y;
+    },
+    onMouseUp() {
+      this.isStartRect = false;
+      window.mouseRect = {
+        x1: 0,
+        y1: 0,
+        x2: 0,
+        y2: 0,
+      };
+    },
+    onMouseMove(event) {
+      if (!this.isStartRect) return;
+      window.mouseRect.x2 = event.x;
+      window.mouseRect.y2 = event.y;
+    },
   },
 };
 </script>

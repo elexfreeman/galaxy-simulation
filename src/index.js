@@ -13,7 +13,7 @@ import {WorkerCore} from '@/worker/worker-core'
 import {addSphereInit} from '@/module/addSphere';
 import {mouseCoordInit} from '@/module/mouseCursor';
 import {FpsMeter} from '@/module/fps'
-import {starTrackerInit} from '@/module/starTracker';
+import {starTrackerInit, drawMouseRect} from '@/module/starTracker';
 
 import '@/styles/style.scss';
 
@@ -113,6 +113,7 @@ async function draw() {
   }
 
   drawStars();
+  drawMouseRect();
   fpsMeter.finish();
   window.requestAnimationFrame(draw);
 }
