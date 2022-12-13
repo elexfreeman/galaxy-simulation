@@ -40,7 +40,7 @@ window.canvasElem = {
   ctx: ctx,
 }
 
-window.MAX_DOTS = C.MAX_DOTS.count;
+window.MAX_DOTS = C.MAX_DOTS;
 
 const INIT = () => {
   const bodyGenerator = new GeneratorCircle();

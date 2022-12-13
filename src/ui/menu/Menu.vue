@@ -55,7 +55,6 @@ export default {
 .menu {
   display: flex;
   gap: 5px;
-  margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
 }

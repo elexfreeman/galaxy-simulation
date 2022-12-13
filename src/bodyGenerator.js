@@ -8,14 +8,14 @@ export class BodyGenerator {
   generate() {
     const bodyList = [];
 
-    for (let k = 0; k < C.MAX_DOTS.count; k++) {
+    for (let k = 0; k < C.MAX_DOTS; k++) {
       bodyList.push(new Body(new Vector(
         getRandomInt(300, 600),
         getRandomInt(300, 600)
       ), 5))
     }
 
-    for (let k = 0; k < C.MAX_DOTS.count; k++) {
+    for (let k = 0; k < C.MAX_DOTS; k++) {
       bodyList.push(new Body(new Vector(
         getRandomInt(400, 800),
         getRandomInt(400, 800)
@@ -57,7 +57,7 @@ export class GeneratorCircle extends BodyGenerator {
       }
     }
 
-    addDots(Math.ceil(C.MAX_DOTS.count), new Vector(600, 400), 500, '#f8a5a5');
+    addDots(Math.ceil(C.MAX_DOTS), new Vector(600, 400), 500, '#f8a5a5');
 
     //    addDots(Math.ceil(C.MAX_DOTS.count / 3), new Vector(0, 1200), 200, '#f8a5a5');
     //    addDots(Math.ceil(C.MAX_DOTS.count / 3), new Vector(1200, 0), 200, '#faeb9e');

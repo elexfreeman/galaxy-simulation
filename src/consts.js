@@ -1,6 +1,4 @@
-export const MAX_DOTS = {
-  count: 1000,
-}
+export const MAX_DOTS = 1000;
 
 export const G = 0.01;
 
