@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import {getStartsFromRect} from '@/module/starTracker';
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 
@@ -57,6 +58,7 @@ export default {
     },
     onMouseUp() {
       this.isStartRect = false;
+      console.log(getStartsFromRect());
       window.mouseRect = {
         x1: 0,
         y1: 0,
