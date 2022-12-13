@@ -12,6 +12,7 @@ import {WorkerCore} from '@/worker/worker-core'
 
 import {addSphereInit} from '@/module/addSphere';
 import {mouseCoordInit} from '@/module/mouseCursor';
+import {FpsMeter} from '@/module/fps'
 
 import '@/styles/style.scss';
 
@@ -24,6 +25,7 @@ const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
 
 window.core = new Core();
 
+const fpsMeter = new FpsMeter();
 
 window.dataArr = [];
 window.dataArrWithField = [];
@@ -42,7 +44,7 @@ window.canvasElem = {
 
 window.MAX_DOTS = C.MAX_DOTS;
 
-const INIT = () => {
+const main = () => {
   const bodyGenerator = new GeneratorCircle();
   let bodyList = bodyGenerator.generate();
 
@@ -74,36 +76,12 @@ const getDotColorFromField = (field) => {
   return `#${gradientColorList[k]}`;
 }
 
-/////////////////////
-/////////////////////
-/////////////////////
-  let start = new Date();
-async function draw() {
-  if (window.isPause) {
-    window.requestAnimationFrame(draw);
-    return;
-  }
-
-  workerCore.calc();
-
-  start = new Date();
-
+const clearCanvas = () => {
   ctx.globalCompositeOperation = 'destination-over';
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
+}
 
-  start = new Date();
-  window.dataArr = window.core.kernel
-    .setOutput([window.dataArr.length])
-    .setConstants({
-      len: window.dataArr.length
-    })(C.G, window.dataArr);
-
-  window.dataArrWithField = window.core.kernelForce
-    .setOutput([window.dataArr.length])
-    .setConstants({
-      len: window.dataArr.length,
-    })(C.G, window.dataArr);
-
+const drawStars = () => {
   let x = 0;
   let y = 0;
   let dx, dy = 0;
@@ -129,21 +107,50 @@ async function draw() {
     ctx.closePath();
     ctx.stroke();
   }
+}
 
-  // calc time delay
-  let time = Math.ceil(100 * 1000 / (new Date() - start)) / 100;
-  window.fps = time;
+const calcStars = () => {
+  window.dataArr = window.core.kernel
+    .setOutput([window.dataArr.length])
+    .setConstants({
+      len: window.dataArr.length
+    })(C.G, window.dataArr);
+
+  window.dataArrWithField = window.core.kernelForce
+    .setOutput([window.dataArr.length])
+    .setConstants({
+      len: window.dataArr.length,
+    })(C.G, window.dataArr);
+}
+
+/////////////////////
+/////////////////////
+/////////////////////
+async function draw() {
+  clearCanvas();
+  if (window.isPause) {
+    drawStars();
+    window.requestAnimationFrame(draw);
+    return;
+  }
+
+  fpsMeter.start();
+
+  workerCore.calc();
+  calcStars();
+  drawStars();
+
+  fpsMeter.finish();
 
   window.requestAnimationFrame(draw);
 }
 
-
-window.addEventListener('resize', function (event) {
+window.addEventListener('resize', () => {
   ctx.canvas.width = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
 }, true);
 
-INIT();
+main();
 
 new Vue({
   render: (h) => h(App),

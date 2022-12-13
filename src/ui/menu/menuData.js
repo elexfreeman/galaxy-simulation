@@ -3,12 +3,15 @@ export const menuData = [
     title: 'Navigation',
   },
   {
-    title: 'Add 500 points',
+    title: 'Add points',
   },
   {
-    title: 'Save to file',
+    title: 'Save',
   },
   {
-    title: 'Load from file',
+    title: 'Load',
+  },
+  {
+    title: 'Star tracking',
   },
 ]
