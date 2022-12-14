@@ -54,5 +54,12 @@ export function generateColor(colorStart, colorEnd, colorCount) {
   return saida;
 }
 
-// Exemplo de como usar
-//var tmp = generateColor('#0ecf9e', '#f58484', 10);
+const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
+
+export const getDotColorFromField = (field) => {
+  const maxColor = gradientColorList.length;
+  let k = Math.ceil(maxColor * field / window.maxField);
+  if (field > maxColor) k = maxColor;
+  return `#${gradientColorList[k]}`;
+}
+

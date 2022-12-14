@@ -1,6 +1,6 @@
 export const MAX_DOTS = 1000;
 
-export const G = 0.01;
+export const G = 0.001;
 
 export const FAMILY_FORCE = 1.0;
 

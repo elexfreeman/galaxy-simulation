@@ -1,4 +1,3 @@
-
 <template>
   <div class="status-bar">
     <div class="status-bar__item status-bar__item-fps">fps: {{ fps }}</div>

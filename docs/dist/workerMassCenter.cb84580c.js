@@ -23,7 +23,8 @@
   }
   onmessage = function(e) {
     const {
-      dataArr
+      dataArr,
+      test
     } = e.data;
     const getCenterMassVector = () => {
       let startWorker = new Date();
@@ -40,6 +41,9 @@
       centerMassVectorXY.x = centerMassVectorXY.x / count;
       centerMassVectorXY.y = centerMassVectorXY.y / count;
       let workerFps = new Date() - startWorker;
+      if (test) {
+        console.log(centerMassVectorXY);
+      }
       return {
         centerMassVectorXY,
         maxField,

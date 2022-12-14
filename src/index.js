@@ -3,9 +3,9 @@ import Vue from 'vue';
 import App from '@/ui/App.vue';
 import * as C from '@/consts';
 
-import {generateColor} from '@/utils/gradient'
 import {Vector} from '@/vector';
 import {GeneratorCircle} from '@/bodyGenerator';
+import {getDotColorFromField} from '@/utils/gradient'
 
 import {Core} from '@/core/core';
 import {WorkerCore} from '@/worker/worker-core'
@@ -20,8 +20,6 @@ import '@/styles/style.scss';
 
 
 const ctx = document.getElementById('canvas').getContext('2d');
-
-const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
 
 window.core = new Core();
 
@@ -48,14 +46,6 @@ const workerCore = new WorkerCore((data) => {
   window.centerMassVector = data.centerMassVector;
   window.maxField = data.maxField;
 });
-
-
-const getDotColorFromField = (field) => {
-  const maxColor = gradientColorList.length;
-  let k = Math.ceil(maxColor * field / window.maxField);
-  if (field > maxColor) k = maxColor;
-  return `#${gradientColorList[k]}`;
-}
 
 const clearCanvas = () => {
   ctx.globalCompositeOperation = 'destination-over';

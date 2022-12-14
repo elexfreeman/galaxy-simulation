@@ -72,7 +72,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     padding: 5px;
     margin-top: -1px;
     margin-bottom: 10px;

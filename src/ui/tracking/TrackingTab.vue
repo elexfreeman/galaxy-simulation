@@ -1,25 +1,28 @@
 <template>
   <div class="tracking-tab">
     <div class="tracking-tab__title">Star Group Tracking</div>
-    <TButton v-if="!isStartSelect" @click="onStartSelect">Click to select a group</TButton>
-    <TButton v-if="isStartSelect" @click="onAbortSelect">Abort select a group</TButton>
+    <TButton class="tracking-tab__btn" v-if="!isStartSelect" @click="onStartSelect">Click to select a group</TButton>
+    <TButton class="tracking-tab__btn" v-if="isStartSelect" @click="onAbortSelect">Abort select a group</TButton>
     <canvas width="360" height="360" ref="canvas" class="tracking-tab__canvas" />
-    {{ centerMassVector }}
+    <TrackingStatusBar :centerMassVector="centerMassVector" />
   </div>
 </template>
 
 <script>
 import { getStartsFromRect } from '@/module/starTracker';
-import { WorkerCore } from '@/worker/worker-core';
 import { Vector } from '@/vector';
+import { xyToCanvas } from '@/utils/utils';
+import { getDotColorFromField } from '@/utils/gradient';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
+import TrackingStatusBar from '@/ui/tracking/StatusBar.vue'
 
 export default {
   components: {
     TButton,
     TInput,
+    TrackingStatusBar,
   },
 
   data() {
@@ -45,7 +48,7 @@ export default {
     window.canvasElem.elem.addEventListener('mousemove', this.onMouseMove);
     this.ctx = this.$refs['canvas'].getContext('2d');
 
-//    this.worker = new WorkerCore(this.workerCallback, this);
+    //    this.worker = new WorkerCore(this.workerCallback, this);
   },
 
   destroyed() {
@@ -55,6 +58,7 @@ export default {
   },
 
   methods: {
+    getDotColorFromField,
     workerCallback(data, that) {
       that.centerMassVector = data.centerMassVector;
     },
@@ -92,15 +96,15 @@ export default {
       this.draw(this);
     },
     clearCanvas(that) {
-      if(!that.$refs?.canvas?.offsetHeight) return;
+      if (!that.$refs?.canvas?.offsetHeight) return;
       const { offsetWidth, offsetHeight } = that.$refs['canvas'];
       that.ctx.globalCompositeOperation = 'destination-over';
       that.ctx.clearRect(0, 0, offsetWidth, offsetHeight); // clear canvas
     },
     drawStars(starList, that) {
-      if(!that.$refs?.canvas?.offsetHeight) return;
+      if (!that.$refs?.canvas?.offsetHeight) return;
 
-      const zoom = 1.1;
+      const zoom = 2.9;
       let x = 0;
       let y = 0;
       let dx,
@@ -109,9 +113,9 @@ export default {
 
       const { offsetWidth, offsetHeight } = that.$refs['canvas'];
 
-      const centerMassVector = new Vector(0,0);
+      const centerMassVector = new Vector(0, 0);
       const count = starList.length;
-    let maxField = 0;
+      let maxField = 0;
 
       for (let k = 0; k < starList.length; k++) {
         centerMassVector.x += starList[k][0];
@@ -124,23 +128,40 @@ export default {
       centerMassVector.x = centerMassVector.x / count;
       centerMassVector.y = centerMassVector.y / count;
 
+      that.centerMassVector = centerMassVector;
+
       for (let k = 0; k < window.dataArrWithField.length; k++) {
-        x = window.dataArrWithField[k][0];
-        y = window.dataArrWithField[k][1];
+        let { dx, dy } = xyToCanvas(
+          window.dataArrWithField[k][0],
+          window.dataArrWithField[k][1],
+          zoom,
+          centerMassVector,
+          offsetWidth,
+          offsetHeight,
+        );
         field = window.dataArrWithField[k][2];
 
-        dx = (x - centerMassVector.x) * zoom;
-        dy = (y - centerMassVector.y) * zoom;
-
-        dx = dx + offsetWidth / 2;
-        dy = dy + offsetHeight / 2;
-
         that.ctx.beginPath();
-        that.ctx.fillStyle = '#FFFFFF';
+        that.ctx.fillStyle = that.getDotColorFromField(field);
         that.ctx.fillRect(dx, dy, 3, 3);
         that.ctx.closePath();
         that.ctx.stroke();
       }
+
+      const rectXY = xyToCanvas(
+        centerMassVector.x - 10,
+        centerMassVector.y - 10,
+        window.zoom,
+        window.centerMassVector,
+        window.innerWidth,
+        window.innerHeight,
+      );
+
+      window.canvasElem.ctx.beginPath();
+      window.canvasElem.ctx.strokeStyle = 'green';
+      window.canvasElem.ctx.strokeRect(rectXY.dx, rectXY.dy, 20, 20);
+      window.canvasElem.ctx.closePath();
+      window.canvasElem.ctx.stroke();
     },
     draw(that) {
       if (!that) return;
@@ -169,6 +190,10 @@ export default {
   &__canvas {
     background: #1f1f1f;
     border: 1px solid #191919;
+  }
+
+  &__btn {
+    margin-bottom: 10px;
   }
 }
 </style>
