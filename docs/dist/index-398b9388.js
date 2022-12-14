@@ -25120,7 +25120,7 @@ class WorkerCore {
       this.callback = callback.bind(that);
     }
     console.log(this.that);
-    this.workerMassCenter = new Worker("/dist/workerMassCenter.cb84580c.js", { type: "module" });
+    this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.cb84580c.js", { type: "module" });
     this.workerHandeler = this.workerHandeler.bind(this);
     this.calc = this.calc.bind(this);
   }
