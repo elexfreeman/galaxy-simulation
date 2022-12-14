@@ -3,11 +3,16 @@
     <div class="tracking-tab__title">Star Group Tracking</div>
     <TButton v-if="!isStartSelect" @click="onStartSelect">Click to select a group</TButton>
     <TButton v-if="isStartSelect" @click="onAbortSelect">Abort select a group</TButton>
+    <canvas width="360" height="360" ref="canvas" class="tracking-tab__canvas" />
+    {{ centerMassVector }}
   </div>
 </template>
 
 <script>
-import {getStartsFromRect} from '@/module/starTracker';
+import { getStartsFromRect } from '@/module/starTracker';
+import { WorkerCore } from '@/worker/worker-core';
+import { Vector } from '@/vector';
+
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 
@@ -22,6 +27,11 @@ export default {
       isOnSave: false,
       isStartSelect: false,
       isStartRect: false,
+      isStartDraw: false,
+      worker: null,
+      ctx: null,
+      starList: [],
+      centerMassVector: new Vector(0, 0),
     };
   },
 
@@ -33,6 +43,9 @@ export default {
     window.canvasElem.elem.addEventListener('mousedown', this.onMouseDown);
     window.canvasElem.elem.addEventListener('mouseup', this.onMouseUp);
     window.canvasElem.elem.addEventListener('mousemove', this.onMouseMove);
+    this.ctx = this.$refs['canvas'].getContext('2d');
+
+//    this.worker = new WorkerCore(this.workerCallback, this);
   },
 
   destroyed() {
@@ -42,6 +55,9 @@ export default {
   },
 
   methods: {
+    workerCallback(data, that) {
+      that.centerMassVector = data.centerMassVector;
+    },
     onStartSelect() {
       window.isPause = true;
       this.isStartSelect = true;
@@ -56,20 +72,89 @@ export default {
       window.mouseRect.x1 = event.x;
       window.mouseRect.y1 = event.y;
     },
+    onMouseMove(event) {
+      if (!this.isStartRect) return;
+      window.mouseRect.x2 = event.x;
+      window.mouseRect.y2 = event.y;
+    },
     onMouseUp() {
       this.isStartRect = false;
-      console.log(getStartsFromRect());
+      this.starList = getStartsFromRect();
+      this.isStartDraw = true;
+      this.isStartSelect = false;
+      window.isPause = false;
       window.mouseRect = {
         x1: 0,
         y1: 0,
         x2: 0,
         y2: 0,
       };
+      this.draw(this);
     },
-    onMouseMove(event) {
-      if (!this.isStartRect) return;
-      window.mouseRect.x2 = event.x;
-      window.mouseRect.y2 = event.y;
+    clearCanvas(that) {
+      if(!that.$refs?.canvas?.offsetHeight) return;
+      const { offsetWidth, offsetHeight } = that.$refs['canvas'];
+      that.ctx.globalCompositeOperation = 'destination-over';
+      that.ctx.clearRect(0, 0, offsetWidth, offsetHeight); // clear canvas
+    },
+    drawStars(starList, that) {
+      if(!that.$refs?.canvas?.offsetHeight) return;
+
+      const zoom = 1.1;
+      let x = 0;
+      let y = 0;
+      let dx,
+        dy = 0;
+      let field = 0;
+
+      const { offsetWidth, offsetHeight } = that.$refs['canvas'];
+
+      const centerMassVector = new Vector(0,0);
+      const count = starList.length;
+    let maxField = 0;
+
+      for (let k = 0; k < starList.length; k++) {
+        centerMassVector.x += starList[k][0];
+        centerMassVector.y += starList[k][1];
+        if (starList[k][2] > maxField) {
+          maxField = dataArr[k][2];
+        }
+      }
+
+      centerMassVector.x = centerMassVector.x / count;
+      centerMassVector.y = centerMassVector.y / count;
+
+      for (let k = 0; k < window.dataArrWithField.length; k++) {
+        x = window.dataArrWithField[k][0];
+        y = window.dataArrWithField[k][1];
+        field = window.dataArrWithField[k][2];
+
+        dx = (x - centerMassVector.x) * zoom;
+        dy = (y - centerMassVector.y) * zoom;
+
+        dx = dx + offsetWidth / 2;
+        dy = dy + offsetHeight / 2;
+
+        that.ctx.beginPath();
+        that.ctx.fillStyle = '#FFFFFF';
+        that.ctx.fillRect(dx, dy, 3, 3);
+        that.ctx.closePath();
+        that.ctx.stroke();
+      }
+    },
+    draw(that) {
+      if (!that) return;
+
+      that.clearCanvas(that);
+
+      const starList = that.starList.map((item) => {
+        return dataArr[item];
+      });
+
+      that.drawStars(starList, that);
+      requestAnimationFrame(() => {
+        this.draw(that);
+      });
     },
   },
 };
@@ -79,6 +164,11 @@ export default {
 .tracking-tab {
   &__title {
     margin-bottom: 10px;
+  }
+
+  &__canvas {
+    background: #1f1f1f;
+    border: 1px solid #191919;
   }
 }
 </style>

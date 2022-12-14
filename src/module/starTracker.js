@@ -48,10 +48,16 @@ export const getStartsFromRect = () => {
 
     const isInRect = x > minX && x < maxX && y > minY && y < maxY;
 
-    if(isInRect) starList.push(window.dataArr[k]);
+    if(isInRect) starList.push(k);
 
   }
 
   return starList;
 }
 
+export class StarTracker {
+  constructor(starList) {
+    this.starList = starList;
+
+  }
+}

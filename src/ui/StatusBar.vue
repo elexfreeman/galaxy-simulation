@@ -2,7 +2,6 @@
 <template>
   <div class="status-bar">
     <div class="status-bar__item status-bar__item-fps">fps: {{ fps }}</div>
-    <div class="status-bar__item">Worker fps: {{ workerFps }}</div>
     <div class="status-bar__item">Dots count: {{ dotsCount }}</div>
   </div>
 </template>

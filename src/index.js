@@ -18,7 +18,6 @@ import {starTrackerInit, drawMouseRect} from '@/module/starTracker';
 import '@/styles/style.scss';
 
 
-const workerCore = new WorkerCore();
 
 const ctx = document.getElementById('canvas').getContext('2d');
 
@@ -44,6 +43,11 @@ window.canvasElem = {
 }
 
 window.MAX_DOTS = C.MAX_DOTS;
+
+const workerCore = new WorkerCore((data) => {
+  window.centerMassVector = data.centerMassVector;
+  window.maxField = data.maxField;
+});
 
 
 const getDotColorFromField = (field) => {
@@ -108,7 +112,7 @@ async function draw() {
   clearCanvas();
 
   if (!window.isPause) {
-    workerCore.calc();
+    workerCore.calc(window.dataArrWithField);
     calcStars();
   }
 
