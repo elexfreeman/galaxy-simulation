@@ -124,6 +124,9 @@
   padding-right: 34px;
 }.save-file-form {
   color: #ffffff;
+}
+.save-file-form__title {
+  margin-bottom: 10px;
 }.zoom {
   display: flex;
   width: 170px;
@@ -142,10 +145,34 @@
 .zoom__data {
   width: 40px;
   text-align: center;
+}.pause__button {
+  width: 100px;
+}.navigation {
+  display: flex;
+  justify-content: space-between;
+}.tracking-status-bar {
+  display: flex;
+}
+.tracking-status-bar__item {
+  padding: 5px;
+}
+.tracking-status-bar__item-xy {
+  padding: 5px;
+  width: 105px;
+  display: flex;
+  justify-content: space-between;
+}.tracking-tab__title {
+  margin-bottom: 10px;
+}
+.tracking-tab__canvas {
+  background: #1f1f1f;
+  border: 1px solid #191919;
+}
+.tracking-tab__btn {
+  margin-bottom: 10px;
 }.menu {
   display: flex;
   gap: 5px;
-  margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #fff;
 }.status-bar {
@@ -174,7 +201,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
   padding: 5px;
   margin-top: -1px;
   margin-bottom: 10px;
@@ -186,6 +213,7 @@
 
 .cc {
   background: #000000;
+  cursor: crosshair;
 }
 
 .canvas {

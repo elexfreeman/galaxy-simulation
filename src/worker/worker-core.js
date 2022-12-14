@@ -1,36 +1,52 @@
 export class WorkerCore {
-  constructor() {
-    window.workerMassCenter = new Worker(
+  constructor(callback, that) {
+    this.callback = callback;
+    if (that) {
+      window.that11 = that;
+      this.callback = callback.bind(that);
+    }
+    console.log(this.that)
+    this.workerMassCenter = new Worker(
       new URL('./workerMassCenter.js', import.meta.url),
       {type: 'module'}
     );
-    this.startWorker = new Date();
+    this.workerHandeler = this.workerHandeler.bind(this);
+    this.calc = this.calc.bind(this);
+  }
+
+  workerHandeler(e) {
+    if (window.that11) {
+      window.that11.workerCallback({
+        centerMassVector: e.data.centerMassVectorXY,
+        centerMassVectorV: e.data.centerMassVectorV,
+        maxField: e.data.maxField,
+      }, window.that11);
+    } else
+      this.callback({
+        centerMassVector: e.data.centerMassVectorXY,
+        centerMassVectorV: e.data.centerMassVectorV,
+        maxField: e.data.maxField,
+      }, window.that11);
+    this.isInProgress = false;
+
   }
 
   init() {
-    let that = this;
     this.isInProgress = false;
-    window.workerMassCenter.onmessage = (e) => {
-      window.centerMassVector = e.data.centerMassVectorXY
-      window.centerMassVectorV = e.data.centerMassVectorV;
-      window.maxField = e.data.maxField;
-      that.isInProgress = false;
-      that.startWorker = new Date();
-    };
+    this.workerMassCenter.addEventListener('message', this.workerHandeler);
   }
 
-  calc() {
-    if (this.isInProgress) return;
+  kill() {
+    this.workerMassCenter.removeEventListener('message', this.workerHandeler);
+    this.workerMassCenter.terminate();
+  }
 
+  calc(data, test) {
+    if (this.isInProgress) return;
     this.isInProgress = true;
-    let timeWorker = Math.ceil(100 * 1000 / (new Date() - this.startWorker)) / 100;
-    window.workerFps = timeWorker;
-    window.workerMassCenter.postMessage({
-      dataArr: window.dataArrWithField,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      count: window.MAX_DOTS,
+    this.workerMassCenter.postMessage({
+      dataArr: data,
+      test,
     });
   }
-
 }

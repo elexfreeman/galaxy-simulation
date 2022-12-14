@@ -51,5 +51,8 @@ export default {
 <style lang="scss">
 .save-file-form {
   color: #ffffff;
+  &__title {
+    margin-bottom: 10px;
+  }
 }
 </style>

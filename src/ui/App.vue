@@ -7,6 +7,7 @@
       <div v-if="selectedMenuIdx == 1" class="app_add-point">Mouse click point</div>
       <SaveFileForm v-if="selectedMenuIdx == 2" />
       <LoadFileForm v-if="selectedMenuIdx == 3" />
+      <StarTracking v-if="selectedMenuIdx == 4" />
     </div>
     <StatusBar />
   </div>
@@ -16,6 +17,7 @@
 import LoadFileForm from '@/ui/saveLoadFile/LoadFileForm.vue';
 import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
+import StarTracking from '@/ui/tracking/TrackingTab.vue'
 
 import Menu from '@/ui/menu/Menu.vue';
 import StatusBar from '@/ui/StatusBar.vue';
@@ -29,6 +31,7 @@ export default {
     Navigation,
     Menu,
     StatusBar,
+    StarTracking,
   },
 
   data() {
@@ -69,7 +72,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
     padding: 5px;
     margin-top: -1px;
     margin-bottom: 10px;

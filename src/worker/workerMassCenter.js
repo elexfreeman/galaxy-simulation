@@ -3,6 +3,7 @@ import {Vector} from '../vector';
 onmessage = function (e) {
   const {
     dataArr,
+    test,
   } = e.data;
 
 
@@ -25,6 +26,10 @@ onmessage = function (e) {
 
     //let workerFps = Math.ceil(100 * 1000 / (new Date() - startWorker)) / 100;
     let workerFps = new Date() - startWorker;
+
+    if(test) {
+      console.log(centerMassVectorXY)
+    }
 
     return {
       centerMassVectorXY,
