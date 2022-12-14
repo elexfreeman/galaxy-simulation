@@ -13,6 +13,7 @@ const _dirname = dirname(fileURLToPath(import.meta.url));
 //const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
 
 export default defineConfig({
+  base: `/galaxy-simulation/`,
   css: {
     preprocessorOptions: {
       scss: {
@@ -22,6 +23,7 @@ export default defineConfig({
     },
   },
   build: {
+    base: `/galaxy-simulation/`,
     outDir: 'build',
     assetsDir: 'dist',
     publicDir: 'public',
@@ -52,13 +54,13 @@ export default defineConfig({
     // extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     alias: [
       //{ find: 'vue', replacement: resolve('./node_modules/vue/dist/vue.esm.js') },
-      { find: '@', replacement: resolve(_dirname, 'src') },
+      {find: '@', replacement: resolve(_dirname, 'src')},
     ],
   },
   plugins: [
     injectHtml({
       data: {
-//        injectSkeleton: firstSlide
+        //        injectSkeleton: firstSlide
       },
     }),
     createVuePlugin({
