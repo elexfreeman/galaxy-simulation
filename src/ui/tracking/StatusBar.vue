@@ -1,8 +1,8 @@
 <template>
   <div class="tracking-status-bar">
     <div class="tracking-status-bar__item-xy">
-      <span>{{xy.x}}</span>
-      <span>{{xy.y}}</span>
+      <span>x:{{xy.x}}</span>
+      <span>y:{{xy.y}}</span>
     </div>
   </div>
 </template>

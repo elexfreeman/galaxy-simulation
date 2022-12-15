@@ -149,7 +149,6 @@ const main = () => {
   window.requestAnimationFrame(draw);
 }
 
-
 main();
 
 new Vue({

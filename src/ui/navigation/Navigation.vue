@@ -1,13 +1,13 @@
 <template>
   <div class="navigation">
-    <Zoom />
+    <Zoom @onZoom="onZoom" />
     <Pause />
   </div>
 </template>
 
 <script>
 import TButton from '@/ui/components/Button.vue';
-import Zoom from '@/ui/navigation/Zoom.vue';
+import Zoom from '@/ui/components/Zoom.vue';
 import Pause from '@/ui/navigation/Pause.vue';
 
 export default {
@@ -28,7 +28,11 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    onZoom(zoom) {
+      window.zoom = zoom;
+    }
+  },
 };
 </script>
 

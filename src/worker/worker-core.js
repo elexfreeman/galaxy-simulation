@@ -1,11 +1,6 @@
 export class WorkerCore {
-  constructor(callback, that) {
+  constructor(callback) {
     this.callback = callback;
-    if (that) {
-      window.that11 = that;
-      this.callback = callback.bind(that);
-    }
-    console.log(this.that)
     this.workerMassCenter = new Worker(
       new URL('./workerMassCenter.js', import.meta.url),
       {type: 'module'}
@@ -15,18 +10,11 @@ export class WorkerCore {
   }
 
   workerHandeler(e) {
-    if (window.that11) {
-      window.that11.workerCallback({
-        centerMassVector: e.data.centerMassVectorXY,
-        centerMassVectorV: e.data.centerMassVectorV,
-        maxField: e.data.maxField,
-      }, window.that11);
-    } else
-      this.callback({
-        centerMassVector: e.data.centerMassVectorXY,
-        centerMassVectorV: e.data.centerMassVectorV,
-        maxField: e.data.maxField,
-      }, window.that11);
+    this.callback({
+      centerMassVector: e.data.centerMassVectorXY,
+      centerMassVectorV: e.data.centerMassVectorV,
+      maxField: e.data.maxField,
+    });
     this.isInProgress = false;
 
   }
