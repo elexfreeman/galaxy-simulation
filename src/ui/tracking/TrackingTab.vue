@@ -5,6 +5,7 @@
     <TButton class="tracking-tab__btn" v-if="isStartSelect" @click="onAbortSelect">Abort select a group</TButton>
     <canvas width="360" height="360" ref="canvas" class="tracking-tab__canvas" />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
+    <Zoom @onZoom="onZoom" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import { getDotColorFromField } from '@/utils/gradient';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
+import Zoom from '@/ui/components/Zoom.vue';
 import TrackingStatusBar from '@/ui/tracking/StatusBar.vue'
 
 export default {
@@ -23,6 +25,7 @@ export default {
     TButton,
     TInput,
     TrackingStatusBar,
+    Zoom,
   },
 
   data() {
@@ -35,6 +38,7 @@ export default {
       ctx: null,
       starList: [],
       centerMassVector: new Vector(0, 0),
+      zoom: 1,
     };
   },
 
@@ -70,6 +74,9 @@ export default {
       window.isPause = false;
       this.isStartSelect = false;
     },
+    onZoom(zoom) {
+      this.zoom = zoom;
+    },
     onMouseDown(event) {
       if (!this.isStartSelect) return;
       this.isStartRect = true;
@@ -104,7 +111,7 @@ export default {
     drawStars(starList, that) {
       if (!that.$refs?.canvas?.offsetHeight) return;
 
-      const zoom = 2.9;
+      const zoom = that.zoom;
       let x = 0;
       let y = 0;
       let dx,

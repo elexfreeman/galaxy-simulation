@@ -22,7 +22,7 @@ export default {
 
   data() {
     return {
-      zoom: window.zoom,
+      zoom: 1,
     };
   },
 
@@ -49,11 +49,11 @@ export default {
     onMinusZoom() {
       this.zoom = this.zoom - this.zoomFactor;
       if (this.zoom <= 0) this.zoom = 0.25;
-      window.zoom = this.zoom;
+      this.$emit('onZoom', this.zoom);
     },
     onPlusZoom() {
       this.zoom = this.zoom + this.zoomFactor;
-      window.zoom = this.zoom;
+      this.$emit('onZoom', this.zoom);
     },
   },
 };

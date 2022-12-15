@@ -6117,7 +6117,7 @@ const __vue2_script$7 = {
   },
   data() {
     return {
-      zoom: window.zoom
+      zoom: 1
     };
   },
   computed: {
@@ -6142,11 +6142,11 @@ const __vue2_script$7 = {
       this.zoom = this.zoom - this.zoomFactor;
       if (this.zoom <= 0)
         this.zoom = 0.25;
-      window.zoom = this.zoom;
+      this.$emit("onZoom", this.zoom);
     },
     onPlusZoom() {
       this.zoom = this.zoom + this.zoomFactor;
-      window.zoom = this.zoom;
+      this.$emit("onZoom", this.zoom);
     }
   }
 };
@@ -6224,7 +6224,11 @@ var render$5 = function() {
   var _c = _vm._self._c || _h;
   return _c("div", {
     staticClass: "navigation"
-  }, [_c("Zoom"), _vm._v(" "), _c("Pause")], 1);
+  }, [_c("Zoom", {
+    on: {
+      "onZoom": _vm.onZoom
+    }
+  }), _vm._v(" "), _c("Pause")], 1);
 };
 var staticRenderFns$5 = [];
 var Navigation_vue_vue_type_style_index_0_lang = "";
@@ -6241,7 +6245,11 @@ const __vue2_script$5 = {
   watch: {},
   mounted() {
   },
-  methods: {}
+  methods: {
+    onZoom(zoom) {
+      window.zoom = zoom;
+    }
+  }
 };
 const __cssModules$5 = {};
 var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
@@ -6384,7 +6392,7 @@ var render$4 = function() {
     staticClass: "tracking-status-bar"
   }, [_c("div", {
     staticClass: "tracking-status-bar__item-xy"
-  }, [_c("span", [_vm._v(_vm._s(_vm.xy.x))]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.xy.y))])])]);
+  }, [_c("span", [_vm._v("x:" + _vm._s(_vm.xy.x))]), _vm._v(" "), _c("span", [_vm._v("y:" + _vm._s(_vm.xy.y))])])]);
 };
 var staticRenderFns$4 = [];
 var StatusBar_vue_vue_type_style_index_0_lang$1 = "";
@@ -6452,6 +6460,10 @@ var render$3 = function() {
     attrs: {
       "centerMassVector": _vm.centerMassVector
     }
+  }), _vm._v(" "), _c("Zoom", {
+    on: {
+      "onZoom": _vm.onZoom
+    }
   })], 1);
 };
 var staticRenderFns$3 = [];
@@ -6460,7 +6472,8 @@ const __vue2_script$3 = {
   components: {
     TButton,
     TInput,
-    TrackingStatusBar
+    TrackingStatusBar,
+    Zoom
   },
   data() {
     return {
@@ -6471,7 +6484,8 @@ const __vue2_script$3 = {
       worker: null,
       ctx: null,
       starList: [],
-      centerMassVector: new Vector(0, 0)
+      centerMassVector: new Vector(0, 0),
+      zoom: 1
     };
   },
   computed: {},
@@ -6499,6 +6513,9 @@ const __vue2_script$3 = {
     onAbortSelect() {
       window.isPause = false;
       this.isStartSelect = false;
+    },
+    onZoom(zoom) {
+      this.zoom = zoom;
     },
     onMouseDown(event) {
       if (!this.isStartSelect)
@@ -6539,7 +6556,7 @@ const __vue2_script$3 = {
       var _a, _b;
       if (!((_b = (_a = that.$refs) == null ? void 0 : _a.canvas) == null ? void 0 : _b.offsetHeight))
         return;
-      const zoom = 2.9;
+      const zoom = that.zoom;
       let field = 0;
       const { offsetWidth, offsetHeight } = that.$refs["canvas"];
       const centerMassVector = new Vector(0, 0);
@@ -25113,30 +25130,18 @@ class Core {
   }
 }
 class WorkerCore {
-  constructor(callback, that) {
+  constructor(callback) {
     this.callback = callback;
-    if (that) {
-      window.that11 = that;
-      this.callback = callback.bind(that);
-    }
-    console.log(this.that);
     this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.cb84580c.js", { type: "module" });
     this.workerHandeler = this.workerHandeler.bind(this);
     this.calc = this.calc.bind(this);
   }
   workerHandeler(e) {
-    if (window.that11) {
-      window.that11.workerCallback({
-        centerMassVector: e.data.centerMassVectorXY,
-        centerMassVectorV: e.data.centerMassVectorV,
-        maxField: e.data.maxField
-      }, window.that11);
-    } else
-      this.callback({
-        centerMassVector: e.data.centerMassVectorXY,
-        centerMassVectorV: e.data.centerMassVectorV,
-        maxField: e.data.maxField
-      }, window.that11);
+    this.callback({
+      centerMassVector: e.data.centerMassVectorXY,
+      centerMassVectorV: e.data.centerMassVectorV,
+      maxField: e.data.maxField
+    });
     this.isInProgress = false;
   }
   init() {
@@ -25303,4 +25308,4 @@ main();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-398b9388.js.map
+//# sourceMappingURL=index-beffb3ab.js.map

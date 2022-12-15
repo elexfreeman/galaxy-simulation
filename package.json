@@ -23,11 +23,11 @@
   "scripts": {
     "work:start": "node scripts/start.cjs",
     "work": "vite --host",
-    "viteBuild": "vite build",
+    "viteBuild": "cross-env DEV_MODE=0 vite build",
     "preview": "vite preview",
     "checkPackage": "npm run lintfix && npm run stylefix && npm run viteBuild",
     "buildPackage": "npm version patch -m \"Set version %s\" && npm run checkPackage",
-    "build": "exit 0",
+    "build": "npm run viteBuild && rm -r ./docs/dist && rm ./docs/index.html && cp -avr build/* ./docs/",
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --reporters=default --reporters jest-sonar",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint . --ext .js,.cjs --ignore-path .gitignore --ignore-pattern dist/**/*",
@@ -64,11 +64,12 @@
     "vite": "^2.9.9",
     "vite-plugin-html": "^2.0.7",
     "vite-plugin-html-config": "^1.0.5",
-    "vite-plugin-vue2": "^2.0.2",
-    "vite-plugin-pwa": "^0.10.0"
+    "vite-plugin-pwa": "^0.10.0",
+    "vite-plugin-vue2": "^2.0.2"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "gpu.js": "^2.16.0",
     "vue": "^2.7.8"
   }
