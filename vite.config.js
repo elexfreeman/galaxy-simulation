@@ -13,7 +13,7 @@ dotenv.config();
 //const firstSlide = readFileSync(resolve(_dirname, demoPath, '_firstSlide.html'));
 
 const viteConfig = {
-  base: process.env.DEV_MODE?'/':`/galaxy-simulation/`,
+  base: process.env.DEV_MODE =="1"?'/':`/galaxy-simulation/`,
   css: {
     preprocessorOptions: {
       scss: {
