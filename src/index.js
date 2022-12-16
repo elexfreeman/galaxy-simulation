@@ -17,6 +17,7 @@ import {starTrackerInit, drawMouseRect} from '@/module/starTracker';
 
 import '@/styles/style.scss';
 
+window.vec = Vector;
 
 
 const ctx = document.getElementById('canvas').getContext('2d');
@@ -93,6 +94,7 @@ const calcStars = () => {
       len: window.dataArr.length,
     })(C.G, window.dataArr);
 }
+
 
 /////////////////////
 /////////////////////

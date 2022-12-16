@@ -26,6 +26,38 @@ export const drawMouseRect = () => {
   ctx.stroke();
 }
 
+export const getStarFromRect = () => {
+  const {x1, x2, y1, y2} = window.mouseRect;
+  let star = null;
+
+  const minX = x1 <= x2 ? x1 : x2;
+  const minY = y1 <= y2 ? y1 : y2;
+
+  const maxX = x1 > x2 ? x1 : x2;
+  const maxY = y1 > y2 ? y1 : y2;
+
+  for (let k = 0; k < window.dataArr.length; k++) {
+    let x = window.dataArr[k][0];
+    let y = window.dataArr[k][1];
+
+    x = (x - window.centerMassVector.x) * window.zoom;
+    y = (y - window.centerMassVector.y) * window.zoom;
+
+    x = x + window.innerWidth / 2;
+    y = y + window.innerHeight / 2;
+
+    const isInRect = x > minX && x < maxX && y > minY && y < maxY;
+
+    if (isInRect) {
+      star = k;
+      break;
+    }
+
+  }
+
+  return star;
+}
+
 export const getStartsFromRect = () => {
   const {x1, x2, y1, y2} = window.mouseRect;
   const starList = [];
@@ -48,7 +80,7 @@ export const getStartsFromRect = () => {
 
     const isInRect = x > minX && x < maxX && y > minY && y < maxY;
 
-    if(isInRect) starList.push(k);
+    if (isInRect) starList.push(k);
 
   }
 
