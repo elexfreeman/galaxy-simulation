@@ -6285,9 +6285,9 @@ const drawMouseRect = () => {
   ctx2.closePath();
   ctx2.stroke();
 };
-const getStartsFromRect = () => {
+const getStarFromRect = () => {
   const { x1, x2, y1, y2 } = window.mouseRect;
-  const starList = [];
+  let star = null;
   const minX = x1 <= x2 ? x1 : x2;
   const minY = y1 <= y2 ? y1 : y2;
   const maxX = x1 > x2 ? x1 : x2;
@@ -6300,15 +6300,20 @@ const getStartsFromRect = () => {
     x = x + window.innerWidth / 2;
     y = y + window.innerHeight / 2;
     const isInRect = x > minX && x < maxX && y > minY && y < maxY;
-    if (isInRect)
-      starList.push(k);
+    if (isInRect) {
+      star = k;
+      break;
+    }
   }
-  return starList;
+  return star;
 };
 class Vector {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+  }
+  static fromVector(v) {
+    return new Vector(v.x, v.y);
   }
   static add(v1, v2) {
     return new Vector(v1.x + v2.x, v1.y + v2.y);
@@ -6322,8 +6327,26 @@ class Vector {
   static mult(v1, v2) {
     return new Vector(v1.x * v2.x, v1.y * v2.y);
   }
+  static multDigit(v1, d) {
+    return new Vector(v1.x * d, v1.y * d);
+  }
   static length(v) {
     return Math.sqrt(v.x * v.x + v.y * v.y);
+  }
+  static rotateVector(vec, centerVec, angle) {
+    const s = Math.sin(angle);
+    const c = Math.cos(angle);
+    const vecOut = new Vector(vec.x, vec.y);
+    vecOut.x -= centerVec.x;
+    vecOut.y -= centerVec.y;
+    const xnew = vecOut.x * c - vecOut.y * s;
+    const ynew = vecOut.x * s + vecOut.y * c;
+    vecOut.x = xnew + centerVec.x;
+    vecOut.y = ynew + centerVec.y;
+    return vecOut;
+  }
+  static angle2V(w, v) {
+    return Math.atan2(w.y * v.x - w.x * v.y, w.x * v.x + w.y * v.y);
   }
 }
 const getRandomInt = (min, max) => {
@@ -6431,6 +6454,7 @@ function __vue2_injectStyles$4(context) {
 var TrackingStatusBar = /* @__PURE__ */ function() {
   return __component__$4.exports;
 }();
+var __$_require_d6de7930__ = "data:image/png;base64,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";
 var render$3 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
@@ -6464,7 +6488,18 @@ var render$3 = function() {
     on: {
       "onZoom": _vm.onZoom
     }
-  })], 1);
+  }), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c("img", {
+    ref: "roketImg",
+    attrs: {
+      "src": __$_require_d6de7930__,
+      "width": "15",
+      "height": "25"
+    }
+  })])], 1);
 };
 var staticRenderFns$3 = [];
 var TrackingTab_vue_vue_type_style_index_0_lang = "";
@@ -6484,6 +6519,7 @@ const __vue2_script$3 = {
       worker: null,
       ctx: null,
       starList: [],
+      star: null,
       centerMassVector: new Vector(0, 0),
       zoom: 1
     };
@@ -6532,7 +6568,7 @@ const __vue2_script$3 = {
     },
     onMouseUp() {
       this.isStartRect = false;
-      this.starList = getStartsFromRect();
+      this.star = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       window.isPause = false;
@@ -6552,34 +6588,46 @@ const __vue2_script$3 = {
       that.ctx.globalCompositeOperation = "destination-over";
       that.ctx.clearRect(0, 0, offsetWidth, offsetHeight);
     },
-    drawStars(starList, that) {
+    drawStars(star, that) {
       var _a, _b;
       if (!((_b = (_a = that.$refs) == null ? void 0 : _a.canvas) == null ? void 0 : _b.offsetHeight))
+        return;
+      if (!star)
         return;
       const zoom = that.zoom;
       let field = 0;
       const { offsetWidth, offsetHeight } = that.$refs["canvas"];
       const centerMassVector = new Vector(0, 0);
-      const count = starList.length;
-      let maxField = 0;
-      for (let k = 0; k < starList.length; k++) {
-        centerMassVector.x += starList[k][0];
-        centerMassVector.y += starList[k][1];
-        if (starList[k][2] > maxField) {
-          maxField = dataArr[k][2];
-        }
-      }
-      centerMassVector.x = centerMassVector.x / count;
-      centerMassVector.y = centerMassVector.y / count;
+      centerMassVector.x = window.dataArr[star][0];
+      centerMassVector.y = window.dataArr[star][1];
       that.centerMassVector = centerMassVector;
+      let vecV = new Vector(0, 0);
+      let vecXY = new Vector(0, 0);
+      vecV.x = window.dataArr[star][2];
+      vecV.y = window.dataArr[star][3];
+      const osX = new Vector(1, 0);
+      const deg = Vector.angle2V(osX, vecV);
+      const offsetButtom = offsetHeight / 5;
       for (let k = 0; k < window.dataArrWithField.length; k++) {
-        let { dx, dy } = xyToCanvas(window.dataArrWithField[k][0], window.dataArrWithField[k][1], zoom, centerMassVector, offsetWidth, offsetHeight);
+        vecXY.x = window.dataArr[k][0];
+        vecXY.y = window.dataArr[k][1];
+        vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
+        vecXY = Vector.minus(vecXY, centerMassVector);
+        vecXY = Vector.multDigit(vecXY, zoom);
+        const offset = new Vector(offsetWidth / 2, offsetHeight / 2);
+        vecXY = Vector.add(vecXY, offset);
         field = window.dataArrWithField[k][2];
+        vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
         that.ctx.beginPath();
         that.ctx.fillStyle = that.getDotColorFromField(field);
-        that.ctx.fillRect(dx, dy, 3, 3);
+        that.ctx.fillRect(vecXY.x, vecXY.y, 3, 3);
         that.ctx.closePath();
         that.ctx.stroke();
+      }
+      const ship = new Vector(offsetWidth / 2, offsetHeight - offsetButtom - 40);
+      const roketImg = that.$refs["roketImg"];
+      if (roketImg) {
+        that.ctx.drawImage(roketImg, ship.x - 6, ship.y, 15, 25);
       }
       const rectXY = xyToCanvas(centerMassVector.x - 10, centerMassVector.y - 10, window.zoom, window.centerMassVector, window.innerWidth, window.innerHeight);
       window.canvasElem.ctx.beginPath();
@@ -6587,15 +6635,20 @@ const __vue2_script$3 = {
       window.canvasElem.ctx.strokeRect(rectXY.dx, rectXY.dy, 20, 20);
       window.canvasElem.ctx.closePath();
       window.canvasElem.ctx.stroke();
+      vecV = Vector.multDigit(vecV, 100);
+      window.canvasElem.ctx.beginPath();
+      window.canvasElem.ctx.strokeStyle = "green";
+      window.canvasElem.ctx.fillStyle = "green";
+      window.canvasElem.ctx.lineTo(rectXY.dx + 10, rectXY.dy + 10);
+      window.canvasElem.ctx.lineTo(rectXY.dx + vecV.x, rectXY.dy + vecV.y);
+      window.canvasElem.ctx.closePath();
+      window.canvasElem.ctx.stroke();
     },
     draw(that) {
       if (!that)
         return;
       that.clearCanvas(that);
-      const starList = that.starList.map((item) => {
-        return dataArr[item];
-      });
-      that.drawStars(starList, that);
+      that.drawStars(that.star, that);
       requestAnimationFrame(() => {
         this.draw(that);
       });
@@ -25132,7 +25185,7 @@ class Core {
 class WorkerCore {
   constructor(callback) {
     this.callback = callback;
-    this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.cb84580c.js", { type: "module" });
+    this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.908d0cec.js", { type: "module" });
     this.workerHandeler = this.workerHandeler.bind(this);
     this.calc = this.calc.bind(this);
   }
@@ -25213,6 +25266,7 @@ class FpsMeter {
   }
 }
 var style = "";
+window.vec = Vector;
 const ctx = document.getElementById("canvas").getContext("2d");
 window.core = new Core();
 const fpsMeter = new FpsMeter();
@@ -25308,4 +25362,4 @@ main();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-beffb3ab.js.map
+//# sourceMappingURL=index-d56dcd2b.js.map
