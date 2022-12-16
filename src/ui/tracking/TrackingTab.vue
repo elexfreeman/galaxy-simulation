@@ -13,9 +13,8 @@
 </template>
 
 <script>
-import { getStarFromRect } from '@/module/starTracker';
+import { getStarFromRect, drawTraking, drawTrakingNet } from '@/module/starTracker';
 import { Vector } from '@/vector';
-import { xyToCanvas, radToDeg } from '@/utils/utils';
 import { getDotColorFromField } from '@/utils/gradient';
 
 import TButton from '@/ui/components/Button.vue';
@@ -40,7 +39,7 @@ export default {
       worker: null,
       ctx: null,
       starList: [],
-      star: null,
+      starIdx: -1,
       centerMassVector: new Vector(0, 0),
       zoom: 1,
     };
@@ -94,7 +93,7 @@ export default {
     },
     onMouseUp() {
       this.isStartRect = false;
-      this.star = getStarFromRect();
+      this.starIdx = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       window.isPause = false;
@@ -112,89 +111,21 @@ export default {
       that.ctx.globalCompositeOperation = 'destination-over';
       that.ctx.clearRect(0, 0, offsetWidth, offsetHeight); // clear canvas
     },
-    drawStars(star, that) {
+    drawStars(starIdx, that) {
       if (!that.$refs?.canvas?.offsetHeight) return;
-      if (!star) return;
-
-      const zoom = that.zoom;
-      let field = 0;
+      if (starIdx < 0) return;
 
       const { offsetWidth, offsetHeight } = that.$refs['canvas'];
-
-      const centerMassVector = new Vector(0, 0);
-      centerMassVector.x = window.dataArr[star][0];
-      centerMassVector.y = window.dataArr[star][1];
-
-      that.centerMassVector = centerMassVector;
-
-      let vecV = new Vector(0, 0);
-      let vecXY = new Vector(0, 0);
-      vecV.x = window.dataArr[star][2];
-      vecV.y = window.dataArr[star][3];
-
-      const osX = new Vector(1, 0);
-      const deg = Vector.angle2V(osX, vecV);
-
-      const offsetButtom = offsetHeight / 5;
-
-      for (let k = 0; k < window.dataArrWithField.length; k++) {
-        vecXY.x = window.dataArr[k][0];
-        vecXY.y = window.dataArr[k][1];
-
-        vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
-        vecXY = Vector.minus(vecXY, centerMassVector);
-        vecXY = Vector.multDigit(vecXY, zoom);
-        const offset = new Vector(offsetWidth / 2, offsetHeight / 2);
-        vecXY = Vector.add(vecXY, offset);
-
-        field = window.dataArrWithField[k][2];
-
-        vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
-
-        that.ctx.beginPath();
-        that.ctx.fillStyle = that.getDotColorFromField(field);
-        that.ctx.fillRect(vecXY.x, vecXY.y, 3, 3);
-        that.ctx.closePath();
-        that.ctx.stroke();
-      }
-
-      const ship = new Vector(offsetWidth / 2, offsetHeight - offsetButtom - 40);
-      const roketImg = that.$refs['roketImg'];
-      if (roketImg) {
-        that.ctx.drawImage(roketImg, ship.x - 6, ship.y, 15, 25);
-      }
-
-      const rectXY = xyToCanvas(
-        centerMassVector.x - 10,
-        centerMassVector.y - 10,
-        window.zoom,
-        window.centerMassVector,
-        window.innerWidth,
-        window.innerHeight,
-      );
-
-      window.canvasElem.ctx.beginPath();
-      window.canvasElem.ctx.strokeStyle = 'green';
-      window.canvasElem.ctx.strokeRect(rectXY.dx, rectXY.dy, 20, 20);
-      window.canvasElem.ctx.closePath();
-      window.canvasElem.ctx.stroke();
-
-      vecV = Vector.multDigit(vecV, 100);
-
-      window.canvasElem.ctx.beginPath();
-      window.canvasElem.ctx.strokeStyle = 'green';
-      window.canvasElem.ctx.fillStyle = 'green';
-      window.canvasElem.ctx.lineTo(rectXY.dx + 10, rectXY.dy + 10);
-      window.canvasElem.ctx.lineTo(rectXY.dx + vecV.x, rectXY.dy + vecV.y);
-      window.canvasElem.ctx.closePath();
-      window.canvasElem.ctx.stroke();
+      const zoom = that.zoom;
+      drawTraking(offsetWidth, offsetHeight, zoom, starIdx, that.ctx, that.$refs?.roketImg, 'green');
+      drawTrakingNet(offsetWidth, offsetHeight, zoom, starIdx, that.ctx, 20, 'green');
     },
     draw(that) {
       if (!that) return;
-
+      if(that.starIdx < 0) return;
       that.clearCanvas(that);
-
-      that.drawStars(that.star, that);
+      that.centerMassVector = new Vector(window.dataArr[that.starIdx][0], window.dataArr[that.starIdx][1]);
+      that.drawStars(that.starIdx, that);
       requestAnimationFrame(() => {
         this.draw(that);
       });
