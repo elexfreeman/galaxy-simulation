@@ -6,19 +6,22 @@
     <canvas width="360" height="360" ref="canvas" class="tracking-tab__canvas" />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
     <Zoom @onZoom="onZoom" />
+    <div style="display: none">
+      <img ref="roketImg" src="../../images/roket1.png" width="15" height="25" />
+    </div>
   </div>
 </template>
 
 <script>
-import { getStartsFromRect } from '@/module/starTracker';
+import { getStarFromRect } from '@/module/starTracker';
 import { Vector } from '@/vector';
-import { xyToCanvas } from '@/utils/utils';
+import { xyToCanvas, radToDeg } from '@/utils/utils';
 import { getDotColorFromField } from '@/utils/gradient';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 import Zoom from '@/ui/components/Zoom.vue';
-import TrackingStatusBar from '@/ui/tracking/StatusBar.vue'
+import TrackingStatusBar from '@/ui/tracking/StatusBar.vue';
 
 export default {
   components: {
@@ -37,6 +40,7 @@ export default {
       worker: null,
       ctx: null,
       starList: [],
+      star: null,
       centerMassVector: new Vector(0, 0),
       zoom: 1,
     };
@@ -90,7 +94,7 @@ export default {
     },
     onMouseUp() {
       this.isStartRect = false;
-      this.starList = getStartsFromRect();
+      this.star = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       window.isPause = false;
@@ -108,51 +112,56 @@ export default {
       that.ctx.globalCompositeOperation = 'destination-over';
       that.ctx.clearRect(0, 0, offsetWidth, offsetHeight); // clear canvas
     },
-    drawStars(starList, that) {
+    drawStars(star, that) {
       if (!that.$refs?.canvas?.offsetHeight) return;
+      if (!star) return;
 
       const zoom = that.zoom;
-      let x = 0;
-      let y = 0;
-      let dx,
-        dy = 0;
       let field = 0;
 
       const { offsetWidth, offsetHeight } = that.$refs['canvas'];
 
       const centerMassVector = new Vector(0, 0);
-      const count = starList.length;
-      let maxField = 0;
-
-      for (let k = 0; k < starList.length; k++) {
-        centerMassVector.x += starList[k][0];
-        centerMassVector.y += starList[k][1];
-        if (starList[k][2] > maxField) {
-          maxField = dataArr[k][2];
-        }
-      }
-
-      centerMassVector.x = centerMassVector.x / count;
-      centerMassVector.y = centerMassVector.y / count;
+      centerMassVector.x = window.dataArr[star][0];
+      centerMassVector.y = window.dataArr[star][1];
 
       that.centerMassVector = centerMassVector;
 
+      let vecV = new Vector(0, 0);
+      let vecXY = new Vector(0, 0);
+      vecV.x = window.dataArr[star][2];
+      vecV.y = window.dataArr[star][3];
+
+      const osX = new Vector(1, 0);
+      const deg = Vector.angle2V(osX, vecV);
+
+      const offsetButtom = offsetHeight / 5;
+
       for (let k = 0; k < window.dataArrWithField.length; k++) {
-        let { dx, dy } = xyToCanvas(
-          window.dataArrWithField[k][0],
-          window.dataArrWithField[k][1],
-          zoom,
-          centerMassVector,
-          offsetWidth,
-          offsetHeight,
-        );
+        vecXY.x = window.dataArr[k][0];
+        vecXY.y = window.dataArr[k][1];
+
+        vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
+        vecXY = Vector.minus(vecXY, centerMassVector);
+        vecXY = Vector.multDigit(vecXY, zoom);
+        const offset = new Vector(offsetWidth / 2, offsetHeight / 2);
+        vecXY = Vector.add(vecXY, offset);
+
         field = window.dataArrWithField[k][2];
+
+        vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
 
         that.ctx.beginPath();
         that.ctx.fillStyle = that.getDotColorFromField(field);
-        that.ctx.fillRect(dx, dy, 3, 3);
+        that.ctx.fillRect(vecXY.x, vecXY.y, 3, 3);
         that.ctx.closePath();
         that.ctx.stroke();
+      }
+
+      const ship = new Vector(offsetWidth / 2, offsetHeight - offsetButtom - 40);
+      const roketImg = that.$refs['roketImg'];
+      if (roketImg) {
+        that.ctx.drawImage(roketImg, ship.x - 6, ship.y, 15, 25);
       }
 
       const rectXY = xyToCanvas(
@@ -169,17 +178,23 @@ export default {
       window.canvasElem.ctx.strokeRect(rectXY.dx, rectXY.dy, 20, 20);
       window.canvasElem.ctx.closePath();
       window.canvasElem.ctx.stroke();
+
+      vecV = Vector.multDigit(vecV, 100);
+
+      window.canvasElem.ctx.beginPath();
+      window.canvasElem.ctx.strokeStyle = 'green';
+      window.canvasElem.ctx.fillStyle = 'green';
+      window.canvasElem.ctx.lineTo(rectXY.dx + 10, rectXY.dy + 10);
+      window.canvasElem.ctx.lineTo(rectXY.dx + vecV.x, rectXY.dy + vecV.y);
+      window.canvasElem.ctx.closePath();
+      window.canvasElem.ctx.stroke();
     },
     draw(that) {
       if (!that) return;
 
       that.clearCanvas(that);
 
-      const starList = that.starList.map((item) => {
-        return dataArr[item];
-      });
-
-      that.drawStars(starList, that);
+      that.drawStars(that.star, that);
       requestAnimationFrame(() => {
         this.draw(that);
       });

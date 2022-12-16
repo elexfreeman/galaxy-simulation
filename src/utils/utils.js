@@ -17,3 +17,7 @@ export const xyToCanvas = (x, y, zoom, centerMassVector, w, h) => {
     dx, dy
   }
 }
+
+export const radToDeg = (rad) => {
+  return rad * 180 / 3.14;
+}
