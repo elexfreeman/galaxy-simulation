@@ -209,6 +209,8 @@
 }body {
   background: #ddd;
   font-family: "Abel";
+  overflow: hidden;
+  margin: 0;
 }
 
 .cc {
