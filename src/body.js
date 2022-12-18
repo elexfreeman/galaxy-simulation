@@ -1,8 +1,7 @@
 import * as C from '@/consts';
-import {Vector} from '@/vector';
+import { Vector } from '@/vector';
 
 export class Body {
-
   constructor(coord, massa, color = '#000000') {
     this.coord = coord;
     this.massa = massa;
@@ -49,11 +48,9 @@ export class Body {
   setCoord3(coord) {
     this.coord.x = coord.x;
     this.coord.y = coord.y;
-
   }
 
   static draw(ctx, body, centerMassVector) {
-    console.log(body)
     ctx.beginPath();
     ctx.strokeStyle = body.color;
     ctx.moveTo(body.coord.x, body.coord.y);

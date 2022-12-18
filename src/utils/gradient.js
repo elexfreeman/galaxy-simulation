@@ -56,10 +56,9 @@ export function generateColor(colorStart, colorEnd, colorCount) {
 
 const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
 
-export const getDotColorFromField = (field) => {
+export const getDotColorFromField = (field, maxField) => {
   const maxColor = gradientColorList.length;
-  let k = Math.ceil(maxColor * field / window.maxField);
+  let k = Math.ceil((maxColor * field) / maxField);
   if (field > maxColor) k = maxColor;
   return `#${gradientColorList[k]}`;
-}
-
+};

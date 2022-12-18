@@ -1,10 +1,7 @@
 export class WorkerCore {
   constructor(callback) {
     this.callback = callback;
-    this.workerMassCenter = new Worker(
-      new URL('./workerMassCenter.js', import.meta.url),
-      {type: 'module'}
-    );
+    this.workerMassCenter = new Worker(new URL('./workerMassCenter.js', import.meta.url), { type: 'module' });
     this.workerHandeler = this.workerHandeler.bind(this);
     this.calc = this.calc.bind(this);
   }
@@ -16,7 +13,6 @@ export class WorkerCore {
       maxField: e.data.maxField,
     });
     this.isInProgress = false;
-
   }
 
   init() {
@@ -29,12 +25,11 @@ export class WorkerCore {
     this.workerMassCenter.terminate();
   }
 
-  calc(data, test) {
+  calc(data) {
     if (this.isInProgress) return;
     this.isInProgress = true;
     this.workerMassCenter.postMessage({
       dataArr: data,
-      test,
     });
   }
 }

@@ -1,43 +1,39 @@
-import {Vector} from '@/vector';
-import {GeneratorCircle} from '@/bodyGenerator';
+import { Vector } from '@/vector';
+import { GeneratorCircle } from '@/bodyGenerator';
+import stars from '@/global/stars';
+import { draw, elem, mouseCoord } from './global/draw';
+import { core } from '@/global/core';
 
 export const addSphereInit = () => {
   window.addSphereCount = 500;
   window.addSphereRadius = 100;
 
-  window.canvasElem.elem.addEventListener('click', (event) => {
+  elem.addEventListener('click', (event) => {
+    if (window.menuState !== 1) {
+      return;
+    }
 
-    if (window.menuState !== 1) {return;}
+    const center = Vector.add(
+      Vector.multDigit(
+        Vector.minus(
+          Vector.fromVector(mouseCoord),
+          Vector.multDigit(draw.geVH(), 0.5)
+        ),
+        1 / stars.zoom,
+      ),
+      stars.centerMassVector);
 
-    window.isPause = true;
-    let x = window.canvasElem.x;
-    let y = window.canvasElem.y;
-
-    x -= window.innerWidth / 2;
-    y -= window.innerHeight / 2;
-
-    x = x / window.zoom;
-    y = y / window.zoom;
-
-    x += window.centerMassVector.x;
-    y += window.centerMassVector.y;
-
-    const center = new Vector(x, y);
+    stars.isPause = true;
 
     for (let k = 0; k < window.addSphereCount; k++) {
       const newStar = GeneratorCircle.getDot(center, addSphereRadius, '#FFFFFF');
-      window.dataArr.push([
-        newStar.coord.x,
-        newStar.coord.y,
-        0, 0,
-      ]);
-      window.MAX_DOTS++;
+      stars.dataArr.push([newStar.coord.x, newStar.coord.y, 0, 0]);
     }
 
-    window.core.refresh();
+    core.refresh();
 
     setTimeout(() => {
-      window.isPause = false;
+      stars.isPause = false;
     }, 1);
   });
-}
+};

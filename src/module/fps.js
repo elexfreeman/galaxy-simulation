@@ -8,6 +8,6 @@ export class FpsMeter {
   }
 
   finish() {
-    window.fps = Math.ceil(100 * 1000 / (new Date() - this.startTime)) / 100;
+    window.fps = Math.ceil((100 * 1000) / (new Date() - this.startTime)) / 100;
   }
 }

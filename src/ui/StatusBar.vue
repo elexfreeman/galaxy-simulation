@@ -6,13 +6,14 @@
 </template>
 
 <script>
+import stars from '@/global/stars';
 export default {
   components: {},
 
   data() {
     return {
       fps: window.fps,
-      dotsCount: window.dataArr.length,
+      dotsCount: stars.dataArr.length,
       workerFps: window.workerFps,
     };
   },
@@ -38,7 +39,7 @@ export default {
       }, 500);
     },
     dotsCountWatcher() {
-      this.dotsCount = window.dataArr.length;
+      this.dotsCount = stars.dataArr.length;
       setTimeout(() => {
         if (this.dotsCountWatcher) {
           this.dotsCountWatcher();

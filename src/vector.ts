@@ -12,11 +12,11 @@ export class Vector {
   }
 
   static add(v1: Vector, v2: Vector) {
-    return new Vector(v1.x + v2.x, v1.y + v2.y)
+    return new Vector(v1.x + v2.x, v1.y + v2.y);
   }
 
   static minus(v1: Vector, v2: Vector) {
-    return new Vector(v1.x - v2.x, v1.y - v2.y)
+    return new Vector(v1.x - v2.x, v1.y - v2.y);
   }
 
   static addScalar(v: Vector, d: number) {
@@ -24,15 +24,15 @@ export class Vector {
   }
 
   static mult(v1: Vector, v2: Vector) {
-    return new Vector(v1.x * v2.x, v1.y * v2.y)
+    return new Vector(v1.x * v2.x, v1.y * v2.y);
   }
 
   static multDigit(v1: Vector, d: number) {
-    return new Vector(v1.x * d, v1.y * d)
+    return new Vector(v1.x * d, v1.y * d);
   }
 
   static len(v: Vector) {
-    return Math.sqrt((v.x * v.x) + (v.y * v.y));
+    return Math.sqrt(v.x * v.x + v.y * v.y);
   }
   //
   //https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
@@ -60,4 +60,3 @@ export class Vector {
     return Math.atan2(w.y * v.x - w.x * v.y, w.x * v.x + w.y * v.y);
   }
 }
-

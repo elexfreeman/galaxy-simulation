@@ -3,8 +3,11 @@ import {Vector} from "../vector";
 export class Draw {
   public ctx: CanvasRenderingContext2D;
 
-  constructor(ctx: CanvasRenderingContext2D) {
-    this.ctx = ctx;
+  constructor(ctx: CanvasRenderingContext2D | null) {
+    this.ctx = new CanvasRenderingContext2D();
+    if(ctx) {
+      this.ctx = ctx;
+    }
   }
 
   clear() {

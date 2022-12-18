@@ -1,11 +1,8 @@
-import {Vector} from '../vector';
+import { Vector } from '../vector';
+import { DATA_X, DATA_Y, DATA_FIELD } from '@/global/stars';
 
 onmessage = function (e) {
-  const {
-    dataArr,
-    test,
-  } = e.data;
-
+  const { dataArr } = e.data;
 
   const getCenterMassVector = () => {
     let startWorker = new Date();
@@ -14,30 +11,20 @@ onmessage = function (e) {
     let maxField = 0;
 
     for (let k = 0; k < dataArr.length; k++) {
-      centerMassVectorXY.x += dataArr[k][0];
-      centerMassVectorXY.y += dataArr[k][1];
-      if (dataArr[k][2] > maxField) {
-        maxField = dataArr[k][2];
+      centerMassVectorXY = Vector.add(centerMassVectorXY, new Vector(dataArr[k][DATA_X], dataArr[k][DATA_Y]));
+      if (dataArr[k][DATA_FIELD] > maxField) {
+        maxField = dataArr[k][DATA_FIELD];
       }
     }
-
-    centerMassVectorXY.x = (centerMassVectorXY.x / count);
-    centerMassVectorXY.y = (centerMassVectorXY.y / count);
-
-    //let workerFps = Math.ceil(100 * 1000 / (new Date() - startWorker)) / 100;
-    let workerFps = new Date() - startWorker;
-
-    if(test) {
-      console.log(centerMassVectorXY)
-    }
+    centerMassVectorXY = Vector.multDigit(centerMassVectorXY, 1 / count);
+    const workerFps = new Date() - startWorker;
 
     return {
       centerMassVectorXY,
       maxField,
       workerFps,
-    }
-  }
+    };
+  };
 
   postMessage(getCenterMassVector());
-}
-
+};
