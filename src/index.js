@@ -6,6 +6,8 @@ import * as C from '@/consts';
 import {Vector} from '@/vector';
 import {GeneratorCircle} from '@/bodyGenerator';
 import {getDotColorFromField} from '@/utils/gradient'
+import {Draw} from './utils/draw';
+import {xyToCanvas} from './utils/utils';
 
 import {Core} from '@/core/core';
 import {WorkerCore} from '@/worker/worker-core'
@@ -15,12 +17,14 @@ import {mouseCoordInit} from '@/module/mouseCursor';
 import {FpsMeter} from '@/module/fps'
 import {starTrackerInit, drawMouseRect} from '@/module/starTracker';
 
+import stars from '@/stars';
+
 import '@/styles/style.scss';
 
 window.vec = Vector;
 
-
 const ctx = document.getElementById('canvas').getContext('2d');
+window.draw = new Draw(ctx, window.innerWidth, window.innerHeight);
 
 window.core = new Core();
 
@@ -48,36 +52,18 @@ const workerCore = new WorkerCore((data) => {
   window.maxField = data.maxField;
 });
 
-const clearCanvas = () => {
-  ctx.globalCompositeOperation = 'destination-over';
-  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); // clear canvas
-}
-
 const drawStars = () => {
-  let x = 0;
-  let y = 0;
-  let dx, dy = 0;
-  let field = 0;
-
-  for (let k = 0; k < window.dataArrWithField.length; k++) {
-    x = window.dataArrWithField[k][0];
-    y = window.dataArrWithField[k][1];
-    field = window.dataArrWithField[k][2];
-
-    dx = (x - window.centerMassVector.x) * window.zoom;
-    dy = (y - window.centerMassVector.y) * window.zoom;
-
-    dx = dx + window.innerWidth / 2;
-    dy = dy + window.innerHeight / 2;
-
-    ctx.beginPath();
-    ctx.fillStyle = getDotColorFromField(field);
-    ctx.fillRect(
-      dx, dy,
-      1, 1,
-    )
-    ctx.closePath();
-    ctx.stroke();
+  for (let k = 0; k < window.dataArr.length; k++) {
+    window.draw.rect(
+      xyToCanvas(
+        new Vector(window.dataArr[k][0], window.dataArr[k][1]),
+        window.zoom,
+        centerMassVector,
+        window.draw.getVH()
+      ),
+      new Vector(1, 1),
+      getDotColorFromField(window.dataArrWithField[k][2])
+    );
   }
 }
 
@@ -101,7 +87,7 @@ const calcStars = () => {
 /////////////////////
 async function draw() {
   fpsMeter.start();
-  clearCanvas();
+  window.draw.clear();
 
   if (!window.isPause) {
     workerCore.calc(window.dataArrWithField);

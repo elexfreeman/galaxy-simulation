@@ -110,7 +110,6 @@ export const drawTraking = (w, h, zoom, starIdx, ctx, image, color) => {
   const deg = Vector.angle2V(osX, vecV);
   let field = 0;
 
-
   for (let k = 0; k < window.dataArrWithField.length; k++) {
     vecXY.x = window.dataArr[k][0];
     vecXY.y = window.dataArr[k][1];
@@ -162,20 +161,15 @@ export const drawTraking = (w, h, zoom, starIdx, ctx, image, color) => {
 
 }
 
-export const drawTrakingNet = (w, h, zoom, starIdx, ctx, step) => {
+export const drawTrakingNet = (w, h, starIdx, ctx, step) => {
   if (!ctx) return;
 
-  const oxColorMain = 'rgb(200 255 174 / 52%)';
   const oxColor = 'rgb(200 255 174 / 15%)';
 
   const osXnav = new Vector(1, 0);
-  const offset = new Vector(w / 2, h / 2);
   const offsetButtom = h / 5;
-  const centerMassVector = new Vector(window.dataArr[starIdx][0], window.dataArr[starIdx][1]);
   let vecV = new Vector(window.dataArr[starIdx][2], window.dataArr[starIdx][3]);
-  let vecXY = new Vector(0, 0);
   const deg = Vector.angle2V(osXnav, vecV);
-  let field = 0;
   const add = new Vector(0, offsetButtom)
 
   const center = new Vector(w / 2, h / 2);
@@ -250,6 +244,4 @@ export const drawTrakingNet = (w, h, zoom, starIdx, ctx, step) => {
     ctx.closePath();
     ctx.stroke();
   }
-
-
 }

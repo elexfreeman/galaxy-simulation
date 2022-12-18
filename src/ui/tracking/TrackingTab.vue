@@ -118,11 +118,11 @@ export default {
       const { offsetWidth, offsetHeight } = that.$refs['canvas'];
       const zoom = that.zoom;
       drawTraking(offsetWidth, offsetHeight, zoom, starIdx, that.ctx, that.$refs?.roketImg, 'green');
-      drawTrakingNet(offsetWidth, offsetHeight, zoom, starIdx, that.ctx, 20, 'green');
+      drawTrakingNet(offsetWidth, offsetHeight, starIdx, that.ctx, 20);
     },
     draw(that) {
       if (!that) return;
-      if(that.starIdx < 0) return;
+      if (that.starIdx < 0) return;
       that.clearCanvas(that);
       that.centerMassVector = new Vector(window.dataArr[that.starIdx][0], window.dataArr[that.starIdx][1]);
       that.drawStars(that.starIdx, that);
