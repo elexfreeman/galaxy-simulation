@@ -1,5 +1,5 @@
 import { elem, mouseCoord } from '@/global/draw';
-import {Vector} from '@/vector';
+import { Vector } from '@/vector';
 
 export interface IMouseRect {
   point1: Vector;

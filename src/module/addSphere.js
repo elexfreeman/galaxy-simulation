@@ -3,30 +3,38 @@ import { GeneratorCircle } from '@/bodyGenerator';
 import stars from '@/global/stars';
 import { draw, elem, mouseCoord } from './global/draw';
 import { core } from '@/global/core';
+import menuState from '@/module/menuState';
+
+export const addSphereCount = 500;
+export const addSphereRadius = 100;
 
 export const addSphereInit = () => {
-  window.addSphereCount = 500;
-  window.addSphereRadius = 100;
-
   elem.addEventListener('click', (event) => {
-    if (window.menuState !== 1) {
+    if (menuState !== 1) {
       return;
     }
+
+    // center = ( (mouseCoord -  VH * 0.5) / zoom ) + centerMassVector
 
     const center = Vector.add(
       Vector.multDigit(
         Vector.minus(
           Vector.fromVector(mouseCoord),
-          Vector.multDigit(draw.geVH(), 0.5)
+          Vector.multDigit(draw.geVH(), 0.5),
         ),
         1 / stars.zoom,
       ),
-      stars.centerMassVector);
+      stars.centerMassVector,
+    );
 
     stars.isPause = true;
 
-    for (let k = 0; k < window.addSphereCount; k++) {
-      const newStar = GeneratorCircle.getDot(center, addSphereRadius, '#FFFFFF');
+    for (let k = 0; k < addSphereCount; k++) {
+      const newStar = GeneratorCircle.getDot(
+        center,
+        addSphereRadius,
+        '#FFFFFF',
+      );
       stars.dataArr.push([newStar.coord.x, newStar.coord.y, 0, 0]);
     }
 

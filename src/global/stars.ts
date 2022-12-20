@@ -23,9 +23,20 @@ export class Stars {
   }
 
   getStarXY(starIdx: number): Vector {
-    return new Vector(this.dataArr[starIdx][DATA_X], this.dataArr[starIdx][DATA_Y]);
+    return new Vector(
+      this.dataArr[starIdx][DATA_X],
+      this.dataArr[starIdx][DATA_Y],
+    );
+  }
+
+  getStarV(starIdx: number): Vector {
+    return new Vector(
+      this.dataArr[starIdx][DATA_VX],
+      this.dataArr[starIdx][DATA_VY],
+    );
   }
 }
 
 const stars = new Stars();
+
 export default stars;

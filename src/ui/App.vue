@@ -4,7 +4,9 @@
     <Menu :selectedMenuIdx="selectedMenuIdx" @onSelectMenu="onSelectMenu" />
     <div class="app__wraper">
       <Navigation v-if="selectedMenuIdx == 0" />
-      <div v-if="selectedMenuIdx == 1" class="app_add-point">Mouse click point</div>
+      <div v-if="selectedMenuIdx == 1" class="app_add-point">
+        Mouse click point
+      </div>
       <SaveFileForm v-if="selectedMenuIdx == 2" />
       <LoadFileForm v-if="selectedMenuIdx == 3" />
       <StarTracking v-if="selectedMenuIdx == 4" />
@@ -17,7 +19,8 @@
 import LoadFileForm from '@/ui/saveLoadFile/LoadFileForm.vue';
 import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
-import StarTracking from '@/ui/tracking/TrackingTab.vue'
+import StarTracking from '@/ui/tracking/TrackingTab.vue';
+import menuState from '@/module/menuState';
 
 import Menu from '@/ui/menu/Menu.vue';
 import StatusBar from '@/ui/StatusBar.vue';
@@ -48,7 +51,7 @@ export default {
 
   methods: {
     onSelectMenu(idx) {
-      window.menuState = idx;
+      menuState = idx;
       this.selectedMenuIdx = idx;
     },
   },

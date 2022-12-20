@@ -1,116 +1,116 @@
 import { Vector } from '@/vector';
-import { xyToCanvas } from '@/utils/utils';
+import { xyToCanvas, canvasToXy } from '@/utils/utils';
 import { getDotColorFromField } from '@/utils/gradient';
+import { draw } from '@/global/draw';
 import { Stars } from '@/global/stars';
-import {IMouseRect} from './mouseCursor';
+import { IMouseRect } from './mouseCursor';
+import stars from '@/global/stars';
+import { Draw } from '@/utils/draw';
 
-export class StarTrackerState {
-  static default = 0;
-  static startSelect = 1;
-}
-
-export const starTrackerInit = () => {
-  window.starTrackerState = StarTrackerState.default;
-  window.mouseRect = {
-    x1: 0,
-    y1: 0,
-    x2: 0,
-    y2: 0,
-  };
+export const mouseRect: IMouseRect = {
+  point1: new Vector(0, 0),
+  point2: new Vector(0, 0),
 };
+
+export const starTrackerInit = () => {};
 
 export const drawMouseRect = () => {
-  const { x1, x2, y1, y2 } = window.mouseRect;
-  if (((x1 == x2) == y1) == y2) return;
+  const { point1, point2 } = mouseRect;
 
-  const ctx = window.canvasElem.ctx;
-  ctx.beginPath();
-  ctx.fillStyle = 'green';
-  ctx.fillRect(x2, y2, x1 - x2 - 20, y1 - y2 - 20);
-  ctx.closePath();
-  ctx.stroke();
+  // point1 - point2 - 20
+  draw.rect(
+    point2,
+    Vector.addScalar(Vector.minus(point1, point2), -20),
+    'green',
+  );
 };
 
-export const getStarFromRect = () => {
-  const { x1, x2, y1, y2 } = window.mouseRect;
-  let star = null;
+export const getStarFromRect = (): number => {
+  const { point1, point2 } = mouseRect;
+  let out = -1;
 
-  const minX = x1 <= x2 ? x1 : x2;
-  const minY = y1 <= y2 ? y1 : y2;
-
-  const maxX = x1 > x2 ? x1 : x2;
-  const maxY = y1 > y2 ? y1 : y2;
+  const min = Vector.getMin(point1, point2);
+  const max = Vector.getMax(point1, point2);
 
   for (let k = 0; k < stars.dataArr.length; k++) {
-    let x = stars.dataArr[k][0];
-    let y = stars.dataArr[k][1];
+    const star = canvasToXy(
+      stars.getStarXY(k),
+      stars.centerMassVector,
+      stars.zoom,
+      draw.getVH(),
+    );
 
-    x = (x - window.centerMassVector.x) * window.zoom;
-    y = (y - window.centerMassVector.y) * window.zoom;
-
-    x = x + window.innerWidth / 2;
-    y = y + window.innerHeight / 2;
-
-    const isInRect = x > minX && x < maxX && y > minY && y < maxY;
+    const isInRect =
+      star.x > min.x && star.x < max.x && star.y > min.y && star.y < max.y;
 
     if (isInRect) {
-      star = k;
+      out = k;
       break;
     }
   }
 
-  return star;
+  return out;
 };
 
-export const getStartsFromRect = (stars: Stars, mouseRect: IMouseRect) => {
-  const starList = [];
+//export const getStartsFromRect = (stars: Stars, mouseRect: IMouseRect) => {
+//  const starList = [];
+//
+//  const minX =
+//    mouseRect.point1.x <= mouseRect.point2.x
+//      ? mouseRect.point1.x
+//      : mouseRect.point2.x;
+//  const minY =
+//    mouseRect.point1.y <= mouseRect.point2.y
+//      ? mouseRect.point1.y
+//      : mouseRect.point2.y;
+//
+//  const maxX =
+//    mouseRect.point1.x > mouseRect.point2.x
+//      ? mouseRect.point1.x
+//      : mouseRect.point2.x;
+//  const maxY =
+//    mouseRect.point1.y > mouseRect.point2.y
+//      ? mouseRect.point1.y
+//      : mouseRect.point2.y;
+//
+//  for (let k = 0; k < stars.dataArr.length; k++) {
+//    const star = stars.getStarXY(k);
+//
+//    x = (x - window.centerMassVector.x) * window.zoom;
+//    y = (y - window.centerMassVector.y) * window.zoom;
+//
+//    x = x + window.innerWidth / 2;
+//    y = y + window.innerHeight / 2;
+//
+//    const isInRect = x > minX && x < maxX && y > minY && y < maxY;
+//
+//    if (isInRect) starList.push(k);
+//  }
+//
+//  return starList;
+//};
 
-  const minX = mouseRect.point1.x <= mouseRect.point2.x ? mouseRect.point1.x : mouseRect.point2.x;
-  const minY = mouseRect.point1.y <= mouseRect.point2.y ? mouseRect.point1.y : mouseRect.point2.y;
-
-  const maxX = mouseRect.point1.x > mouseRect.point2.x ? mouseRect.point1.x : mouseRect.point2.x;
-  const maxY = mouseRect.point1.y > mouseRect.point2.y ? mouseRect.point1.y : mouseRect.point2.y;
-
-
-  for (let k = 0; k < stars.dataArr.length; k++) {
-
-    const star = stars.getStarXY(k);
-
-    x = (x - window.centerMassVector.x) * window.zoom;
-    y = (y - window.centerMassVector.y) * window.zoom;
-
-    x = x + window.innerWidth / 2;
-    y = y + window.innerHeight / 2;
-
-    const isInRect = x > minX && x < maxX && y > minY && y < maxY;
-
-    if (isInRect) starList.push(k);
-  }
-
-  return starList;
-};
-
-export class StarTracker {
-  constructor(starList) {
-    this.starList = starList;
-  }
-}
-
-export const drawTraking = (stars: Stars, w, h, zoom, starIdx, ctx, image, color) => {
-  if (!ctx) return;
-
+export const drawTraking = (
+  stars: Stars,
+  vh: Vector,
+  zoom: number,
+  starIdx: number,
+  _draw: Draw,
+  image: any,
+  color: string,
+) => {
   const osX = new Vector(1, 0);
-  const offset = new Vector(w / 2, h / 2);
-  const offsetButtom = h / 5;
-  const centerMassVector = new Vector(stars.dataArr[starIdx][0], stars.dataArr[starIdx][1]);
-  let vecV = new Vector(stars.dataArr[starIdx][2], stars.dataArr[starIdx][3]);
+  const offset = Vector.multDigit(vh, 0.5);
+  const offsetButtom = vh.y / 5;
+  const centerMassVector = stars.getStarXY(starIdx);
+
+  let vecV = stars.getStarV(starIdx);
   let vecXY = new Vector(0, 0);
   const deg = Vector.angle2V(osX, vecV);
   let field = 0;
 
-  for (let k = 0; k < stars.dataArrWithField.length; k++) {
-    vecXY.x = stars.dataArr[k][0];
-    vecXY.y = stars.dataArr[k][1];
+  for (let k = 0; k < stars.getCount(); k++) {
+    vecXY = stars.getStarXY(k);
     vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
     vecXY = Vector.minus(vecXY, centerMassVector);
     vecXY = Vector.multDigit(vecXY, zoom);
@@ -118,44 +118,28 @@ export const drawTraking = (stars: Stars, w, h, zoom, starIdx, ctx, image, color
     field = stars.dataArrWithField[k][2];
     vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
 
-    ctx.beginPath();
-    ctx.fillStyle = getDotColorFromField(field);
-    ctx.fillRect(vecXY.x, vecXY.y, 3, 3);
-    ctx.closePath();
-    ctx.stroke();
+    _draw.rect(vecXY, new Vector(3, 3), getDotColorFromField(field));
   }
 
   // drawImage
-  const ship = new Vector(w / 2, h - offsetButtom - 40);
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
   if (image) {
-    ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
+    _draw.ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
   }
 
   // global map target
   const rectXY = xyToCanvas(
-    centerMassVector.x - 10,
-    centerMassVector.y - 10,
-    window.zoom,
-    window.centerMassVector,
-    window.innerWidth,
-    window.innerHeight,
+    Vector.addScalar(centerMassVector, -10),
+    stars.zoom,
+    stars.centerMassVector,
+    draw.getVH(),
   );
 
-  window.canvasElem.ctx.beginPath();
-  window.canvasElem.ctx.strokeStyle = color;
-  window.canvasElem.ctx.strokeRect(rectXY.dx, rectXY.dy, 20, 20);
-  window.canvasElem.ctx.closePath();
-  window.canvasElem.ctx.stroke();
+  draw.rect(rectXY, new Vector(20, 20), color);
 
   // vector velocity
   vecV = Vector.multDigit(vecV, 100);
-  window.canvasElem.ctx.beginPath();
-  window.canvasElem.ctx.strokeStyle = color;
-  window.canvasElem.ctx.fillStyle = color;
-  window.canvasElem.ctx.lineTo(rectXY.dx + 10, rectXY.dy + 10);
-  window.canvasElem.ctx.lineTo(rectXY.dx + vecV.x, rectXY.dy + vecV.y);
-  window.canvasElem.ctx.closePath();
-  window.canvasElem.ctx.stroke();
+  draw.line(Vector.addScalar(rectXY, 10), Vector.add(rectXY, vecV), color);
 };
 
 export const drawTrakingNet = (stars: Stars, w, h, starIdx, ctx, step) => {
