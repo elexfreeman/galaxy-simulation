@@ -1,7 +1,7 @@
 import { Vector } from '@/vector';
 import { GeneratorCircle } from '@/bodyGenerator';
 import stars from '@/global/stars';
-import { draw, elem, mouseCoord } from './global/draw';
+import { draw, elem, mouseCoord } from '@/global/draw';
 import { core } from '@/global/core';
 import menuState from '@/module/menuState';
 

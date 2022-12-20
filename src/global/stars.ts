@@ -35,6 +35,10 @@ export class Stars {
       this.dataArr[starIdx][DATA_VY],
     );
   }
+
+  getField(starIdx: number) {
+    return this.dataArrWithField[starIdx][DATA_FIELD];
+  }
 }
 
 const stars = new Stars();

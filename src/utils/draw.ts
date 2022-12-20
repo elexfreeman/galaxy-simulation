@@ -1,13 +1,13 @@
-import {Vector} from "../vector";
+import { Vector } from '../vector';
 
 export class Draw {
   public ctx: CanvasRenderingContext2D;
 
   constructor(ctx: CanvasRenderingContext2D | null) {
-    this.ctx = new CanvasRenderingContext2D();
-    if(ctx) {
-      this.ctx = ctx;
+    if(!ctx) {
+      throw 'ctx is null';
     }
+    this.ctx = ctx;
   }
 
   clear() {
@@ -37,4 +37,3 @@ export class Draw {
     return new Vector(this.ctx.canvas.width, this.ctx.canvas.height);
   }
 }
-

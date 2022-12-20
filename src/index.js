@@ -41,12 +41,12 @@ const drawStars = () => {
 
   for (let k = 0; k < stars.dataArr.length; k++) {
     const point = xyToCanvas(
-      new Vector(stars.dataArr[k][DATA_X], stars.dataArr[k][DATA_Y]),
+      stars.getStarXY(k),
       stars.zoom,
       stars.centerMassVector,
       draw.getVH(),
     );
-    const color = getDotColorFromField(stars.dataArrWithField[k][DATA_FIELD], stars.maxField);
+    const color = getDotColorFromField(stars.getField(k), stars.maxField);
 
     draw.rect(point, starSize, color);
   }

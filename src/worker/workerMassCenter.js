@@ -7,7 +7,7 @@ onmessage = function (e) {
   const getCenterMassVector = () => {
     let startWorker = new Date();
     const count = dataArr.length;
-    const centerMassVectorXY = new Vector(0, 0);
+    let centerMassVectorXY = new Vector(0, 0);
     let maxField = 0;
 
     for (let k = 0; k < dataArr.length; k++) {
