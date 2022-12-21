@@ -15,7 +15,7 @@ import { mouseCoordInit } from '@/module/mouseCursor';
 import { FpsMeter } from '@/module/fps';
 import { starTrackerInit, drawMouseRect } from '@/module/starTracker';
 
-import stars, { DATA_X, DATA_Y, DATA_FIELD } from '@/global/stars';
+import stars from '@/global/stars';
 import { draw } from '@/global/draw';
 import { core } from '@/global/core';
 

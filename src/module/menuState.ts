@@ -1,2 +1,4 @@
-let menuState = 0;
+let menuState = {
+  state: 0,
+}
 export default menuState;

@@ -1,26 +1,54 @@
 <template>
   <div class="tracking-tab">
     <div class="tracking-tab__title">Star Group Tracking</div>
-    <TButton class="tracking-tab__btn" v-if="!isStartSelect" @click="onStartSelect">Click to select a group</TButton>
-    <TButton class="tracking-tab__btn" v-if="isStartSelect" @click="onAbortSelect">Abort select a group</TButton>
-    <canvas width="360" height="360" ref="canvas" class="tracking-tab__canvas" />
+    <TButton
+      class="tracking-tab__btn"
+      v-if="!isStartSelect"
+      @click="onStartSelect"
+      >Click to select a group</TButton
+    >
+    <TButton
+      class="tracking-tab__btn"
+      v-if="isStartSelect"
+      @click="onAbortSelect"
+      >Abort select a group</TButton
+    >
+    <canvas
+      width="360"
+      height="360"
+      ref="canvas"
+      class="tracking-tab__canvas"
+    />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
     <Zoom @onZoom="onZoom" />
     <div style="display: none">
-      <img ref="roketImg" src="../../images/roket1.png" width="15" height="25" />
+      <img
+        ref="roketImg"
+        src="../../images/roket1.png"
+        width="15"
+        height="25"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { getStarFromRect, drawTraking, drawTrakingNet } from '@/module/starTracker';
+import {
+  getStarFromRect,
+  drawTraking,
+  drawTrakingNet,
+  mouseRect,
+} from '@/module/starTracker';
 import { Vector } from '@/vector';
 import { getDotColorFromField } from '@/utils/gradient';
+import { draw, ctx, elem, mouseCoord } from '@/global/draw';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 import Zoom from '@/ui/components/Zoom.vue';
 import TrackingStatusBar from '@/ui/tracking/StatusBar.vue';
+import stars from '@/global/stars';
+import { Draw } from '@/utils/draw';
 
 export default {
   components: {
@@ -38,6 +66,7 @@ export default {
       isStartDraw: false,
       worker: null,
       ctx: null,
+      drawClass: null,
       starList: [],
       starIdx: -1,
       centerMassVector: new Vector(0, 0),
@@ -50,18 +79,18 @@ export default {
   watch: {},
 
   mounted() {
-    window.canvasElem.elem.addEventListener('mousedown', this.onMouseDown);
-    window.canvasElem.elem.addEventListener('mouseup', this.onMouseUp);
-    window.canvasElem.elem.addEventListener('mousemove', this.onMouseMove);
-    this.ctx = this.$refs['canvas'].getContext('2d');
-
+    elem.addEventListener('mousedown', this.onMouseDown);
+    elem.addEventListener('mouseup', this.onMouseUp);
+    elem.addEventListener('mousemove', this.onMouseMove);
+    const ctx = this.$refs['canvas'].getContext('2d');
+    this.drawClass = new Draw(ctx);
     //    this.worker = new WorkerCore(this.workerCallback, this);
   },
 
   destroyed() {
-    window.canvasElem.elem.removeEventListener('mousedown', this.onMouseDown);
-    window.canvasElem.elem.removeEventListener('mouseup', this.onMouseUp);
-    window.canvasElem.elem.removeEventListener('mousemove', this.onMouseMove);
+    elem.removeEventListener('mousedown', this.onMouseDown);
+    elem.removeEventListener('mouseup', this.onMouseUp);
+    elem.removeEventListener('mousemove', this.onMouseMove);
   },
 
   methods: {
@@ -70,11 +99,11 @@ export default {
       that.centerMassVector = data.centerMassVector;
     },
     onStartSelect() {
-      window.isPause = true;
+      stars.isPause = true;
       this.isStartSelect = true;
     },
     onAbortSelect() {
-      window.isPause = false;
+      stars.isPause = false;
       this.isStartSelect = false;
     },
     onZoom(zoom) {
@@ -83,48 +112,46 @@ export default {
     onMouseDown(event) {
       if (!this.isStartSelect) return;
       this.isStartRect = true;
-      window.mouseRect.x1 = event.x;
-      window.mouseRect.y1 = event.y;
+      mouseRect.point1.x = event.x;
+      mouseRect.point1.y = event.y;
     },
     onMouseMove(event) {
       if (!this.isStartRect) return;
-      window.mouseRect.x2 = event.x;
-      window.mouseRect.y2 = event.y;
+      mouseRect.point2.x = event.x;
+      mouseRect.point2.y = event.y;
     },
     onMouseUp() {
       this.isStartRect = false;
       this.starIdx = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
-      window.isPause = false;
-      window.mouseRect = {
-        x1: 0,
-        y1: 0,
-        x2: 0,
-        y2: 0,
-      };
+      stars.isPause = false;
+      mouseRect.point2.x = event.x;
+      mouseRect.point1 = new Vector(0, 0);
+      mouseRect.point2 = new Vector(0, 0);
       this.draw(this);
-    },
-    clearCanvas(that) {
-      if (!that.$refs?.canvas?.offsetHeight) return;
-      const { offsetWidth, offsetHeight } = that.$refs['canvas'];
-      that.ctx.globalCompositeOperation = 'destination-over';
-      that.ctx.clearRect(0, 0, offsetWidth, offsetHeight); // clear canvas
     },
     drawStars(starIdx, that) {
       if (!that.$refs?.canvas?.offsetHeight) return;
       if (starIdx < 0) return;
 
-      const { offsetWidth, offsetHeight } = that.$refs['canvas'];
+      const vh = that.drawClass.getVH();
       const zoom = that.zoom;
-      drawTraking(offsetWidth, offsetHeight, zoom, starIdx, that.ctx, that.$refs?.roketImg, 'green');
-      drawTrakingNet(offsetWidth, offsetHeight, starIdx, that.ctx, 20);
+      drawTraking(
+        vh,
+        zoom,
+        starIdx,
+        that.drawClass,
+        that.$refs?.roketImg,
+        'green',
+      );
+      //      drawTrakingNet(vh, starIdx, that.ctx, 20);
     },
     draw(that) {
       if (!that) return;
       if (that.starIdx < 0) return;
-      that.clearCanvas(that);
-      that.centerMassVector = new Vector(window.dataArr[that.starIdx][0], window.dataArr[that.starIdx][1]);
+      that.drawClass.clear();
+      that.centerMassVector = stars.getStarXY(0);
       that.drawStars(that.starIdx, that);
       requestAnimationFrame(() => {
         this.draw(that);

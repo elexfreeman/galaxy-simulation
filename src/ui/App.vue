@@ -51,7 +51,7 @@ export default {
 
   methods: {
     onSelectMenu(idx) {
-      menuState = idx;
+      menuState.state = idx;
       this.selectedMenuIdx = idx;
     },
   },

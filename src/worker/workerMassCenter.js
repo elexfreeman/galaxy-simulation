@@ -11,7 +11,10 @@ onmessage = function (e) {
     let maxField = 0;
 
     for (let k = 0; k < dataArr.length; k++) {
-      centerMassVectorXY = Vector.add(centerMassVectorXY, new Vector(dataArr[k][DATA_X], dataArr[k][DATA_Y]));
+      centerMassVectorXY = Vector.add(
+        centerMassVectorXY,
+        new Vector(dataArr[k][DATA_X], dataArr[k][DATA_Y]),
+      );
       if (dataArr[k][DATA_FIELD] > maxField) {
         maxField = dataArr[k][DATA_FIELD];
       }

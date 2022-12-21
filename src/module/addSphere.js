@@ -10,7 +10,7 @@ export const addSphereRadius = 100;
 
 export const addSphereInit = () => {
   elem.addEventListener('click', (event) => {
-    if (menuState !== 1) {
+    if (menuState.state !== 1) {
       return;
     }
 

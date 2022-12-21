@@ -91,7 +91,6 @@ export const getStarFromRect = (): number => {
 //};
 
 export const drawTraking = (
-  stars: Stars,
   vh: Vector,
   zoom: number,
   starIdx: number,
@@ -115,10 +114,14 @@ export const drawTraking = (
     vecXY = Vector.minus(vecXY, centerMassVector);
     vecXY = Vector.multDigit(vecXY, zoom);
     vecXY = Vector.add(vecXY, offset);
-    field = stars.dataArrWithField[k][2];
+    field = stars.getField(k);
     vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
 
-    _draw.rect(vecXY, new Vector(3, 3), getDotColorFromField(field));
+    _draw.rect(
+      vecXY,
+      new Vector(3, 3),
+      getDotColorFromField(field, stars.maxField),
+    );
   }
 
   // drawImage
