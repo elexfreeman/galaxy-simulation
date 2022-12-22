@@ -1,12 +1,17 @@
 <template>
   <div class="pause">
-    <TButton class="pause__button" v-if="isPause" @click="onPause">⏵ Resume </TButton>
-    <TButton class="pause__button" v-if="!isPause" @click="onPause">⏸ Pause </TButton>
+    <TButton class="pause__button" v-if="isPause" @click="onPause"
+      >⏵ Resume
+    </TButton>
+    <TButton class="pause__button" v-if="!isPause" @click="onPause"
+      >⏸ Pause
+    </TButton>
   </div>
 </template>
 
 <script>
 import TButton from '@/ui/components/Button.vue';
+import stars from '@/global/stars';
 
 export default {
   components: {
@@ -15,7 +20,7 @@ export default {
 
   data() {
     return {
-      isPause: window.isPause,
+      isPause: stars.isPause,
     };
   },
 
@@ -29,14 +34,14 @@ export default {
     setPause() {
       setTimeout(() => {
         if (this.isPause) {
-          this.isPause = window.isPause;
+          this.isPause = stars.isPause;
           this.setPause();
         }
       }, 500);
     },
     onPause() {
-      window.isPause = !window.isPause;
-      this.isPause = window.isPause;
+      stars.isPause = !stars.isPause;
+      this.isPause = stars.isPause;
     },
   },
 };

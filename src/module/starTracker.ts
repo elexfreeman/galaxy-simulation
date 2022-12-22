@@ -1,11 +1,13 @@
 import { Vector } from '@/vector';
 import { xyToCanvas, canvasToXy } from '@/utils/utils';
 import { getDotColorFromField } from '@/utils/gradient';
+
+import stars from '@/global/stars';
 import { draw } from '@/global/draw';
 import { Stars } from '@/global/stars';
-import { IMouseRect } from './mouseCursor';
-import stars from '@/global/stars';
 import { Draw } from '@/utils/draw';
+
+import { IMouseRect } from '@/module/mouseCursor';
 
 export const mouseRect: IMouseRect = {
   point1: new Vector(0, 0),
@@ -51,44 +53,6 @@ export const getStarFromRect = (): number => {
 
   return out;
 };
-
-//export const getStartsFromRect = (stars: Stars, mouseRect: IMouseRect) => {
-//  const starList = [];
-//
-//  const minX =
-//    mouseRect.point1.x <= mouseRect.point2.x
-//      ? mouseRect.point1.x
-//      : mouseRect.point2.x;
-//  const minY =
-//    mouseRect.point1.y <= mouseRect.point2.y
-//      ? mouseRect.point1.y
-//      : mouseRect.point2.y;
-//
-//  const maxX =
-//    mouseRect.point1.x > mouseRect.point2.x
-//      ? mouseRect.point1.x
-//      : mouseRect.point2.x;
-//  const maxY =
-//    mouseRect.point1.y > mouseRect.point2.y
-//      ? mouseRect.point1.y
-//      : mouseRect.point2.y;
-//
-//  for (let k = 0; k < stars.dataArr.length; k++) {
-//    const star = stars.getStarXY(k);
-//
-//    x = (x - window.centerMassVector.x) * window.zoom;
-//    y = (y - window.centerMassVector.y) * window.zoom;
-//
-//    x = x + window.innerWidth / 2;
-//    y = y + window.innerHeight / 2;
-//
-//    const isInRect = x > minX && x < maxX && y > minY && y < maxY;
-//
-//    if (isInRect) starList.push(k);
-//  }
-//
-//  return starList;
-//};
 
 export const drawTraking = (
   vh: Vector,

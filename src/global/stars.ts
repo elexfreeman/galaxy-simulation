@@ -37,6 +37,7 @@ export class Stars {
   }
 
   getField(starIdx: number) {
+    if(this.dataArrWithField[starIdx])
     return this.dataArrWithField[starIdx][DATA_FIELD];
   }
 }

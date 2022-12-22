@@ -122,11 +122,12 @@ export default {
     },
     onMouseUp() {
       this.isStartRect = false;
+      mouseRect.point2.x = event.x;
+      mouseRect.point2.y = event.y;
       this.starIdx = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       stars.isPause = false;
-      mouseRect.point2.x = event.x;
       mouseRect.point1 = new Vector(0, 0);
       mouseRect.point2 = new Vector(0, 0);
       this.draw(this);

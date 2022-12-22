@@ -20,7 +20,7 @@ export const addSphereInit = () => {
       Vector.multDigit(
         Vector.minus(
           Vector.fromVector(mouseCoord),
-          Vector.multDigit(draw.geVH(), 0.5),
+          Vector.multDigit(draw.getVH(), 0.5),
         ),
         1 / stars.zoom,
       ),
