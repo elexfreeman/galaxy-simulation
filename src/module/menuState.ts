@@ -4,6 +4,7 @@ class MenuStateClass {
   readonly saveFile = 2;
   readonly loadFile = 3;
   readonly starTracking = 4;
+  readonly player = 5;
 }
 
 export const MenuStateConst = new MenuStateClass();

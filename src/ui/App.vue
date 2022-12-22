@@ -13,6 +13,7 @@
       <SaveFileForm v-if="selectedMenuIdx == MenuStateConst.saveFile" />
       <LoadFileForm v-if="selectedMenuIdx == MenuStateConst.loadFile" />
       <StarTracking v-if="selectedMenuIdx == MenuStateConst.starTracking" />
+      <Player v-if="selectedMenuIdx == MenuStateConst.player" />
     </div>
     <StatusBar />
   </div>
@@ -23,6 +24,7 @@ import LoadFileForm from '@/ui/saveLoadFile/LoadFileForm.vue';
 import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
 import StarTracking from '@/ui/tracking/TrackingTab.vue';
+import Player from '@/ui/player/Player.vue';
 import menuState, { MenuStateConst } from '@/module/menuState';
 
 import Menu from '@/ui/menu/Menu.vue';
@@ -38,6 +40,7 @@ export default {
     Menu,
     StatusBar,
     StarTracking,
+    Player,
   },
 
   data() {
