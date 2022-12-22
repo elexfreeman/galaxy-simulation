@@ -1,6 +1,6 @@
 function hex(c) {
-  var s = '0123456789abcdef';
-  var i = parseInt(c);
+  let s = '0123456789abcdef';
+  let i = parseInt(c);
   if (i == 0 || isNaN(c)) return '00';
   i = Math.round(Math.min(Math.max(0, i), 255));
   return s.charAt((i - (i % 16)) / 16) + s.charAt(i % 16);
@@ -18,7 +18,7 @@ function trim(s) {
 
 /* Convert a hex string to an RGB triplet */
 function convertToRGB(hex) {
-  var color = [];
+  let color = [];
   color[0] = parseInt(trim(hex).substring(0, 2), 16);
   color[1] = parseInt(trim(hex).substring(2, 4), 16);
   color[2] = parseInt(trim(hex).substring(4, 6), 16);
@@ -27,21 +27,21 @@ function convertToRGB(hex) {
 
 export function generateColor(colorStart, colorEnd, colorCount) {
   // The beginning of your gradient
-  var start = convertToRGB(colorStart);
+  let start = convertToRGB(colorStart);
 
   // The end of your gradient
-  var end = convertToRGB(colorEnd);
+  let end = convertToRGB(colorEnd);
 
   // The number of colors to compute
-  var len = colorCount;
+  let len = colorCount;
 
   //Alpha blending amount
-  var alpha = 0.0;
+  let alpha = 0.0;
 
-  var saida = [];
+  let saida = [];
 
   for (let i = 0; i < len; i++) {
-    var c = [];
+    let c = [];
     alpha += 1.0 / len;
 
     c[0] = start[0] * alpha + (1 - alpha) * end[0];
@@ -56,10 +56,9 @@ export function generateColor(colorStart, colorEnd, colorCount) {
 
 const gradientColorList = generateColor('#f58484', '#0ecf9e', 10000);
 
-export const getDotColorFromField = (field) => {
+export const getDotColorFromField = (field, maxField) => {
   const maxColor = gradientColorList.length;
-  let k = Math.ceil(maxColor * field / window.maxField);
+  let k = Math.ceil((maxColor * field) / maxField);
   if (field > maxColor) k = maxColor;
   return `#${gradientColorList[k]}`;
-}
-
+};

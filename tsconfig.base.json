@@ -14,8 +14,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "@ko/*": ["src/*"],
-      "@/*": ["src-vue/*"]
+      "@/*": ["src/*"]
     },
     "lib": [
       "esnext",
@@ -35,9 +34,10 @@
     ]
   },
   "include": [
-    "src-vue/**/*.ts",
-    "src-vue/**/*.tsx",
-    "src-vue/**/*.vue",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "tests/unit/**/*.ts"
   ],
   "exclude": [

@@ -6,13 +6,15 @@
 </template>
 
 <script>
+import stars from '@/global/stars';
+import { fpsMeter } from '@/module/fps';
 export default {
   components: {},
 
   data() {
     return {
-      fps: window.fps,
-      dotsCount: window.dataArr.length,
+      fps: fpsMeter.fps,
+      dotsCount: stars.dataArr.length,
       workerFps: window.workerFps,
     };
   },
@@ -30,7 +32,7 @@ export default {
 
   methods: {
     fpsWatcher() {
-      this.fps = window.fps;
+      this.fps = fpsMeter.fps;
       setTimeout(() => {
         if (this.fpsWatcher) {
           this.fpsWatcher();
@@ -38,7 +40,7 @@ export default {
       }, 500);
     },
     dotsCountWatcher() {
-      this.dotsCount = window.dataArr.length;
+      this.dotsCount = stars.getCount();
       setTimeout(() => {
         if (this.dotsCountWatcher) {
           this.dotsCountWatcher();

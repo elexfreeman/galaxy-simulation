@@ -9,6 +9,9 @@
   "files": [
     "dist"
   ],
+  "paths": {
+    "@/*": ["src/*"]
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "exports": {

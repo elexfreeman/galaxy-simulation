@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
   "exclude": [
-    "src-vue/**/*.test.ts"
+    "src/**/*.test.ts"
   ]
 }

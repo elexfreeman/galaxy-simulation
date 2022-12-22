@@ -10,6 +10,8 @@ import TButton from '@/ui/components/Button.vue';
 import Zoom from '@/ui/components/Zoom.vue';
 import Pause from '@/ui/navigation/Pause.vue';
 
+import stars from '@/global/stars';
+
 export default {
   components: {
     TButton,
@@ -30,7 +32,7 @@ export default {
 
   methods: {
     onZoom(zoom) {
-      window.zoom = zoom;
+      stars.zoom = zoom;
     }
   },
 };
