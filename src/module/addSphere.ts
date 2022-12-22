@@ -3,14 +3,14 @@ import { GeneratorCircle } from '@/bodyGenerator';
 import stars from '@/global/stars';
 import { draw, elem, mouseCoord } from '@/global/draw';
 import { core } from '@/global/core';
-import menuState from '@/module/menuState';
+import menuState, { MenuStateConst } from '@/module/menuState';
 
 export const addSphereCount = 500;
 export const addSphereRadius = 100;
 
 export const addSphereInit = () => {
-  elem.addEventListener('click', (event) => {
-    if (menuState.state !== 1) {
+  elem.addEventListener('click', () => {
+    if (menuState.state !== MenuStateConst.addStar) {
       return;
     }
 
@@ -35,7 +35,7 @@ export const addSphereInit = () => {
         addSphereRadius,
         '#FFFFFF',
       );
-      stars.dataArr.push([newStar.coord.x, newStar.coord.y, 0, 0]);
+      stars.addStar(newStar.coord, newStar.velocity);
     }
 
     core.refresh();

@@ -3,13 +3,16 @@
     <div class="app__title">Galaxy simulation</div>
     <Menu :selectedMenuIdx="selectedMenuIdx" @onSelectMenu="onSelectMenu" />
     <div class="app__wraper">
-      <Navigation v-if="selectedMenuIdx == 0" />
-      <div v-if="selectedMenuIdx == 1" class="app_add-point">
+      <Navigation v-if="selectedMenuIdx == MenuStateConst.navigation" />
+      <div
+        v-if="selectedMenuIdx == MenuStateConst.addStar"
+        class="app_add-point"
+      >
         Mouse click point
       </div>
-      <SaveFileForm v-if="selectedMenuIdx == 2" />
-      <LoadFileForm v-if="selectedMenuIdx == 3" />
-      <StarTracking v-if="selectedMenuIdx == 4" />
+      <SaveFileForm v-if="selectedMenuIdx == MenuStateConst.saveFile" />
+      <LoadFileForm v-if="selectedMenuIdx == MenuStateConst.loadFile" />
+      <StarTracking v-if="selectedMenuIdx == MenuStateConst.starTracking" />
     </div>
     <StatusBar />
   </div>
@@ -20,7 +23,7 @@ import LoadFileForm from '@/ui/saveLoadFile/LoadFileForm.vue';
 import SaveFileForm from '@/ui/saveLoadFile/SaveFileForm.vue';
 import Navigation from '@/ui/navigation/Navigation.vue';
 import StarTracking from '@/ui/tracking/TrackingTab.vue';
-import menuState from '@/module/menuState';
+import menuState, { MenuStateConst } from '@/module/menuState';
 
 import Menu from '@/ui/menu/Menu.vue';
 import StatusBar from '@/ui/StatusBar.vue';
@@ -43,7 +46,11 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    MenuStateConst() {
+      return MenuStateConst;
+    },
+  },
 
   watch: {},
 

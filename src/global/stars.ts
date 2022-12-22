@@ -36,9 +36,15 @@ export class Stars {
     );
   }
 
-  getField(starIdx: number) {
+  getField(starIdx: number): number {
     if(this.dataArrWithField[starIdx])
     return this.dataArrWithField[starIdx][DATA_FIELD];
+    return 0;
+  }
+
+  addStar(coord: Vector, speed: Vector) {
+    this.dataArr.push([coord.x, coord.y, speed.x, speed.y]);
+    this.dataArrWithField.push([coord.x, coord.y, 0]);
   }
 }
 

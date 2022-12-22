@@ -12,7 +12,7 @@ import { WorkerCore } from '@/worker/worker-core';
 
 import { addSphereInit } from '@/module/addSphere';
 import { mouseCoordInit } from '@/module/mouseCursor';
-import { FpsMeter } from '@/module/fps';
+import { fpsMeter } from '@/module/fps';
 import { starTrackerInit, drawMouseRect } from '@/module/starTracker';
 
 import stars from '@/global/stars';
@@ -20,16 +20,6 @@ import { draw } from '@/global/draw';
 import { core } from '@/global/core';
 
 import '@/styles/style.scss';
-
-const ctx = document.getElementById('canvas').getContext('2d');
-const fpsMeter = new FpsMeter();
-
-window.canvasElem = {
-  elem: document.getElementById('canvas'),
-  x: 0,
-  y: 0,
-  ctx: ctx,
-};
 
 const workerCore = new WorkerCore((data) => {
   stars.centerMassVector = data.centerMassVector;
@@ -39,7 +29,7 @@ const workerCore = new WorkerCore((data) => {
 const drawStars = () => {
   const starSize = new Vector(1, 1);
 
-  for (let k = 0; k < stars.dataArr.length; k++) {
+  for (let k = 0; k < stars.getCount(); k++) {
     const point = xyToCanvas(
       stars.getStarXY(k),
       stars.zoom,
@@ -54,12 +44,14 @@ const drawStars = () => {
 
 const calcStars = () => {
   stars.dataArr = core.kernel.setOutput([stars.dataArr.length]).setConstants({
-    len: stars.dataArr.length,
+    len: stars.getCount(),
   })(C.G, stars.dataArr);
 
-  stars.dataArrWithField = core.kernelForce.setOutput([stars.dataArr.length]).setConstants({
-    len: stars.dataArr.length,
-  })(C.G, stars.dataArr);
+  stars.dataArrWithField = core.kernelForce
+    .setOutput([stars.getCount()])
+    .setConstants({
+      len: stars.getCount(),
+    })(C.G, stars.dataArr);
 };
 
 /////////////////////
@@ -85,7 +77,7 @@ const initDataArr = () => {
   let bodyList = bodyGenerator.generate();
 
   for (let k = 0; k < bodyList.length; k++) {
-    stars.dataArr.push([bodyList[k].coord.x, bodyList[k].coord.y, bodyList[k].velocity.y, bodyList[k].velocity.y]);
+    stars.addStar(bodyList[k].coord, bodyList[k].velocity);
   }
 };
 
