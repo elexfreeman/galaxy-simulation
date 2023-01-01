@@ -36,9 +36,14 @@ export class Stars {
     );
   }
 
+  setStarV(starIdx: number, v: Vector) {
+    this.dataArr[starIdx][DATA_VX] = v.x;
+    this.dataArr[starIdx][DATA_VY] = v.y;
+  }
+
   getField(starIdx: number): number {
-    if(this.dataArrWithField[starIdx])
-    return this.dataArrWithField[starIdx][DATA_FIELD];
+    if (this.dataArrWithField[starIdx])
+      return this.dataArrWithField[starIdx][DATA_FIELD];
     return 0;
   }
 

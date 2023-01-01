@@ -22,10 +22,7 @@
 
 <script>
 import { getStarFromRect, drawTraking, mouseRect } from '@/module/starTracker';
-import { getDefaultCoord } from '@/module/player';
-import { Vector } from '@/vector';
 import { getDotColorFromField } from '@/utils/gradient';
-import { elem } from '@/global/draw';
 import { player } from '@/global/player';
 
 import TButton from '@/ui/components/Button.vue';

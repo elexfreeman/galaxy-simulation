@@ -11,11 +11,18 @@ export const getDefaultCoord = (): Vector => {
 
 export class Player {
   protected idx = -1;
+  protected shipRot: Vector;
+  protected driveSpeed: number = 1;
 
   constructor() {
     const coord = getDefaultCoord();
     stars.addStar(coord, new Vector(0, 0));
     this.idx = stars.getCount();
+    this.shipRot = new Vector(0, 0);
+  }
+
+  protected setVelocity(v: Vector) {
+    return stars.setStarV(this.idx, v);
   }
 
   getCoord(): Vector {
@@ -29,4 +36,8 @@ export class Player {
   getIdx() {
     return this.idx;
   }
+
+  rotate(angle: number) {}
+
+  drive() {}
 }
