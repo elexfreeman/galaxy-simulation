@@ -6,7 +6,7 @@ import * as C from '@/consts';
 import { Vector } from '@/vector';
 import { GeneratorCircle } from '@/bodyGenerator';
 import { getDotColorFromField } from '@/utils/gradient';
-import { xyToCanvas } from './utils/utils';
+import { xyToCanvas } from './utils/common';
 
 import { WorkerCore } from '@/worker/worker-core';
 

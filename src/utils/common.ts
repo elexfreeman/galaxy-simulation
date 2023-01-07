@@ -33,3 +33,12 @@ export const xyToCanvas = (
 export const radToDeg = (rad: number): number => {
   return (rad * 180) / 3.14;
 };
+
+export const inRect = (recPoint1: Vector, rectPoint2: Vector, point: Vector) => {
+  const min = Vector.getMin(recPoint1, rectPoint2);
+  const max = Vector.getMax(recPoint1, rectPoint2);
+  const isInRect =
+    point.x > min.x && point.x < max.x && point.y > min.y && point.y < max.y;
+
+  return isInRect;
+};

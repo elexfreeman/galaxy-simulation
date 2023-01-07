@@ -1,6 +1,6 @@
 import { Vector } from '@/vector';
 import stars from '@/global/stars';
-import { canvasToXy } from '@/utils/utils';
+import { canvasToXy } from '@/utils/common';
 import { draw } from '@/global/draw';
 
 export const getDefaultCoord = (): Vector => {
@@ -11,14 +11,14 @@ export const getDefaultCoord = (): Vector => {
 
 export class Player {
   protected idx = -1;
-  protected shipRot: Vector;
+  protected rot: Vector;
   protected driveSpeed: number = 1;
 
   constructor() {
     const coord = getDefaultCoord();
     stars.addStar(coord, new Vector(0, 0));
     this.idx = stars.getCount();
-    this.shipRot = new Vector(0, 0);
+    this.rot = new Vector(1, 0);
   }
 
   protected setVelocity(v: Vector) {
@@ -37,7 +37,11 @@ export class Player {
     return this.idx;
   }
 
-  rotate(angle: number) {}
+  rotate(angle: number) {
+    this.rot = Vector.rotateVector(this.rot, new Vector(0, 0), angle);
+  }
 
-  drive() {}
+  drive() {
+    this.setVelocity(Vector.add(this.getVelocity(), this.rot));
+  }
 }
