@@ -34,7 +34,15 @@ export const radToDeg = (rad: number): number => {
   return (rad * 180) / 3.14;
 };
 
-export const inRect = (recPoint1: Vector, rectPoint2: Vector, point: Vector) => {
+export const degToRad = (deg: number): number => {
+  return (deg * 3.14) / 180;
+};
+
+export const inRect = (
+  recPoint1: Vector,
+  rectPoint2: Vector,
+  point: Vector,
+) => {
   const min = Vector.getMin(recPoint1, rectPoint2);
   const max = Vector.getMax(recPoint1, rectPoint2);
   const isInRect =

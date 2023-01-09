@@ -18,7 +18,7 @@ export class Player {
     const coord = getDefaultCoord();
     stars.addStar(coord, new Vector(0, 0));
     this.idx = stars.getCount();
-    this.rot = new Vector(1, 0);
+    this.rot = new Vector(0, 0.1);
   }
 
   protected setVelocity(v: Vector) {
@@ -33,6 +33,10 @@ export class Player {
     return stars.getStarV(this.idx);
   }
 
+  getRot(): Vector {
+    return this.rot;
+  }
+
   getIdx() {
     return this.idx;
   }
@@ -41,7 +45,7 @@ export class Player {
     this.rot = Vector.rotateVector(this.rot, new Vector(0, 0), angle);
   }
 
-  drive() {
+  power() {
     this.setVelocity(Vector.add(this.getVelocity(), this.rot));
   }
 }

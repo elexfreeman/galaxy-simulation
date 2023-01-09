@@ -1,6 +1,7 @@
 <template>
-  <div class="tracking-tab">
-    <div class="tracking-tab__title">Player Tracking</div>
+  <div class="player-tab">
+    <div class="player-tab__title">Player Tracking</div>
+    <Zoom class="player-tab__zoom" @onZoom="onZoom" />
     <canvas
       width="360"
       height="360"
@@ -8,7 +9,6 @@
       class="tracking-tab__canvas"
     />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
-    <Zoom @onZoom="onZoom" />
     <div style="display: none">
       <img
         ref="roketImg"
@@ -17,20 +17,22 @@
         height="25"
       />
     </div>
+    <Playercontrol />
   </div>
 </template>
 
 <script>
-import { getStarFromRect, drawTraking, mouseRect } from '@/module/starTracker';
+import { drawTraking, drawPlayerRot } from '@/module/starTracker';
 import { getDotColorFromField } from '@/utils/gradient';
 import { player } from '@/global/player';
+import stars from '@/global/stars';
+import { Draw } from '@/utils/draw';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 import Zoom from '@/ui/components/Zoom.vue';
 import TrackingStatusBar from '@/ui/tracking/StatusBar.vue';
-import stars from '@/global/stars';
-import { Draw } from '@/utils/draw';
+import Playercontrol from '@/ui/player/Control.vue';
 
 export default {
   components: {
@@ -38,6 +40,7 @@ export default {
     TInput,
     TrackingStatusBar,
     Zoom,
+    Playercontrol,
   },
 
   data() {
@@ -95,6 +98,8 @@ export default {
         that.$refs?.roketImg,
         'green',
       );
+
+      drawPlayerRot(vh, that.drawClass, 'green', player.getRot());
     },
     draw(that) {
       if (!that) return;
@@ -110,8 +115,12 @@ export default {
 </script>
 
 <style lang="scss">
-.tracking-tab {
+.player-tab {
   &__title {
+    margin-bottom: 10px;
+  }
+
+  &__zoom {
     margin-bottom: 10px;
   }
 

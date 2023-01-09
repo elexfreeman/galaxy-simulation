@@ -1,21 +1,17 @@
 <template>
-  <div class="pause">
-    <TButton class="pause__button" v-if="isPause" @click="onLeft">
-      Left
-    </TButton>
-    <TButton class="pause__button" v-if="!isPause" @click="onDrive">
-      Drive
-    </TButton>
-    <TButton class="pause__button" v-if="!isPause" @click="onRight">
-      Right
-    </TButton>
+  <div class="player-control">
+    <TButton @click="onTurnLeft" class="player-control__button">L</TButton>
+    <TButton @click="onPower" class="player-control__button">D</TButton>
+    <TButton @click="onTurnRight" class="player-control__button">R</TButton>
   </div>
 </template>
 
 <script>
+import { degToRad } from '@/utils/common';
+import { player } from '@/global/player';
+
 import TButton from '@/ui/components/Button.vue';
 import stars from '@/global/stars';
-import { player } from '@/global/player';
 
 export default {
   components: {
@@ -35,24 +31,24 @@ export default {
   mounted() {},
 
   methods: {
-    setPause() {
-      setTimeout(() => {
-        if (this.isPause) {
-          this.isPause = stars.isPause;
-          this.setPause();
-        }
-      }, 500);
+    onTurnLeft() {
+      player.rotate(degToRad(-10));
     },
-    onPause() {
-      stars.isPause = !stars.isPause;
-      this.isPause = stars.isPause;
+    onTurnRight() {
+      player.rotate(degToRad(10));
+    },
+    onPower() {
+      player.power();
     },
   },
 };
 </script>
 
 <style lang="scss">
-.pause {
+.player-control {
+  display: flex;
+  justify-content: center;
+
   &__button {
     width: 100px;
   }

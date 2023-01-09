@@ -49,6 +49,18 @@ export const getStarFromRect = (): number => {
   return out;
 };
 
+export const drawPlayerRot = (
+  vh: Vector,
+  _draw: Draw,
+  color: string,
+  rot: Vector,
+) => {
+  const offsetButtom = vh.y / 5;
+
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
+};
+
 export const drawTraking = (
   vh: Vector,
   zoom: number,
