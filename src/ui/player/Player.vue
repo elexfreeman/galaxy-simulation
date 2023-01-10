@@ -172,7 +172,7 @@ export default {
   }
 
   &__canvas {
-    background: #1f1f1f;
+    background: #1f1f1fa8;
     border: 1px solid #191919;
   }
 

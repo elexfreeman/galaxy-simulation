@@ -170,6 +170,24 @@
 }
 .tracking-tab__btn {
   margin-bottom: 10px;
+}.player-control {
+  display: flex;
+  justify-content: center;
+}
+.player-control__button {
+  width: 100px;
+}.player-tab__title {
+  margin-bottom: 10px;
+}
+.player-tab__zoom {
+  margin-bottom: 10px;
+}
+.player-tab__canvas {
+  background: rgba(31, 31, 31, 0.6588235294);
+  border: 1px solid #191919;
+}
+.player-tab__btn {
+  margin-bottom: 10px;
 }.menu {
   display: flex;
   gap: 5px;

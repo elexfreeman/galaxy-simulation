@@ -1,4 +1,4 @@
-export const MAX_DOTS = 10;
+export const MAX_DOTS = 2000;
 
 export const G = 0.001;
 

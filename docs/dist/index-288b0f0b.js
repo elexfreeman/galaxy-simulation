@@ -5473,7 +5473,7 @@ if (inBrowser) {
     }
   }, 0);
 }
-var render$b = function() {
+var render$d = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5504,7 +5504,7 @@ var render$b = function() {
     return [_vm._v(_vm._s(_vm.label))];
   })], 2) : _vm._e()])]);
 };
-var staticRenderFns$b = [];
+var staticRenderFns$d = [];
 var Button_vue_vue_type_style_index_0_lang = "";
 function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
   var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
@@ -5557,7 +5557,7 @@ function normalizeComponent(scriptExports, render2, staticRenderFns2, functional
     options
   };
 }
-const __vue2_script$b = {
+const __vue2_script$d = {
   name: "TButton",
   components: {},
   props: {
@@ -5695,17 +5695,17 @@ const __vue2_script$b = {
     }
   }
 };
-const __cssModules$b = {};
-var __component__$b = /* @__PURE__ */ normalizeComponent(__vue2_script$b, render$b, staticRenderFns$b, false, __vue2_injectStyles$b, null, null, null);
-function __vue2_injectStyles$b(context) {
-  for (let o in __cssModules$b) {
-    this[o] = __cssModules$b[o];
+const __cssModules$d = {};
+var __component__$d = /* @__PURE__ */ normalizeComponent(__vue2_script$d, render$d, staticRenderFns$d, false, __vue2_injectStyles$d, null, null, null);
+function __vue2_injectStyles$d(context) {
+  for (let o in __cssModules$d) {
+    this[o] = __cssModules$d[o];
   }
 }
 var TButton = /* @__PURE__ */ function() {
-  return __component__$b.exports;
+  return __component__$d.exports;
 }();
-var render$a = function() {
+var render$c = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5729,9 +5729,9 @@ var render$a = function() {
     }
   }, [_vm._v("Resume")]) : _vm._e()], 1);
 };
-var staticRenderFns$a = [];
+var staticRenderFns$c = [];
 var LoadFileForm_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$a = {
+const __vue2_script$c = {
   components: {
     TButton
   },
@@ -5774,17 +5774,17 @@ const __vue2_script$a = {
     }
   }
 };
-const __cssModules$a = {};
-var __component__$a = /* @__PURE__ */ normalizeComponent(__vue2_script$a, render$a, staticRenderFns$a, false, __vue2_injectStyles$a, null, null, null);
-function __vue2_injectStyles$a(context) {
-  for (let o in __cssModules$a) {
-    this[o] = __cssModules$a[o];
+const __cssModules$c = {};
+var __component__$c = /* @__PURE__ */ normalizeComponent(__vue2_script$c, render$c, staticRenderFns$c, false, __vue2_injectStyles$c, null, null, null);
+function __vue2_injectStyles$c(context) {
+  for (let o in __cssModules$c) {
+    this[o] = __cssModules$c[o];
   }
 }
 var LoadFileForm = /* @__PURE__ */ function() {
-  return __component__$a.exports;
+  return __component__$c.exports;
 }();
-var render$9 = function() {
+var render$b = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -5852,9 +5852,9 @@ var render$9 = function() {
     staticClass: "t-input__hint"
   }, [_vm._v("\n    " + _vm._s(_vm.hint) + "\n  ")])]);
 };
-var staticRenderFns$9 = [];
+var staticRenderFns$b = [];
 var Input_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$9 = {
+const __vue2_script$b = {
   name: "TInput",
   props: {
     value: {
@@ -6003,17 +6003,17 @@ const __vue2_script$9 = {
     }
   }
 };
-const __cssModules$9 = {};
-var __component__$9 = /* @__PURE__ */ normalizeComponent(__vue2_script$9, render$9, staticRenderFns$9, false, __vue2_injectStyles$9, null, null, null);
-function __vue2_injectStyles$9(context) {
-  for (let o in __cssModules$9) {
-    this[o] = __cssModules$9[o];
+const __cssModules$b = {};
+var __component__$b = /* @__PURE__ */ normalizeComponent(__vue2_script$b, render$b, staticRenderFns$b, false, __vue2_injectStyles$b, null, null, null);
+function __vue2_injectStyles$b(context) {
+  for (let o in __cssModules$b) {
+    this[o] = __cssModules$b[o];
   }
 }
 var TInput = /* @__PURE__ */ function() {
-  return __component__$9.exports;
+  return __component__$b.exports;
 }();
-var render$8 = function() {
+var render$a = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6031,9 +6031,9 @@ var render$8 = function() {
     }
   }, [_vm._v("Resume")]) : _vm._e()], 1);
 };
-var staticRenderFns$8 = [];
+var staticRenderFns$a = [];
 var SaveFileForm_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$8 = {
+const __vue2_script$a = {
   components: {
     TButton,
     TInput
@@ -6065,21 +6065,21 @@ const __vue2_script$8 = {
     }
   }
 };
-const __cssModules$8 = {};
-var __component__$8 = /* @__PURE__ */ normalizeComponent(__vue2_script$8, render$8, staticRenderFns$8, false, __vue2_injectStyles$8, null, null, null);
-function __vue2_injectStyles$8(context) {
-  for (let o in __cssModules$8) {
-    this[o] = __cssModules$8[o];
+const __cssModules$a = {};
+var __component__$a = /* @__PURE__ */ normalizeComponent(__vue2_script$a, render$a, staticRenderFns$a, false, __vue2_injectStyles$a, null, null, null);
+function __vue2_injectStyles$a(context) {
+  for (let o in __cssModules$a) {
+    this[o] = __cssModules$a[o];
   }
 }
 var SaveFileForm = /* @__PURE__ */ function() {
-  return __component__$8.exports;
+  return __component__$a.exports;
 }();
-const MAX_DOTS = 1e3;
+const MAX_DOTS = 2e3;
 const G = 1e-3;
 const ZOOM_FACTOR = 0.2;
 const ZOOM_FACTOR_MIN = 0.02;
-var render$7 = function() {
+var render$9 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6103,9 +6103,9 @@ var render$7 = function() {
     }
   }, [_vm._v("+")])], 1)]);
 };
-var staticRenderFns$7 = [];
+var staticRenderFns$9 = [];
 var Zoom_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$7 = {
+const __vue2_script$9 = {
   components: {
     TButton
   },
@@ -6144,15 +6144,15 @@ const __vue2_script$7 = {
     }
   }
 };
-const __cssModules$7 = {};
-var __component__$7 = /* @__PURE__ */ normalizeComponent(__vue2_script$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$7, null, null, null);
-function __vue2_injectStyles$7(context) {
-  for (let o in __cssModules$7) {
-    this[o] = __cssModules$7[o];
+const __cssModules$9 = {};
+var __component__$9 = /* @__PURE__ */ normalizeComponent(__vue2_script$9, render$9, staticRenderFns$9, false, __vue2_injectStyles$9, null, null, null);
+function __vue2_injectStyles$9(context) {
+  for (let o in __cssModules$9) {
+    this[o] = __cssModules$9[o];
   }
 }
 var Zoom = /* @__PURE__ */ function() {
-  return __component__$7.exports;
+  return __component__$9.exports;
 }();
 class Vector {
   constructor(x, y) {
@@ -6229,6 +6229,10 @@ class Stars {
   getStarV(starIdx) {
     return new Vector(this.dataArr[starIdx][DATA_VX], this.dataArr[starIdx][DATA_VY]);
   }
+  setStarV(starIdx, v) {
+    this.dataArr[starIdx][DATA_VX] = v.x;
+    this.dataArr[starIdx][DATA_VY] = v.y;
+  }
   getField(starIdx) {
     if (this.dataArrWithField[starIdx])
       return this.dataArrWithField[starIdx][DATA_FIELD];
@@ -6240,7 +6244,7 @@ class Stars {
   }
 }
 const stars = new Stars();
-var render$6 = function() {
+var render$8 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6258,9 +6262,9 @@ var render$6 = function() {
     }
   }, [_vm._v("\u23F8 Pause\n  ")]) : _vm._e()], 1);
 };
-var staticRenderFns$6 = [];
+var staticRenderFns$8 = [];
 var Pause_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$6 = {
+const __vue2_script$8 = {
   components: {
     TButton
   },
@@ -6288,17 +6292,17 @@ const __vue2_script$6 = {
     }
   }
 };
-const __cssModules$6 = {};
-var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$6, null, null, null);
-function __vue2_injectStyles$6(context) {
-  for (let o in __cssModules$6) {
-    this[o] = __cssModules$6[o];
+const __cssModules$8 = {};
+var __component__$8 = /* @__PURE__ */ normalizeComponent(__vue2_script$8, render$8, staticRenderFns$8, false, __vue2_injectStyles$8, null, null, null);
+function __vue2_injectStyles$8(context) {
+  for (let o in __cssModules$8) {
+    this[o] = __cssModules$8[o];
   }
 }
 var Pause = /* @__PURE__ */ function() {
-  return __component__$6.exports;
+  return __component__$8.exports;
 }();
-var render$5 = function() {
+var render$7 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6310,9 +6314,9 @@ var render$5 = function() {
     }
   }), _vm._v(" "), _c("Pause")], 1);
 };
-var staticRenderFns$5 = [];
+var staticRenderFns$7 = [];
 var Navigation_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$5 = {
+const __vue2_script$7 = {
   components: {
     TButton,
     Zoom,
@@ -6331,24 +6335,33 @@ const __vue2_script$5 = {
     }
   }
 };
-const __cssModules$5 = {};
-var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
-function __vue2_injectStyles$5(context) {
-  for (let o in __cssModules$5) {
-    this[o] = __cssModules$5[o];
+const __cssModules$7 = {};
+var __component__$7 = /* @__PURE__ */ normalizeComponent(__vue2_script$7, render$7, staticRenderFns$7, false, __vue2_injectStyles$7, null, null, null);
+function __vue2_injectStyles$7(context) {
+  for (let o in __cssModules$7) {
+    this[o] = __cssModules$7[o];
   }
 }
 var Navigation = /* @__PURE__ */ function() {
-  return __component__$5.exports;
+  return __component__$7.exports;
 }();
 const getRandomInt = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 const canvasToXy = (point, centerMassVector, zoom, vh) => {
-  return Vector.add(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
+  return Vector.minus(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
 };
 const xyToCanvas = (point, zoom, centerMassVector, vh) => {
   return Vector.add(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
+};
+const degToRad = (deg) => {
+  return deg * 3.14 / 180;
+};
+const inRect = (recPoint1, rectPoint2, point) => {
+  const min = Vector.getMin(recPoint1, rectPoint2);
+  const max = Vector.getMax(recPoint1, rectPoint2);
+  const isInRect = point.x > min.x && point.x < max.x && point.y > min.y && point.y < max.y;
+  return isInRect;
 };
 function hex(c) {
   let s = "0123456789abcdef";
@@ -6442,17 +6455,20 @@ const drawMouseRect = () => {
 const getStarFromRect = () => {
   const { point1, point2 } = mouseRect;
   let out = -1;
-  const min = Vector.getMin(point1, point2);
-  const max = Vector.getMax(point1, point2);
   for (let k = 0; k < stars.dataArr.length; k++) {
     const star = canvasToXy(stars.getStarXY(k), stars.centerMassVector, stars.zoom, draw.getVH());
-    const isInRect = star.x > min.x && star.x < max.x && star.y > min.y && star.y < max.y;
+    const isInRect = inRect(point1, point2, star);
     if (isInRect) {
       out = k;
       break;
     }
   }
   return out;
+};
+const drawPlayerRot = (vh, _draw, color, rot) => {
+  const offsetButtom = vh.y / 5;
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
 };
 const drawTraking = (vh, zoom, starIdx, _draw, image, color) => {
   const osX = new Vector(1, 0);
@@ -6482,7 +6498,7 @@ const drawTraking = (vh, zoom, starIdx, _draw, image, color) => {
   vecV = Vector.multDigit(vecV, 100);
   draw.line(Vector.addScalar(rectXY, 10), Vector.add(rectXY, vecV), color);
 };
-var render$4 = function() {
+var render$6 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6492,9 +6508,9 @@ var render$4 = function() {
     staticClass: "tracking-status-bar__item-xy"
   }, [_c("span", [_vm._v("x:" + _vm._s(_vm.xy.x))]), _vm._v(" "), _c("span", [_vm._v("y:" + _vm._s(_vm.xy.y))])])]);
 };
-var staticRenderFns$4 = [];
+var staticRenderFns$6 = [];
 var StatusBar_vue_vue_type_style_index_0_lang$1 = "";
-const __vue2_script$4 = {
+const __vue2_script$6 = {
   components: {},
   data() {
     return {};
@@ -6519,18 +6535,18 @@ const __vue2_script$4 = {
   },
   methods: {}
 };
-const __cssModules$4 = {};
-var __component__$4 = /* @__PURE__ */ normalizeComponent(__vue2_script$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
-function __vue2_injectStyles$4(context) {
-  for (let o in __cssModules$4) {
-    this[o] = __cssModules$4[o];
+const __cssModules$6 = {};
+var __component__$6 = /* @__PURE__ */ normalizeComponent(__vue2_script$6, render$6, staticRenderFns$6, false, __vue2_injectStyles$6, null, null, null);
+function __vue2_injectStyles$6(context) {
+  for (let o in __cssModules$6) {
+    this[o] = __cssModules$6[o];
   }
 }
 var TrackingStatusBar = /* @__PURE__ */ function() {
-  return __component__$4.exports;
+  return __component__$6.exports;
 }();
 var __$_require_d6de7930__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAADjCAYAAADNAelpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA3uSURBVHgB7Z1Nj9vWFYavSI3EseZD46/YmcCW3TYusojVAtnYAUQ0QBdNizGCBMiu+Qf9CfkpXriGVwa6aJdddBHvWrddtGiBOonR1CmcxGkS2yNpJPUeimfK4ZDiPfe7wX0AQfYMhzN8de7Lc+4hLxnzmNu3bw+ZR0TMU+7cuZO2Wq2fM4/wViwu1FX+FiJLhMVicYO/glgicKHS+VrSv3XrVso8wUuxwK8myRYbr++wKIquMk/wUiweVXuT7iabdk6Ad6XME9rMQ7hAQ4isebubDUfmCd5F1s2bN/uzVpxOuVgzLhb41t27dy8yD/BOrG63mx7w4YfAcByPxynzAO/E4kNwD4wdOej04M2LFMI7sSC3Ar9CJskmvN1gHuCVWDxlGMyj9rA4DCGyFlF7AF7GHOOVWPP5PM0j6QjTtXW2vr4+Yo7xSiyegI6KfoVkaQQXkjnGK7Egp5oW/ArJv+bc5L0RC+aueF41gNyqDHgYGL9r3/Ipso6cBYtw02ezbq/fbredRpc3YkF+BQloHZPulvOi2qfIqvQrxIei2guxwK+mnV6/yq8QENJ1Ue2FWHEcj6ryqyI+FNVeiAVTyNPuVuN2rotqX8QaNkUWAKWPS99yPvkHU8jj7maf13+N24KgLn3Lh8gaTQuF8ypcF9U+iJVW1YN1uCyqnYoFEVJXD9YxPnHSWVHt1LOSJBmOu83GXiSf63JS9jiNLGh5UYYg4LKodu1Zqai5Iy6Lamdi4RQyxa8QV0W1M7FEE9EqXBXVzsSCKRmREqeKyYkdJ8mpy8hKJ4mcWOBbLopqJ2KBX8EU8gHR3Iu4KKqdiLVseclFFeKiqHYiVtMUsgguimpXniWVMhRxUVRbF2tVy4vKpLthtai2LtZyClktqpBJsm21qLYuFhwctR6sw3ZR7cKzUtnMvUwuVmrLt6yKBVPI0PISmUIWAZJTOKvaKqptR9ZIV1QhcFa0VVTbFkubXyEgvq3k1KpYkESqlDhV2OxUWxML75rQ5VeIzaLamlh414QJYL/7+/vGL9K1OQxTXclomdzkjZ8RrYgFeZDsFLIIY0uTgVbEKt81oRuoM20U1VbEKt81YQIbRbUVscp3TZjARlFtvCOdTSG34qHJYQhgncgMYjyy6u6a0E3WqeYnEZO+ZVysursmdAPJKVxhY7KoNi4W9SoZFUwX1UbF0jmFLEJeVBvL5E1HlvGzYJG8qP7/HIY28qsiWFSbWsPGdGSlplOGMnmxbiQ5NSaWyF0TJoBhb6qoNiaWyF0TJjA5GWhMLNG7JnRjsqg2KVbqIrIAKKr5TMce04wRsUxNIYsCRTUz0Hw1FVmjqeWzYBFTRbUpsVKb+VUZU0W1drFk7prQjamiWrtYMIU8cSgUAkU1F0trcmpiGI5cDkHExJWBJsRKXZo7YqKo1iqWyl0TujFRVGsVS+WuCRPoLqq1imV7SqYJ3UW11hQbDHX78wcMXr6w0JicahXrd1s/HjD/GDBNeLsCro8EsQgEsQgEsQgEsQh4s7Zywv+S6+cY++EZxvp5j+PRM/56ythv/8nYl2PmHC/EAoHevLgUrMj5E8vXKztLwe59ypziXCyIpp8MVm8DIr7Jt3k+Y+z+Y+YMp561w4fbj14S3/6nFdFnE6digVCUg4dtr51jznAq1vkeIwP+5gq3YknMEe7YvRrgCCHPIuBULJncCfIuVzgV6/cSaQAkqq5wKhYkmfsH4tvDtpCcusKpWHDwv/lYfHvXZY/zDP4Pj5f50xu79TkXiPrrj91m74AXteG9R4z99Ytlkgq5F6YUT8ZLManD1RTezDqAMHf/wbwm5FkEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEglgEgljfBu5fu6Zlycwn776bMk1ojaz7r7+eMg3AfvgfpuVJAfFs9j7ThDax7qfpoDWf/4JpIJrNri40PO6YR9UA9vP8rbe0PNxWX2RNJqmu5znDflo6Hqswm6XwNm23U6YBbWLFrRasYdy//9prygcJ0RB3u/2/XLumFBFxFI2i7ZPaljrXJhYsy9vbvcgixQXrwdjXT5/rb126wqaKkQoLY3e+8wqEaso0oEUs8KvOVn9w8sqrTNVrosVilJw+y9b5iykMRfCr1lpn2LnwXcbfB09u3FB+noWeyOJ+1XvxAtu6/LLyc+jh57d5VEGUMpVFpOfzYXx6uYwbvMedjvLZVYtYMT/Nb/CDi7sJ62xuK/kWRGZy5gUeWfwAu90hj1qpiOAeutfOxYL3hYYThhax+AEO80hgW5delvYt9CsuePb/BA724EDqIMGvipHFUX5IpLJY+QEO8AAhImR9C/0KWT91Nsu5GBH0q5ifCQF41+FbymKVD1DFt9CvEIhWKeELfoXo8C1lsVpRdKN4gCq+hX6FgA/KCF/0K0SHbymLBX8A+hUi41tlvwJQeGpyWvSrw31p8C0lsaDghQPkZ60jX8+GD484RqA8nIv7oiSn4EtFv0J0+JaSWNF8PoL8qkw2fIghX/YrhJycdjppWSgESh/+wUpXGEpiZQfIDb0MDJ/k1Nk+Zcqm7FdIshw+KROEH9Coff5C5ffW+NdV6kQlsaAeTE5XL3YM0SV62q/yK2T99AvU5HRlZDGFqkBaLIiaZdZevX4vxbfq/ArIolQwOT30q5oPEM6I8H1Z35IWix/gXpVfIRTfqvMrRDg5XeFXiIpvSYsFQmzs1p/RKb5V51eIaFWwyq8QFd+SEgv8I+omaW93dfoj4lur/Arp7V4QTU6FIotJ+pZcZPHpWjDeJkR8a5VfIXyujDXNnDb5FaLiW1JiQX4FWXoTIr7V5FdI78WG5DRJhk1Rhcj6lqxnNQ5BAHyLb7fSt5r8CtnYzbyoVnj+Ae41RRWS1YkSvkUWC6aQuQhDkWEIZGcyHomV+xLwKyRpKIR5hA7bgmKBqC2JR5DSI2s2G4pEFbJ1+UrtmUzErxD4cGBIVyWn4D8QKaKRlQ3XTjel+hZZrJiH+7aAXyGrDlLUr7Lfm6cilckp9yvRqMp+71pneVYkPmeaLNayxBEbggD6VtVBivoVUpeKUPwKAXGjKCJNBpLEwpbXOkEsoMq3KH51uJ9lcnpMdIpfITK+RYusvOVFpcq3KH6FZMlpKaGk+hUi41sksbDlRaXKtyh+hWTJaZIMjiSnRL86/P0SvkUSq9jyolDlW1S/QiA5PSikEDJ+hVB9S1iscsuLStG3ZPwKgeS0OKRl/Aqh+pawWDIeU6TkW0PZfZWTU/CrSLDMKQO+BfsS9S1hsWQ8pkjRt2S9r7gf+DdcApkXxkwG+Ln4zPm+qG8JiwVR0ZM8QKDoW7Leh/vJ5sl4XxKGtWxUHe6P/zz3LaGiWkisupYXlQ2edsSLxfuQq8l6X7af/DowiPa18/RUpghMFrYEi2ohsSBrlsmvymTzW9CUVdwXJqcqfoVQfEtIrKxFf1m8Hqwj79T0NxSGMwDJ6XqSvKfiVwjFt4TEWtXyooCdmriTMBUgOe1tbjLVqDr8uwR9q1GsppYXFfCtbz4hPE2thi0epap+hYj6VqNYTS0vKuBbzz//N1Nm/5nWyBK5wqZRrKaWFxXwrf3PPmWzsfyz9w74z0cnNpT9CsnqxP6p/pO3305XbbdSLNGWFwX0reefyT9ufP6fL1iswUOLZHViq7Wybbc6sgRbXlTAt7568Hcmy/TRQ9bWLFZWJzZcv7VSLNGWFxVV3zIVWU2+1eRZWocgAh4o61u6/QoR8a1asagtLyrgW08lUggTUYU0+VZ9ZBFbXlS2L31PKt8y4VdIk2/VikVteVHJIutfDxkV05G1yrdqxaK2vKiAb02+fkLyLVN+hRz61jvvVApWKZZsy4sK1bcgqnRl7XVkvsVYZZ1YHVmSLS8qVN+CyNJVD9aR3cxZd7lB1RdVpn0pUH1rBsPQcGStrSiqK8VSmfalQPGtGQxB7lfwMgn4Vqu3Welbx8RSbXlREfUtG1GFQHRV+dYxsVRbXlREfcuGXyF1vnVMLNWWFxWIrK8+/FvjdrYjq8q3jokl21aXBXxrNtlf6Vu2/Aqp860jYmHLy5ZfIXD9wqroshlVSJVvHRFLV8uLCly/8Pxx/ZSNTb9C8g+nPrJ0tbyoQJqyMrIsZO5l2hU3cx4RS1fLiwo0Tet8C4TiMwHW/ArJalDuW8VFfw7F0t3yolLnWzODswxNQHRN4vgwug7F0t3yolLnWwcG56+ayD+k/104h//Q3fKiUudbriOLFXwrEwtaXgtD8+2iVPmWK79Cyr61jCze8nIZVUjZt1xGFVL0rUwsUy0vKmXfculXSNG30LNS07OiIsACY+XIsp1flck+rLyobmctryge9jwYhnApEfjW5OsvWTtuZ34VOxYrn/MfgG9FplteVCC6nn7ycNmccCwUApckwSKLbdMtLyqwQgjMbyU7O9brwToguqd8yqb1p+vXP+T/HzCPgFmP3XO8h/fsG+YRH7WYRv58/frNl9742Xs733+VuQQi88GvfvnHqx988AOmEa3LBZtuzIqSn9ml1wusQ+tywTYasyLkNxZIrxdYh9blgn2IKoSycJAoWpcL9uusWn3XqwraDN7HsypbLD66eu/eJaaJ/wIenclkQfD/xgAAAABJRU5ErkJggg==";
-var render$3 = function() {
+var render$5 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -6576,9 +6592,9 @@ var render$3 = function() {
     }
   })])], 1);
 };
-var staticRenderFns$3 = [];
+var staticRenderFns$5 = [];
 var TrackingTab_vue_vue_type_style_index_0_lang = "";
-const __vue2_script$3 = {
+const __vue2_script$5 = {
   components: {
     TButton,
     TInput,
@@ -6679,6 +6695,263 @@ const __vue2_script$3 = {
     }
   }
 };
+const __cssModules$5 = {};
+var __component__$5 = /* @__PURE__ */ normalizeComponent(__vue2_script$5, render$5, staticRenderFns$5, false, __vue2_injectStyles$5, null, null, null);
+function __vue2_injectStyles$5(context) {
+  for (let o in __cssModules$5) {
+    this[o] = __cssModules$5[o];
+  }
+}
+var StarTracking = /* @__PURE__ */ function() {
+  return __component__$5.exports;
+}();
+const getDefaultCoord = () => {
+  return new Vector(0, 200);
+};
+const PLAYER_SPEED_MULTIPLY = 0.01;
+class Player$1 {
+  constructor() {
+    this.idx = -1;
+    this.driveSpeed = 1;
+    this.isPower = false;
+    const coord = getDefaultCoord();
+    stars.addStar(coord, new Vector(0, 0));
+    this.idx = stars.getCount() - 1;
+    this.rot = new Vector(0, PLAYER_SPEED_MULTIPLY);
+  }
+  setVelocity(v) {
+    return stars.setStarV(this.idx, v);
+  }
+  getCoord() {
+    return stars.getStarXY(this.idx);
+  }
+  getVelocity() {
+    return stars.getStarV(this.idx);
+  }
+  getRot() {
+    return this.rot;
+  }
+  getIdx() {
+    return this.idx;
+  }
+  setRot(rot) {
+    this.rot = { ...rot };
+  }
+  rotate(angle) {
+    this.rot = Vector.rotateVector(this.rot, new Vector(0, 0), angle);
+  }
+  power() {
+    this.setVelocity(Vector.add(this.getVelocity(), this.rot));
+  }
+  powerOn() {
+    this.isPower = true;
+  }
+  powerOff() {
+    this.isPower = false;
+  }
+  tick() {
+    if (this.isPower) {
+      this.power();
+    }
+  }
+}
+const player = new Player$1();
+var render$4 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "player-control"
+  }, [_c("TButton", {
+    staticClass: "player-control__button",
+    on: {
+      "click": _vm.onTurnLeft
+    }
+  }, [_vm._v("L")]), _vm._v(" "), _c("TButton", {
+    staticClass: "player-control__button",
+    on: {
+      "click": _vm.onPower
+    }
+  }, [_vm._v("D")]), _vm._v(" "), _c("TButton", {
+    staticClass: "player-control__button",
+    on: {
+      "click": _vm.onTurnRight
+    }
+  }, [_vm._v("R")])], 1);
+};
+var staticRenderFns$4 = [];
+var Control_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$4 = {
+  components: {
+    TButton
+  },
+  data() {
+    return {
+      isPause: stars.isPause
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+  },
+  methods: {
+    onTurnLeft() {
+      player.rotate(degToRad(-10));
+    },
+    onTurnRight() {
+      player.rotate(degToRad(10));
+    },
+    onPower() {
+      player.power();
+    }
+  }
+};
+const __cssModules$4 = {};
+var __component__$4 = /* @__PURE__ */ normalizeComponent(__vue2_script$4, render$4, staticRenderFns$4, false, __vue2_injectStyles$4, null, null, null);
+function __vue2_injectStyles$4(context) {
+  for (let o in __cssModules$4) {
+    this[o] = __cssModules$4[o];
+  }
+}
+var Playercontrol = /* @__PURE__ */ function() {
+  return __component__$4.exports;
+}();
+var render$3 = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", {
+    staticClass: "player-tab"
+  }, [_c("div", {
+    staticClass: "player-tab__title"
+  }, [_vm._v("Player Tracking")]), _vm._v(" "), _c("Zoom", {
+    staticClass: "player-tab__zoom",
+    on: {
+      "onZoom": _vm.onZoom
+    }
+  }), _vm._v(" "), _c("canvas", {
+    ref: "canvas",
+    staticClass: "tracking-tab__canvas",
+    attrs: {
+      "width": "360",
+      "height": "360"
+    }
+  }), _vm._v(" "), _c("TrackingStatusBar", {
+    attrs: {
+      "centerMassVector": _vm.centerMassVector
+    }
+  }), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c("img", {
+    ref: "roketImg",
+    attrs: {
+      "src": __$_require_d6de7930__,
+      "width": "15",
+      "height": "25"
+    }
+  })]), _vm._v(" "), _c("Playercontrol")], 1);
+};
+var staticRenderFns$3 = [];
+var Player_vue_vue_type_style_index_0_lang = "";
+const __vue2_script$3 = {
+  components: {
+    TButton,
+    TInput,
+    TrackingStatusBar,
+    Zoom,
+    Playercontrol
+  },
+  data() {
+    return {
+      isOnSave: false,
+      isStartSelect: false,
+      isStartRect: false,
+      isStartDraw: false,
+      worker: null,
+      ctx: null,
+      drawClass: null,
+      starList: [],
+      starIdx: -1,
+      centerMassVector: player.getCoord(),
+      zoom: 1,
+      isMouseDown: false
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+    const ctx2 = this.$refs["canvas"].getContext("2d");
+    this.drawClass = new Draw(ctx2);
+    this.draw(this);
+    elem.addEventListener("mouseup", this.onMouseUp);
+    elem.addEventListener("mousedown", this.onMouseDown);
+    elem.addEventListener("mousemove", this.onMouseMove);
+  },
+  destroyed() {
+    elem.removeEventListener("mousedown", this.onMouseDown);
+    elem.removeEventListener("mouseup", this.onMouseUp);
+    elem.removeEventListener("mousemove", this.onMouseMove);
+  },
+  methods: {
+    setPlayerRot() {
+      const mouseXYCoord = mouseCoord;
+      const playerCoord = xyToCanvas(player.getCoord(), stars.zoom, stars.centerMassVector, draw.getVH());
+      const oX = new Vector(1, 0);
+      const alfa = Vector.angle2V(oX, Vector.minus(playerCoord, mouseXYCoord));
+      const rot = Vector.multDigit(Vector.mult(Vector.rotateVector(oX, new Vector(0, 0), alfa), new Vector(-1, 1)), PLAYER_SPEED_MULTIPLY);
+      player.setRot(rot);
+    },
+    onMouseUp(event2) {
+      this.isMouseDown = false;
+      player.powerOff();
+    },
+    onMouseDown(event2) {
+      this.isMouseDown = true;
+      player.powerOn();
+      this.setPlayerRot();
+    },
+    onMouseMove(event2) {
+      if (this.isMouseDown) {
+        this.setPlayerRot();
+      }
+    },
+    getDotColorFromField,
+    onStartSelect() {
+      stars.isPause = true;
+      this.isStartSelect = true;
+    },
+    onAbortSelect() {
+      stars.isPause = false;
+      this.isStartSelect = false;
+    },
+    onZoom(zoom) {
+      this.zoom = zoom;
+    },
+    drawStars(starIdx, that) {
+      var _a, _b, _c;
+      if (!((_b = (_a = that.$refs) == null ? void 0 : _a.canvas) == null ? void 0 : _b.offsetHeight))
+        return;
+      if (starIdx < 0)
+        return;
+      const vh = that.drawClass.getVH();
+      const zoom = that.zoom;
+      drawTraking(vh, zoom, starIdx, that.drawClass, (_c = that.$refs) == null ? void 0 : _c.roketImg, "green");
+      drawPlayerRot(vh, that.drawClass, "green", player.getRot());
+    },
+    draw(that) {
+      if (!that)
+        return;
+      that.drawClass.clear();
+      that.centerMassVector = player.getCoord();
+      that.drawStars(player.getIdx(), that);
+      requestAnimationFrame(() => {
+        this.draw(that);
+      });
+    }
+  }
+};
 const __cssModules$3 = {};
 var __component__$3 = /* @__PURE__ */ normalizeComponent(__vue2_script$3, render$3, staticRenderFns$3, false, __vue2_injectStyles$3, null, null, null);
 function __vue2_injectStyles$3(context) {
@@ -6686,7 +6959,7 @@ function __vue2_injectStyles$3(context) {
     this[o] = __cssModules$3[o];
   }
 }
-var StarTracking = /* @__PURE__ */ function() {
+var Player = /* @__PURE__ */ function() {
   return __component__$3.exports;
 }();
 class MenuStateClass {
@@ -6696,6 +6969,7 @@ class MenuStateClass {
     this.saveFile = 2;
     this.loadFile = 3;
     this.starTracking = 4;
+    this.player = 5;
   }
 }
 const MenuStateConst = new MenuStateClass();
@@ -6717,6 +6991,9 @@ const menuData = [
   },
   {
     title: "Star tracking"
+  },
+  {
+    title: "Player"
   }
 ];
 var render$2 = function() {
@@ -6884,7 +7161,7 @@ var render = function() {
     staticClass: "app__wraper"
   }, [_vm.selectedMenuIdx == _vm.MenuStateConst.navigation ? _c("Navigation") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.addStar ? _c("div", {
     staticClass: "app_add-point"
-  }, [_vm._v("\n      Mouse click point\n    ")]) : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.saveFile ? _c("SaveFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.loadFile ? _c("LoadFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.starTracking ? _c("StarTracking") : _vm._e()], 1), _vm._v(" "), _c("StatusBar")], 1);
+  }, [_vm._v("\n      Mouse click point\n    ")]) : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.saveFile ? _c("SaveFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.loadFile ? _c("LoadFileForm") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.starTracking ? _c("StarTracking") : _vm._e(), _vm._v(" "), _vm.selectedMenuIdx == _vm.MenuStateConst.player ? _c("Player") : _vm._e()], 1), _vm._v(" "), _c("StatusBar")], 1);
 };
 var staticRenderFns = [];
 var App_vue_vue_type_style_index_0_lang = "";
@@ -6896,7 +7173,8 @@ const __vue2_script = {
     Navigation,
     Menu,
     StatusBar,
-    StarTracking
+    StarTracking,
+    Player
   },
   data() {
     return {
@@ -7012,14 +7290,14 @@ class GeneratorCircle extends BodyGenerator {
         bodyList.push(GeneratorCircle.getDot(vec, radius, color));
       }
     };
-    addDots(Math.ceil(MAX_DOTS), new Vector(600, 400), 500, "#f8a5a5");
+    addDots(Math.ceil(MAX_DOTS), new Vector(0, 0), 500, "#f8a5a5");
     return bodyList;
   }
 }
 class WorkerCore {
   constructor(callback) {
     this.callback = callback;
-    this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.5598dbef.js", { type: "module" });
+    this.workerMassCenter = new Worker("/galaxy-simulation/dist/workerMassCenter.79c5b95a.js", { type: "module" });
     this.workerHandeler = this.workerHandeler.bind(this);
     this.calc = this.calc.bind(this);
   }
@@ -25324,6 +25602,7 @@ async function drawFrame() {
   }
   drawStars();
   drawMouseRect();
+  player.tick();
   fpsMeter.finish();
   window.requestAnimationFrame(drawFrame);
 }
@@ -25351,4 +25630,4 @@ main();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-df5c9219.js.map
+//# sourceMappingURL=index-288b0f0b.js.map
