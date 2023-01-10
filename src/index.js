@@ -18,6 +18,7 @@ import { starTrackerInit, drawMouseRect } from '@/module/starTracker';
 import stars from '@/global/stars';
 import { draw } from '@/global/draw';
 import { core } from '@/global/core';
+import { player } from '@/global/player';
 
 import '@/styles/style.scss';
 
@@ -68,6 +69,7 @@ async function drawFrame() {
 
   drawStars();
   drawMouseRect();
+  player.tick();
   fpsMeter.finish();
   window.requestAnimationFrame(drawFrame);
 }

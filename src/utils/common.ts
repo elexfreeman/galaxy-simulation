@@ -10,8 +10,8 @@ export const canvasToXy = (
   zoom: number,
   vh: Vector,
 ): Vector => {
-  // (point - centerMassVector) * zoom + vh * 0.5
-  return Vector.add(
+  // (point - centerMassVector) * zoom - vh * 0.5
+  return Vector.minus(
     Vector.multDigit(Vector.minus(point, centerMassVector), zoom),
     Vector.multDigit(vh, 0.5),
   );

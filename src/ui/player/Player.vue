@@ -24,9 +24,15 @@
 <script>
 import { drawTraking, drawPlayerRot } from '@/module/starTracker';
 import { getDotColorFromField } from '@/utils/gradient';
+import { canvasToXy, xyToCanvas, radToDeg } from '@/utils/common';
 import { player } from '@/global/player';
+import { Player, PLAYER_SPEED_MULTIPLY } from '@/module/player';
 import stars from '@/global/stars';
 import { Draw } from '@/utils/draw';
+import { Vector } from '@/vector';
+
+import { elem, mouseCoord } from '@/global/draw';
+import { draw } from '@/global/draw';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
@@ -56,6 +62,7 @@ export default {
       starIdx: -1,
       centerMassVector: player.getCoord(),
       zoom: 1,
+      isMouseDown: false,
     };
   },
 
@@ -67,11 +74,51 @@ export default {
     const ctx = this.$refs['canvas'].getContext('2d');
     this.drawClass = new Draw(ctx);
     this.draw(this);
+    elem.addEventListener('mouseup', this.onMouseUp);
+    elem.addEventListener('mousedown', this.onMouseDown);
+    elem.addEventListener('mousemove', this.onMouseMove);
   },
 
-  destroyed() {},
+  destroyed() {
+    elem.removeEventListener('mousedown', this.onMouseDown);
+    elem.removeEventListener('mouseup', this.onMouseUp);
+    elem.removeEventListener('mousemove', this.onMouseMove);
+  },
 
   methods: {
+    setPlayerRot() {
+      const mouseXYCoord = mouseCoord;
+      const playerCoord = xyToCanvas(
+        player.getCoord(),
+        stars.zoom,
+        stars.centerMassVector,
+        draw.getVH(),
+      );
+      const oX = new Vector(1, 0);
+      const alfa = Vector.angle2V(oX, Vector.minus(playerCoord, mouseXYCoord));
+      const rot = Vector.multDigit(
+        Vector.mult(
+          Vector.rotateVector(oX, new Vector(0, 0), alfa),
+          new Vector(-1, 1),
+        ),
+        PLAYER_SPEED_MULTIPLY,
+      );
+      player.setRot(rot);
+    },
+    onMouseUp(event) {
+      this.isMouseDown = false;
+      player.powerOff();
+    },
+    onMouseDown(event) {
+      this.isMouseDown = true;
+      player.powerOn();
+      this.setPlayerRot();
+    },
+    onMouseMove(event) {
+      if (this.isMouseDown) {
+        this.setPlayerRot();
+      }
+    },
     getDotColorFromField,
     onStartSelect() {
       stars.isPause = true;
