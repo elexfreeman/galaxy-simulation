@@ -75,6 +75,10 @@
     getStarV(starIdx) {
       return new Vector(this.dataArr[starIdx][DATA_VX], this.dataArr[starIdx][DATA_VY]);
     }
+    setStarV(starIdx, v) {
+      this.dataArr[starIdx][DATA_VX] = v.x;
+      this.dataArr[starIdx][DATA_VY] = v.y;
+    }
     getField(starIdx) {
       if (this.dataArrWithField[starIdx])
         return this.dataArrWithField[starIdx][DATA_FIELD];

@@ -1,18 +1,7 @@
 <template>
-  <div class="tracking-tab">
-    <div class="tracking-tab__title">Star Group Tracking</div>
-    <TButton
-      class="tracking-tab__btn"
-      v-if="!isStartSelect"
-      @click="onStartSelect"
-      >Click to select a group</TButton
-    >
-    <TButton
-      class="tracking-tab__btn"
-      v-if="isStartSelect"
-      @click="onAbortSelect"
-      >Abort select a group</TButton
-    >
+  <div class="player-tab">
+    <div class="player-tab__title">Player Tracking</div>
+    <Zoom class="player-tab__zoom" @onZoom="onZoom" />
     <canvas
       width="360"
       height="360"
@@ -20,7 +9,6 @@
       class="tracking-tab__canvas"
     />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
-    <Zoom @onZoom="onZoom" />
     <div style="display: none">
       <img
         ref="roketImg"
@@ -29,21 +17,28 @@
         height="25"
       />
     </div>
+    <Playercontrol />
   </div>
 </template>
 
 <script>
-import { getStarFromRect, drawTraking, mouseRect } from '@/module/starTracker';
-import { Vector } from '@/vector';
+import { drawTraking, drawPlayerRot } from '@/module/starTracker';
 import { getDotColorFromField } from '@/utils/gradient';
-import { elem } from '@/global/draw';
+import { canvasToXy, xyToCanvas, radToDeg } from '@/utils/common';
+import { player } from '@/global/player';
+import { Player, PLAYER_SPEED_MULTIPLY } from '@/module/player';
+import stars from '@/global/stars';
+import { Draw } from '@/utils/draw';
+import { Vector } from '@/vector';
+
+import { elem, mouseCoord } from '@/global/draw';
+import { draw } from '@/global/draw';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
 import Zoom from '@/ui/components/Zoom.vue';
 import TrackingStatusBar from '@/ui/tracking/StatusBar.vue';
-import stars from '@/global/stars';
-import { Draw } from '@/utils/draw';
+import Playercontrol from '@/ui/player/Control.vue';
 
 export default {
   components: {
@@ -51,6 +46,7 @@ export default {
     TInput,
     TrackingStatusBar,
     Zoom,
+    Playercontrol,
   },
 
   data() {
@@ -64,8 +60,9 @@ export default {
       drawClass: null,
       starList: [],
       starIdx: -1,
-      centerMassVector: new Vector(0, 0),
+      centerMassVector: player.getCoord(),
       zoom: 1,
+      isMouseDown: false,
     };
   },
 
@@ -74,12 +71,12 @@ export default {
   watch: {},
 
   mounted() {
-    elem.addEventListener('mousedown', this.onMouseDown);
-    elem.addEventListener('mouseup', this.onMouseUp);
-    elem.addEventListener('mousemove', this.onMouseMove);
     const ctx = this.$refs['canvas'].getContext('2d');
     this.drawClass = new Draw(ctx);
-    //    this.worker = new WorkerCore(this.workerCallback, this);
+    this.draw(this);
+    elem.addEventListener('mouseup', this.onMouseUp);
+    elem.addEventListener('mousedown', this.onMouseDown);
+    elem.addEventListener('mousemove', this.onMouseMove);
   },
 
   destroyed() {
@@ -89,10 +86,40 @@ export default {
   },
 
   methods: {
-    getDotColorFromField,
-    workerCallback(data, that) {
-      that.centerMassVector = data.centerMassVector;
+    setPlayerRot() {
+      const mouseXYCoord = mouseCoord;
+      const playerCoord = xyToCanvas(
+        player.getCoord(),
+        stars.zoom,
+        stars.centerMassVector,
+        draw.getVH(),
+      );
+      const oX = new Vector(1, 0);
+      const alfa = Vector.angle2V(oX, Vector.minus(playerCoord, mouseXYCoord));
+      const rot = Vector.multDigit(
+        Vector.mult(
+          Vector.rotateVector(oX, new Vector(0, 0), alfa),
+          new Vector(-1, 1),
+        ),
+        PLAYER_SPEED_MULTIPLY,
+      );
+      player.setRot(rot);
     },
+    onMouseUp(event) {
+      this.isMouseDown = false;
+      player.powerOff();
+    },
+    onMouseDown(event) {
+      this.isMouseDown = true;
+      player.powerOn();
+      this.setPlayerRot();
+    },
+    onMouseMove(event) {
+      if (this.isMouseDown) {
+        this.setPlayerRot();
+      }
+    },
+    getDotColorFromField,
     onStartSelect() {
       stars.isPause = true;
       this.isStartSelect = true;
@@ -103,29 +130,6 @@ export default {
     },
     onZoom(zoom) {
       this.zoom = zoom;
-    },
-    onMouseDown(event) {
-      if (!this.isStartSelect) return;
-      this.isStartRect = true;
-      mouseRect.point1.x = event.x;
-      mouseRect.point1.y = event.y;
-    },
-    onMouseMove(event) {
-      if (!this.isStartRect) return;
-      mouseRect.point2.x = event.x;
-      mouseRect.point2.y = event.y;
-    },
-    onMouseUp() {
-      this.isStartRect = false;
-      mouseRect.point2.x = event.x;
-      mouseRect.point2.y = event.y;
-      this.starIdx = getStarFromRect();
-      this.isStartDraw = true;
-      this.isStartSelect = false;
-      stars.isPause = false;
-      mouseRect.point1 = new Vector(0, 0);
-      mouseRect.point2 = new Vector(0, 0);
-      this.draw(this);
     },
     drawStars(starIdx, that) {
       if (!that.$refs?.canvas?.offsetHeight) return;
@@ -141,14 +145,14 @@ export default {
         that.$refs?.roketImg,
         'green',
       );
-      //      drawTrakingNet(vh, starIdx, that.ctx, 20);
+
+      drawPlayerRot(vh, that.drawClass, 'green', player.getRot());
     },
     draw(that) {
       if (!that) return;
-      if (that.starIdx < 0) return;
       that.drawClass.clear();
-      that.centerMassVector = stars.getStarXY(0);
-      that.drawStars(that.starIdx, that);
+      that.centerMassVector = player.getCoord();
+      that.drawStars(player.getIdx(), that);
       requestAnimationFrame(() => {
         this.draw(that);
       });
@@ -158,13 +162,17 @@ export default {
 </script>
 
 <style lang="scss">
-.tracking-tab {
+.player-tab {
   &__title {
     margin-bottom: 10px;
   }
 
+  &__zoom {
+    margin-bottom: 10px;
+  }
+
   &__canvas {
-    background: #1f1f1f;
+    background: #1f1f1fa8;
     border: 1px solid #191919;
   }
 

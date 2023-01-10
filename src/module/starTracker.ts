@@ -1,11 +1,10 @@
 import { Vector } from '@/vector';
-import { xyToCanvas, canvasToXy } from '@/utils/utils';
+import { xyToCanvas, canvasToXy, inRect } from '@/utils/common';
 import { getDotColorFromField } from '@/utils/gradient';
-
-import stars from '@/global/stars';
-import { draw } from '@/global/draw';
-import { Stars } from '@/global/stars';
 import { Draw } from '@/utils/draw';
+
+import stars, { Stars } from '@/global/stars';
+import { draw } from '@/global/draw';
 
 import { IMouseRect } from '@/module/mouseCursor';
 
@@ -31,9 +30,6 @@ export const getStarFromRect = (): number => {
   const { point1, point2 } = mouseRect;
   let out = -1;
 
-  const min = Vector.getMin(point1, point2);
-  const max = Vector.getMax(point1, point2);
-
   for (let k = 0; k < stars.dataArr.length; k++) {
     const star = canvasToXy(
       stars.getStarXY(k),
@@ -42,8 +38,7 @@ export const getStarFromRect = (): number => {
       draw.getVH(),
     );
 
-    const isInRect =
-      star.x > min.x && star.x < max.x && star.y > min.y && star.y < max.y;
+    const isInRect = inRect(point1, point2, star);
 
     if (isInRect) {
       out = k;
@@ -52,6 +47,18 @@ export const getStarFromRect = (): number => {
   }
 
   return out;
+};
+
+export const drawPlayerRot = (
+  vh: Vector,
+  _draw: Draw,
+  color: string,
+  rot: Vector,
+) => {
+  const offsetButtom = vh.y / 5;
+
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
 };
 
 export const drawTraking = (

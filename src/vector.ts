@@ -36,7 +36,7 @@ export class Vector {
   }
   //
   //https://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
-  static rotateVector(vec: Vector, centerVec: Vector, angle: number) {
+  static rotateVector(vec: Vector, centerVec: Vector, angle: number): Vector {
     //    const angle = angleDeg * 3.14 / 180;
     const s = Math.sin(angle);
     const c = Math.cos(angle);

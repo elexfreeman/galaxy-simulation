@@ -14,4 +14,7 @@ export const menuData = [
   {
     title: 'Star tracking',
   },
+  {
+    title: 'Player',
+  },
 ]

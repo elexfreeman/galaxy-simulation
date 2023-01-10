@@ -1,7 +1,7 @@
 import * as C from '@/consts';
 import { Vector } from '@/vector';
 import { Body } from '@/body';
-import { getRandomInt } from '@/utils/utils';
+import { getRandomInt } from '@/utils/common';
 
 export class BodyGenerator {
   generate() {
@@ -45,7 +45,7 @@ export class GeneratorCircle extends BodyGenerator {
       }
     };
 
-    addDots(Math.ceil(C.MAX_DOTS), new Vector(600, 400), 500, '#f8a5a5');
+    addDots(Math.ceil(C.MAX_DOTS), new Vector(0, 0), 500, '#f8a5a5');
 
     //    addDots(Math.ceil(C.MAX_DOTS.count / 3), new Vector(0, 1200), 200, '#f8a5a5');
     //    addDots(Math.ceil(C.MAX_DOTS.count / 3), new Vector(1200, 0), 200, '#faeb9e');

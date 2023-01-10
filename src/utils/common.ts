@@ -10,8 +10,8 @@ export const canvasToXy = (
   zoom: number,
   vh: Vector,
 ): Vector => {
-  // (point - centerMassVector) * zoom + vh * 0.5
-  return Vector.add(
+  // (point - centerMassVector) * zoom - vh * 0.5
+  return Vector.minus(
     Vector.multDigit(Vector.minus(point, centerMassVector), zoom),
     Vector.multDigit(vh, 0.5),
   );
@@ -32,4 +32,21 @@ export const xyToCanvas = (
 
 export const radToDeg = (rad: number): number => {
   return (rad * 180) / 3.14;
+};
+
+export const degToRad = (deg: number): number => {
+  return (deg * 3.14) / 180;
+};
+
+export const inRect = (
+  recPoint1: Vector,
+  rectPoint2: Vector,
+  point: Vector,
+) => {
+  const min = Vector.getMin(recPoint1, rectPoint2);
+  const max = Vector.getMax(recPoint1, rectPoint2);
+  const isInRect =
+    point.x > min.x && point.x < max.x && point.y > min.y && point.y < max.y;
+
+  return isInRect;
 };
