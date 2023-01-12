@@ -49,6 +49,16 @@ export const getStarFromRect = (): number => {
   return out;
 };
 
+export const drawPlayerPower = (
+  playerCoord: Vector,
+  mouseCoord: Vector,
+  _draw: Draw,
+  color: string,
+) => {
+  console.log(playerCoord, mouseCoord);
+  _draw.line(playerCoord, mouseCoord, color);
+};
+
 export const drawPlayerRot = (
   vh: Vector,
   _draw: Draw,
@@ -72,7 +82,7 @@ export const drawTraking = (
   const osX = new Vector(1, 0);
   const offset = Vector.multDigit(vh, 0.5);
   const offsetButtom = vh.y / 5;
-  const centerMassVector = stars.getStarXY(starIdx);
+  const trackObject = stars.getStarXY(starIdx);
 
   let vecV = stars.getStarV(starIdx);
   let vecXY = new Vector(0, 0);
@@ -81,8 +91,8 @@ export const drawTraking = (
 
   for (let k = 0; k < stars.getCount(); k++) {
     vecXY = stars.getStarXY(k);
-    vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
-    vecXY = Vector.minus(vecXY, centerMassVector);
+    vecXY = Vector.rotateVector(vecXY, trackObject, deg - 3.14 / 2);
+    vecXY = Vector.minus(vecXY, trackObject);
     vecXY = Vector.multDigit(vecXY, zoom);
     vecXY = Vector.add(vecXY, offset);
     field = stars.getField(k);
@@ -101,19 +111,22 @@ export const drawTraking = (
     _draw.ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
   }
 
-  // global map target
-  const rectXY = xyToCanvas(
-    Vector.addScalar(centerMassVector, -10),
+  const trackObjectCanvas = xyToCanvas(
+    trackObject,
     stars.zoom,
     stars.centerMassVector,
     draw.getVH(),
   );
 
-  draw.rect(rectXY, new Vector(20, 20), color);
+  draw.rect(
+    Vector.addScalar(trackObjectCanvas, -10),
+    new Vector(20, 20),
+    color,
+  );
 
   // vector velocity
   vecV = Vector.multDigit(vecV, 100);
-  draw.line(Vector.addScalar(rectXY, 10), Vector.add(rectXY, vecV), color);
+  draw.line(trackObjectCanvas, Vector.add(trackObjectCanvas, vecV), color);
 };
 
 export const drawTrakingNet = (

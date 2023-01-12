@@ -2,12 +2,7 @@
   <div class="player-tab">
     <div class="player-tab__title">Player Tracking</div>
     <Zoom class="player-tab__zoom" @onZoom="onZoom" />
-    <canvas
-      width="360"
-      height="360"
-      ref="canvas"
-      class="tracking-tab__canvas"
-    />
+    <canvas width="360" height="360" ref="canvas" class="player-tab__canvas" />
     <TrackingStatusBar :centerMassVector="centerMassVector" />
     <div style="display: none">
       <img
@@ -22,17 +17,23 @@
 </template>
 
 <script>
-import { drawTraking, drawPlayerRot } from '@/module/starTracker';
-import { getDotColorFromField } from '@/utils/gradient';
-import { canvasToXy, xyToCanvas, radToDeg } from '@/utils/common';
-import { player } from '@/global/player';
-import { Player, PLAYER_SPEED_MULTIPLY } from '@/module/player';
-import stars from '@/global/stars';
-import { Draw } from '@/utils/draw';
 import { Vector } from '@/vector';
 
+import { getDotColorFromField } from '@/utils/gradient';
+import { xyToCanvas } from '@/utils/common';
+import { Draw } from '@/utils/draw';
+
+import { player } from '@/global/player';
+import stars from '@/global/stars';
 import { elem, mouseCoord } from '@/global/draw';
 import { draw } from '@/global/draw';
+
+import { PLAYER_SPEED_MULTIPLY } from '@/module/player';
+import {
+  drawTraking,
+  drawPlayerRot,
+  drawPlayerPower,
+} from '@/module/starTracker';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
@@ -63,6 +64,7 @@ export default {
       centerMassVector: player.getCoord(),
       zoom: 1,
       isMouseDown: false,
+      playerCoord: new Vector(0, 0),
     };
   },
 
@@ -88,14 +90,17 @@ export default {
   methods: {
     setPlayerRot() {
       const mouseXYCoord = mouseCoord;
-      const playerCoord = xyToCanvas(
+      this.playerCoord = xyToCanvas(
         player.getCoord(),
         stars.zoom,
         stars.centerMassVector,
         draw.getVH(),
       );
       const oX = new Vector(1, 0);
-      const alfa = Vector.angle2V(oX, Vector.minus(playerCoord, mouseXYCoord));
+      const alfa = Vector.angle2V(
+        oX,
+        Vector.minus(this.playerCoord, mouseXYCoord),
+      );
       const rot = Vector.multDigit(
         Vector.mult(
           Vector.rotateVector(oX, new Vector(0, 0), alfa),
@@ -147,6 +152,15 @@ export default {
       );
 
       drawPlayerRot(vh, that.drawClass, 'green', player.getRot());
+      if (that.isMouseDown) {
+        this.playerCoord = xyToCanvas(
+          player.getCoord(),
+          stars.zoom,
+          stars.centerMassVector,
+          draw.getVH(),
+        );
+        drawPlayerPower(that.playerCoord, mouseCoord, draw, '#e1e376');
+      }
     },
     draw(that) {
       if (!that) return;
@@ -172,7 +186,7 @@ export default {
   }
 
   &__canvas {
-    background: #1f1f1fa8;
+    background: rgb(31 31 31 / 67%);
     border: 1px solid #191919;
   }
 
