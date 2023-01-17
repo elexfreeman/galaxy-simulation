@@ -1,5 +1,5 @@
 import * as C from '@/consts';
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 import { Body } from '@/body';
 import { getRandomInt } from '@/utils/common';
 

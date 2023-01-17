@@ -1,10 +1,10 @@
-import { Vector } from '../vector';
+import { Vector } from '@/utils/vector';
 
 export class Draw {
   public ctx: CanvasRenderingContext2D;
 
   constructor(ctx: CanvasRenderingContext2D | null) {
-    if(!ctx) {
+    if (!ctx) {
       throw 'ctx is null';
     }
     this.ctx = ctx;
@@ -15,10 +15,15 @@ export class Draw {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
-  rect(point: Vector, size: Vector, color: string) {
+  rect(point: Vector, size: Vector, color: string, fill: boolean = false) {
     this.ctx.beginPath();
-    this.ctx.strokeStyle = color;
-    this.ctx.strokeRect(point.x, point.y, size.x, size.y);
+    if (fill) {
+      this.ctx.fillRect(point.x, point.y, size.x, size.y);
+      this.ctx.fillStyle = color;
+    } else {
+      this.ctx.strokeRect(point.x, point.y, size.x, size.y);
+      this.ctx.strokeStyle = color;
+    }
     this.ctx.closePath();
     this.ctx.stroke();
   }

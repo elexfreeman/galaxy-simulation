@@ -1,4 +1,4 @@
-import { Vector } from '../vector';
+import { Vector } from '@/utils/vector';
 import { DATA_X, DATA_Y, DATA_FIELD } from '@/global/stars';
 
 onmessage = function (e) {

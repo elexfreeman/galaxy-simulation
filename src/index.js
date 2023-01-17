@@ -3,7 +3,7 @@ import Vue from 'vue';
 import App from '@/ui/App.vue';
 import * as C from '@/consts';
 
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 import { GeneratorCircle } from '@/bodyGenerator';
 import { getDotColorFromField } from '@/utils/gradient';
 import { xyToCanvas } from './utils/common';
@@ -13,7 +13,6 @@ import { WorkerCore } from '@/worker/worker-core';
 import { addSphereInit } from '@/module/addSphere';
 import { mouseCoordInit } from '@/module/mouseCursor';
 import { fpsMeter } from '@/module/fps';
-import { starTrackerInit, drawMouseRect } from '@/module/starTracker';
 
 import stars from '@/global/stars';
 import { draw } from '@/global/draw';
@@ -68,7 +67,6 @@ async function drawFrame() {
   }
 
   drawStars();
-  drawMouseRect();
   player.tick();
   fpsMeter.finish();
   window.requestAnimationFrame(drawFrame);
@@ -87,7 +85,6 @@ const main = () => {
   initDataArr();
 
   // init modules
-  starTrackerInit();
   mouseCoordInit();
   addSphereInit();
 

@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import { getStarFromRect, drawTraking, mouseRect } from '@/module/starTracker';
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 import { getDotColorFromField } from '@/utils/gradient';
 import { elem } from '@/global/draw';
 
@@ -107,24 +106,16 @@ export default {
     onMouseDown(event) {
       if (!this.isStartSelect) return;
       this.isStartRect = true;
-      mouseRect.point1.x = event.x;
-      mouseRect.point1.y = event.y;
     },
     onMouseMove(event) {
       if (!this.isStartRect) return;
-      mouseRect.point2.x = event.x;
-      mouseRect.point2.y = event.y;
     },
     onMouseUp() {
       this.isStartRect = false;
-      mouseRect.point2.x = event.x;
-      mouseRect.point2.y = event.y;
-      this.starIdx = getStarFromRect();
+//      this.starIdx = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       stars.isPause = false;
-      mouseRect.point1 = new Vector(0, 0);
-      mouseRect.point2 = new Vector(0, 0);
       this.draw(this);
     },
     drawStars(starIdx, that) {
@@ -133,14 +124,14 @@ export default {
 
       const vh = that.drawClass.getVH();
       const zoom = that.zoom;
-      drawTraking(
-        vh,
-        zoom,
-        starIdx,
-        that.drawClass,
-        that.$refs?.roketImg,
-        'green',
-      );
+//      drawTraking(
+//        vh,
+//        zoom,
+//        starIdx,
+//        that.drawClass,
+//        that.$refs?.roketImg,
+//        'green',
+//      );
       //      drawTrakingNet(vh, starIdx, that.ctx, 20);
     },
     draw(that) {

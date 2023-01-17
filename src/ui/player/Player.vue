@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 
 import { getDotColorFromField } from '@/utils/gradient';
 import { xyToCanvas } from '@/utils/common';
@@ -28,12 +28,15 @@ import stars from '@/global/stars';
 import { elem, mouseCoord } from '@/global/draw';
 import { draw } from '@/global/draw';
 
-import { PLAYER_SPEED_MULTIPLY } from '@/module/player';
 import {
-  drawTraking,
+  PLAYER_SPEED_MULTIPLY,
+  drawPlayerTraking,
   drawPlayerRot,
   drawPlayerPower,
-} from '@/module/starTracker';
+  drawPlayerV,
+  drawPlayerRect,
+  drawShip,
+} from '@/module/player';
 
 import TButton from '@/ui/components/Button.vue';
 import TInput from '@/ui/components/Input.vue';
@@ -142,23 +145,21 @@ export default {
 
       const vh = that.drawClass.getVH();
       const zoom = that.zoom;
-      drawTraking(
-        vh,
-        zoom,
-        starIdx,
-        that.drawClass,
-        that.$refs?.roketImg,
-        'green',
+
+      this.playerCoord = xyToCanvas(
+        player.getCoord(),
+        stars.zoom,
+        stars.centerMassVector,
+        draw.getVH(),
       );
 
+      drawPlayerTraking(vh, zoom, starIdx, that.drawClass);
+      drawPlayerV(that.playerCoord, player.getVelocity(), draw, 'green');
+      drawPlayerRect(that.playerCoord, draw, 'green');
       drawPlayerRot(vh, that.drawClass, 'green', player.getRot());
+      drawShip(vh, that.drawClass, that.$refs.roketImg);
+
       if (that.isMouseDown) {
-        this.playerCoord = xyToCanvas(
-          player.getCoord(),
-          stars.zoom,
-          stars.centerMassVector,
-          draw.getVH(),
-        );
         drawPlayerPower(that.playerCoord, mouseCoord, draw, '#e1e376');
       }
     },

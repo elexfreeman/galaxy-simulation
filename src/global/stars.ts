@@ -1,4 +1,4 @@
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 
 export const DATA_X = 0;
 export const DATA_Y = 1;

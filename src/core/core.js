@@ -1,8 +1,7 @@
-import {GPU} from 'gpu.js';
-import {kernelXY, kernelForceField} from '@/core/gpu-core'
+import { GPU } from 'gpu.js';
+import { kernelXY, kernelForceField } from '@/core/gpu-core';
 
 export class Core {
-
   constructor() {
     const kk = this.getKernel();
     this.kernel = kk.kernel;
@@ -11,17 +10,19 @@ export class Core {
 
   getKernel() {
     const gpu = new GPU();
-    const kernel = gpu.createKernel(kernelXY)
+    const kernel = gpu
+      .createKernel(kernelXY)
       .setDynamicArguments(true)
       .setDynamicOutput(true);
-    const kernelForce = gpu.createKernel(kernelForceField)
+    const kernelForce = gpu
+      .createKernel(kernelForceField)
       .setDynamicArguments(true)
       .setDynamicOutput(true);
 
     return {
       kernel,
       kernelForce,
-    }
+    };
   }
 
   refresh() {
@@ -30,4 +31,3 @@ export class Core {
     this.kernelForce = kk.kernelForce;
   }
 }
-
