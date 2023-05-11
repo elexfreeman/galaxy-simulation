@@ -1,12 +1,9 @@
-import * as C from '@/consts';
-
-
 /**
  * data [x, y, vx, vy, massa ]
  *       0, 1,  2,  3
-*/
+ */
 export const kernelXY = function (GG, data) {
-  const {len} = this.constants;
+  const { len } = this.constants;
   let newX = 0;
   let newY = 0;
   let newVX = data[this.thread.x][2];
@@ -14,24 +11,23 @@ export const kernelXY = function (GG, data) {
   //
   let FX = 0;
   let FY = 0;
-  let R = 0
+  let R = 0;
   let xMinus = 0;
   let yMinus = 0;
 
   for (let k = 0; k < len; k++) {
     if (k !== this.thread.x) {
-
-      // find vector 
+      // find vector
       xMinus = data[k][0] - data[this.thread.x][0];
       yMinus = data[k][1] - data[this.thread.x][1];
 
       //find Radius
-      R = sqrt((xMinus * xMinus) + (yMinus * yMinus));
+      R = sqrt(xMinus * xMinus + yMinus * yMinus);
       R = R * R;
 
       // find force
-      FX = GG * xMinus / (1 + R);
-      FY = GG * yMinus / (1 + R);
+      FX = (GG * xMinus) / (1 + R);
+      FY = (GG * yMinus) / (1 + R);
 
       // F + V
       newVX = FX + newVX;
@@ -43,12 +39,11 @@ export const kernelXY = function (GG, data) {
   newX = newVX + data[this.thread.x][0];
   newY = newVY + data[this.thread.x][1];
 
-
   return [newX, newY, newVX, newVY];
-}
+};
 
 export const kernelForceField = function (GG, data) {
-  const {len} = this.constants;
+  const { len } = this.constants;
 
   // gravite field
   let xGField = 0;
@@ -57,34 +52,32 @@ export const kernelForceField = function (GG, data) {
   let GFieldLen = 0;
   let FX = 0;
   let FY = 0;
-  let R = 0
+  let R = 0;
   let xMinus = 0;
   let yMinus = 0;
 
   for (let k = 0; k < len; k++) {
     if (k !== this.thread.x) {
-
-      // find vector 
+      // find vector
       xMinus = data[k][0] - data[this.thread.x][0];
       yMinus = data[k][1] - data[this.thread.x][1];
 
       //find Radius
-      R = sqrt((xMinus * xMinus) + (yMinus * yMinus));
+      R = sqrt(xMinus * xMinus + yMinus * yMinus);
       R = R * R;
 
       // find force
-      FX = GG * xMinus / (1 + R);
-      FY = GG * yMinus / (1 + R);
+      FX = (GG * xMinus) / (1 + R);
+      FY = (GG * yMinus) / (1 + R);
 
       xGField += FX;
       yGField += FY;
-
     }
   }
   xGField = xGField / len;
   yGField = yGField / len;
 
-  GFieldLen = sqrt((xGField * xGField) + (yGField * yGField));
+  GFieldLen = sqrt(xGField * xGField + yGField * yGField);
 
   return [data[this.thread.x][0], data[this.thread.x][1], GFieldLen];
-}
+};

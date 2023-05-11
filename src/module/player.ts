@@ -1,7 +1,9 @@
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
+import { Draw } from '@/utils/draw';
+import { xyToCanvas } from '@/utils/common';
+import { getDotColorFromField } from '@/utils/gradient';
+
 import stars from '@/global/stars';
-import { canvasToXy } from '@/utils/common';
-import { draw } from '@/global/draw';
 
 export const getDefaultCoord = (): Vector => {
   return new Vector(0, 200);
@@ -68,3 +70,104 @@ export class Player {
     }
   }
 }
+
+export const drawShip = (vh: Vector, _draw: Draw, image: any) => {
+  const offsetButtom = vh.y / 5;
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  if (image) {
+    _draw.ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
+  }
+};
+
+export const drawPlayerV = (
+  playerCoord: Vector,
+  playerV: Vector,
+  _draw: Draw,
+  color: string,
+) => {
+  //  const playerCoordCanvas = xyToCanvas(
+  //    playerCoord,
+  //    stars.zoom,
+  //    stars.centerMassVector,
+  //    _draw.getVH(),
+  //  );
+  //
+
+  // vector velocity
+  _draw.line(
+    playerCoord,
+    Vector.add(playerCoord, Vector.multDigit(playerV, 100)),
+    color,
+  );
+  // vector velocity
+};
+
+export const drawPlayerRect = (
+  playerCoord: Vector,
+  _draw: Draw,
+  color: string,
+) => {
+  //  const playerCoordCanvas = xyToCanvas(
+  //    playerCoord,
+  //    stars.zoom,
+  //    stars.centerMassVector,
+  //    _draw.getVH(),
+  //  );
+
+  _draw.rect(Vector.addScalar(playerCoord, -10), new Vector(20, 20), color);
+};
+
+export const drawPlayerPower = (
+  playerCoord: Vector,
+  mouseCoord: Vector,
+  _draw: Draw,
+  color: string,
+) => {
+  _draw.line(playerCoord, mouseCoord, color);
+};
+
+export const drawPlayerRot = (
+  vh: Vector,
+  _draw: Draw,
+  color: string,
+  rot: Vector,
+) => {
+  const offsetButtom = vh.y / 5;
+
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
+};
+
+export const drawPlayerTraking = (
+  vh: Vector,
+  zoom: number,
+  starIdx: number,
+  _draw: Draw,
+) => {
+  const osX = new Vector(1, 0);
+  const offset = Vector.multDigit(vh, 0.5);
+  const offsetButtom = vh.y / 5;
+  const trackObject = stars.getStarXY(starIdx);
+
+  let vecV = stars.getStarV(starIdx);
+  let vecXY = new Vector(0, 0);
+  const deg = Vector.angle2V(osX, vecV);
+  let field = 0;
+
+  for (let k = 0; k < stars.getCount(); k++) {
+    vecXY = stars.getStarXY(k);
+    vecXY = Vector.rotateVector(vecXY, trackObject, deg - 3.14 / 2);
+    vecXY = Vector.minus(vecXY, trackObject);
+    vecXY = Vector.multDigit(vecXY, zoom);
+    vecXY = Vector.add(vecXY, offset);
+    field = stars.getField(k);
+    vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
+
+    _draw.rect(
+      vecXY,
+      new Vector(3, 3),
+      getDotColorFromField(field, stars.maxField),
+      true,
+    );
+  }
+};

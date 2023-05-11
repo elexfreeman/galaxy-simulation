@@ -1,5 +1,5 @@
 import { Draw } from '@/utils/draw';
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 
 export const elem: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('canvas');
 export const ctx = elem.getContext('2d');

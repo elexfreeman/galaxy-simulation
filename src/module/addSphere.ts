@@ -1,4 +1,4 @@
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 import { GeneratorCircle } from '@/bodyGenerator';
 import stars from '@/global/stars';
 import { draw, elem, mouseCoord } from '@/global/draw';

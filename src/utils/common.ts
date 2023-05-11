@@ -1,4 +1,4 @@
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 
 export const getRandomInt = (min: number, max: number) => {
   return Math.random() * (max - min) + min;

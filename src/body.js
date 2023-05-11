@@ -1,5 +1,5 @@
 import * as C from '@/consts';
-import { Vector } from '@/vector';
+import { Vector } from '@/utils/vector';
 
 export class Body {
   constructor(coord, massa, color = '#000000') {
