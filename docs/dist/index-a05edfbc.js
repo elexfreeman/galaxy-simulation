@@ -858,21 +858,21 @@ function createFnInvoker(fns, vm) {
   return invoker;
 }
 function updateListeners(on, oldOn, add2, remove2, createOnceHandler2, vm) {
-  var name2, cur, old, event2;
+  var name2, cur, old, event;
   for (name2 in on) {
     cur = on[name2];
     old = oldOn[name2];
-    event2 = normalizeEvent(name2);
+    event = normalizeEvent(name2);
     if (isUndef(cur))
       ;
     else if (isUndef(old)) {
       if (isUndef(cur.fns)) {
         cur = on[name2] = createFnInvoker(cur, vm);
       }
-      if (isTrue(event2.once)) {
-        cur = on[name2] = createOnceHandler2(event2.name, cur, event2.capture);
+      if (isTrue(event.once)) {
+        cur = on[name2] = createOnceHandler2(event.name, cur, event.capture);
       }
-      add2(event2.name, cur, event2.capture, event2.passive, event2.params);
+      add2(event.name, cur, event.capture, event.passive, event.params);
     } else if (cur !== old) {
       old.fns = cur;
       on[name2] = old;
@@ -880,8 +880,8 @@ function updateListeners(on, oldOn, add2, remove2, createOnceHandler2, vm) {
   }
   for (name2 in oldOn) {
     if (isUndef(on[name2])) {
-      event2 = normalizeEvent(name2);
-      remove2(event2.name, oldOn[name2], event2.capture);
+      event = normalizeEvent(name2);
+      remove2(event.name, oldOn[name2], event.capture);
     }
   }
 }
@@ -1949,18 +1949,18 @@ function initEvents(vm) {
   }
 }
 var target$1;
-function add$1(event2, fn) {
-  target$1.$on(event2, fn);
+function add$1(event, fn) {
+  target$1.$on(event, fn);
 }
-function remove$1(event2, fn) {
-  target$1.$off(event2, fn);
+function remove$1(event, fn) {
+  target$1.$off(event, fn);
 }
-function createOnceHandler$1(event2, fn) {
+function createOnceHandler$1(event, fn) {
   var _target = target$1;
   return function onceHandler() {
     var res = fn.apply(null, arguments);
     if (res !== null) {
-      _target.$off(event2, onceHandler);
+      _target.$off(event, onceHandler);
     }
   };
 }
@@ -1971,48 +1971,48 @@ function updateComponentListeners(vm, listeners, oldListeners) {
 }
 function eventsMixin(Vue2) {
   var hookRE = /^hook:/;
-  Vue2.prototype.$on = function(event2, fn) {
+  Vue2.prototype.$on = function(event, fn) {
     var vm = this;
-    if (isArray(event2)) {
-      for (var i = 0, l = event2.length; i < l; i++) {
-        vm.$on(event2[i], fn);
+    if (isArray(event)) {
+      for (var i = 0, l = event.length; i < l; i++) {
+        vm.$on(event[i], fn);
       }
     } else {
-      (vm._events[event2] || (vm._events[event2] = [])).push(fn);
-      if (hookRE.test(event2)) {
+      (vm._events[event] || (vm._events[event] = [])).push(fn);
+      if (hookRE.test(event)) {
         vm._hasHookEvent = true;
       }
     }
     return vm;
   };
-  Vue2.prototype.$once = function(event2, fn) {
+  Vue2.prototype.$once = function(event, fn) {
     var vm = this;
     function on() {
-      vm.$off(event2, on);
+      vm.$off(event, on);
       fn.apply(vm, arguments);
     }
     on.fn = fn;
-    vm.$on(event2, on);
+    vm.$on(event, on);
     return vm;
   };
-  Vue2.prototype.$off = function(event2, fn) {
+  Vue2.prototype.$off = function(event, fn) {
     var vm = this;
     if (!arguments.length) {
       vm._events = /* @__PURE__ */ Object.create(null);
       return vm;
     }
-    if (isArray(event2)) {
-      for (var i_1 = 0, l = event2.length; i_1 < l; i_1++) {
-        vm.$off(event2[i_1], fn);
+    if (isArray(event)) {
+      for (var i_1 = 0, l = event.length; i_1 < l; i_1++) {
+        vm.$off(event[i_1], fn);
       }
       return vm;
     }
-    var cbs = vm._events[event2];
+    var cbs = vm._events[event];
     if (!cbs) {
       return vm;
     }
     if (!fn) {
-      vm._events[event2] = null;
+      vm._events[event] = null;
       return vm;
     }
     var cb;
@@ -2026,13 +2026,13 @@ function eventsMixin(Vue2) {
     }
     return vm;
   };
-  Vue2.prototype.$emit = function(event2) {
+  Vue2.prototype.$emit = function(event) {
     var vm = this;
-    var cbs = vm._events[event2];
+    var cbs = vm._events[event];
     if (cbs) {
       cbs = cbs.length > 1 ? toArray(cbs) : cbs;
       var args = toArray(arguments, 1);
-      var info = 'event handler for "'.concat(event2, '"');
+      var info = 'event handler for "'.concat(event, '"');
       for (var i = 0, l = cbs.length; i < l; i++) {
         invokeWithErrorHandling(cbs[i], vm, args, vm, info);
       }
@@ -2619,17 +2619,17 @@ function mergeHook(f1, f2) {
 }
 function transformModel(options, data) {
   var prop = options.model && options.model.prop || "value";
-  var event2 = options.model && options.model.event || "input";
+  var event = options.model && options.model.event || "input";
   (data.attrs || (data.attrs = {}))[prop] = data.model.value;
   var on = data.on || (data.on = {});
-  var existing = on[event2];
+  var existing = on[event];
   var callback = data.model.callback;
   if (isDef(existing)) {
     if (isArray(existing) ? existing.indexOf(callback) === -1 : existing !== callback) {
-      on[event2] = [callback].concat(existing);
+      on[event] = [callback].concat(existing);
     }
   } else {
-    on[event2] = callback;
+    on[event] = callback;
   }
 }
 var warn = noop;
@@ -4435,12 +4435,12 @@ function normalizeEvents(on) {
   }
 }
 var target;
-function createOnceHandler(event2, handler, capture) {
+function createOnceHandler(event, handler, capture) {
   var _target = target;
   return function onceHandler() {
     var res = handler.apply(null, arguments);
     if (res !== null) {
-      remove(event2, onceHandler, capture, _target);
+      remove(event, onceHandler, capture, _target);
     }
   };
 }
@@ -4786,10 +4786,10 @@ function whenTransitionEnds(el, expectedType, cb) {
   var _a = getTransitionInfo(el, expectedType), type = _a.type, timeout = _a.timeout, propCount = _a.propCount;
   if (!type)
     return cb();
-  var event2 = type === TRANSITION ? transitionEndEvent : animationEndEvent;
+  var event = type === TRANSITION ? transitionEndEvent : animationEndEvent;
   var ended = 0;
   var end = function() {
-    el.removeEventListener(event2, onEnd);
+    el.removeEventListener(event, onEnd);
     cb();
   };
   var onEnd = function(e) {
@@ -4804,7 +4804,7 @@ function whenTransitionEnds(el, expectedType, cb) {
       end();
     }
   }, timeout + 1);
-  el.addEventListener(event2, onEnd);
+  el.addEventListener(event, onEnd);
 }
 var transformRE = /\b(transform|all)(,|$)/;
 function getTransitionInfo(el, expectedType) {
@@ -5680,18 +5680,18 @@ const __vue2_script$d = {
     }
   },
   methods: {
-    onClick(event2) {
+    onClick(event) {
       if (this.stopPropagation) {
-        event2.stopPropagation();
+        event.stopPropagation();
       }
       if (this.hasDisabled) {
         if (this.hasLinkButton) {
-          event2.preventDefault();
-          event2.stopPropagation();
+          event.preventDefault();
+          event.stopPropagation();
         }
         return;
       }
-      this.$emit("click", event2);
+      this.$emit("click", event);
     }
   }
 };
@@ -6345,24 +6345,6 @@ function __vue2_injectStyles$7(context) {
 var Navigation = /* @__PURE__ */ function() {
   return __component__$7.exports;
 }();
-const getRandomInt = (min, max) => {
-  return Math.random() * (max - min) + min;
-};
-const canvasToXy = (point, centerMassVector, zoom, vh) => {
-  return Vector.minus(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
-};
-const xyToCanvas = (point, zoom, centerMassVector, vh) => {
-  return Vector.add(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
-};
-const degToRad = (deg) => {
-  return deg * 3.14 / 180;
-};
-const inRect = (recPoint1, rectPoint2, point) => {
-  const min = Vector.getMin(recPoint1, rectPoint2);
-  const max = Vector.getMax(recPoint1, rectPoint2);
-  const isInRect = point.x > min.x && point.x < max.x && point.y > min.y && point.y < max.y;
-  return isInRect;
-};
 function hex(c) {
   let s = "0123456789abcdef";
   let i = parseInt(c);
@@ -6419,10 +6401,15 @@ class Draw {
     this.ctx.globalCompositeOperation = "destination-over";
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
-  rect(point, size, color) {
+  rect(point, size, color, fill = false) {
     this.ctx.beginPath();
-    this.ctx.strokeStyle = color;
-    this.ctx.strokeRect(point.x, point.y, size.x, size.y);
+    if (fill) {
+      this.ctx.fillRect(point.x, point.y, size.x, size.y);
+      this.ctx.fillStyle = color;
+    } else {
+      this.ctx.strokeRect(point.x, point.y, size.x, size.y);
+      this.ctx.strokeStyle = color;
+    }
     this.ctx.closePath();
     this.ctx.stroke();
   }
@@ -6444,60 +6431,6 @@ const ctx = elem.getContext("2d");
 const draw = new Draw(ctx);
 const mouseCoord = new Vector(0, 0);
 new Vector(0, 0);
-const mouseRect = {
-  point1: new Vector(0, 0),
-  point2: new Vector(0, 0)
-};
-const drawMouseRect = () => {
-  const { point1, point2 } = mouseRect;
-  draw.rect(point2, Vector.addScalar(Vector.minus(point1, point2), -20), "green");
-};
-const getStarFromRect = () => {
-  const { point1, point2 } = mouseRect;
-  let out = -1;
-  for (let k = 0; k < stars.dataArr.length; k++) {
-    const star = canvasToXy(stars.getStarXY(k), stars.centerMassVector, stars.zoom, draw.getVH());
-    const isInRect = inRect(point1, point2, star);
-    if (isInRect) {
-      out = k;
-      break;
-    }
-  }
-  return out;
-};
-const drawPlayerRot = (vh, _draw, color, rot) => {
-  const offsetButtom = vh.y / 5;
-  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
-  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
-};
-const drawTraking = (vh, zoom, starIdx, _draw, image, color) => {
-  const osX = new Vector(1, 0);
-  const offset = Vector.multDigit(vh, 0.5);
-  const offsetButtom = vh.y / 5;
-  const centerMassVector = stars.getStarXY(starIdx);
-  let vecV = stars.getStarV(starIdx);
-  let vecXY = new Vector(0, 0);
-  const deg = Vector.angle2V(osX, vecV);
-  let field = 0;
-  for (let k = 0; k < stars.getCount(); k++) {
-    vecXY = stars.getStarXY(k);
-    vecXY = Vector.rotateVector(vecXY, centerMassVector, deg - 3.14 / 2);
-    vecXY = Vector.minus(vecXY, centerMassVector);
-    vecXY = Vector.multDigit(vecXY, zoom);
-    vecXY = Vector.add(vecXY, offset);
-    field = stars.getField(k);
-    vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
-    _draw.rect(vecXY, new Vector(3, 3), getDotColorFromField(field, stars.maxField));
-  }
-  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
-  if (image) {
-    _draw.ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
-  }
-  const rectXY = xyToCanvas(Vector.addScalar(centerMassVector, -10), stars.zoom, stars.centerMassVector, draw.getVH());
-  draw.rect(rectXY, new Vector(20, 20), color);
-  vecV = Vector.multDigit(vecV, 100);
-  draw.line(Vector.addScalar(rectXY, 10), Vector.add(rectXY, vecV), color);
-};
 var render$6 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
@@ -6646,40 +6579,30 @@ const __vue2_script$5 = {
     onZoom(zoom) {
       this.zoom = zoom;
     },
-    onMouseDown(event2) {
+    onMouseDown(event) {
       if (!this.isStartSelect)
         return;
       this.isStartRect = true;
-      mouseRect.point1.x = event2.x;
-      mouseRect.point1.y = event2.y;
     },
-    onMouseMove(event2) {
+    onMouseMove(event) {
       if (!this.isStartRect)
         return;
-      mouseRect.point2.x = event2.x;
-      mouseRect.point2.y = event2.y;
     },
     onMouseUp() {
       this.isStartRect = false;
-      mouseRect.point2.x = event.x;
-      mouseRect.point2.y = event.y;
-      this.starIdx = getStarFromRect();
       this.isStartDraw = true;
       this.isStartSelect = false;
       stars.isPause = false;
-      mouseRect.point1 = new Vector(0, 0);
-      mouseRect.point2 = new Vector(0, 0);
       this.draw(this);
     },
     drawStars(starIdx, that) {
-      var _a, _b, _c;
+      var _a, _b;
       if (!((_b = (_a = that.$refs) == null ? void 0 : _a.canvas) == null ? void 0 : _b.offsetHeight))
         return;
       if (starIdx < 0)
         return;
-      const vh = that.drawClass.getVH();
-      const zoom = that.zoom;
-      drawTraking(vh, zoom, starIdx, that.drawClass, (_c = that.$refs) == null ? void 0 : _c.roketImg, "green");
+      that.drawClass.getVH();
+      that.zoom;
     },
     draw(that) {
       if (!that)
@@ -6705,6 +6628,15 @@ function __vue2_injectStyles$5(context) {
 var StarTracking = /* @__PURE__ */ function() {
   return __component__$5.exports;
 }();
+const getRandomInt = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
+const xyToCanvas = (point, zoom, centerMassVector, vh) => {
+  return Vector.add(Vector.multDigit(Vector.minus(point, centerMassVector), zoom), Vector.multDigit(vh, 0.5));
+};
+const degToRad = (deg) => {
+  return deg * 3.14 / 180;
+};
 const getDefaultCoord = () => {
   return new Vector(0, 200);
 };
@@ -6755,6 +6687,47 @@ class Player$1 {
     }
   }
 }
+const drawShip = (vh, _draw, image) => {
+  const offsetButtom = vh.y / 5;
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  if (image) {
+    _draw.ctx.drawImage(image, ship.x - 8, ship.y, 15, 25);
+  }
+};
+const drawPlayerV = (playerCoord, playerV, _draw, color) => {
+  _draw.line(playerCoord, Vector.add(playerCoord, Vector.multDigit(playerV, 100)), color);
+};
+const drawPlayerRect = (playerCoord, _draw, color) => {
+  _draw.rect(Vector.addScalar(playerCoord, -10), new Vector(20, 20), color);
+};
+const drawPlayerPower = (playerCoord, mouseCoord2, _draw, color) => {
+  _draw.line(playerCoord, mouseCoord2, color);
+};
+const drawPlayerRot = (vh, _draw, color, rot) => {
+  const offsetButtom = vh.y / 5;
+  const ship = new Vector(vh.x / 2, vh.y - offsetButtom - 40);
+  _draw.line(ship, Vector.add(ship, Vector.multDigit(rot, 500)), color);
+};
+const drawPlayerTraking = (vh, zoom, starIdx, _draw) => {
+  const osX = new Vector(1, 0);
+  const offset = Vector.multDigit(vh, 0.5);
+  const offsetButtom = vh.y / 5;
+  const trackObject = stars.getStarXY(starIdx);
+  let vecV = stars.getStarV(starIdx);
+  let vecXY = new Vector(0, 0);
+  const deg = Vector.angle2V(osX, vecV);
+  let field = 0;
+  for (let k = 0; k < stars.getCount(); k++) {
+    vecXY = stars.getStarXY(k);
+    vecXY = Vector.rotateVector(vecXY, trackObject, deg - 3.14 / 2);
+    vecXY = Vector.minus(vecXY, trackObject);
+    vecXY = Vector.multDigit(vecXY, zoom);
+    vecXY = Vector.add(vecXY, offset);
+    field = stars.getField(k);
+    vecXY = Vector.add(vecXY, new Vector(0, offsetButtom));
+    _draw.rect(vecXY, new Vector(3, 3), getDotColorFromField(field, stars.maxField), true);
+  }
+};
 const player = new Player$1();
 var render$4 = function() {
   var _vm = this;
@@ -6831,7 +6804,7 @@ var render$3 = function() {
     }
   }), _vm._v(" "), _c("canvas", {
     ref: "canvas",
-    staticClass: "tracking-tab__canvas",
+    staticClass: "player-tab__canvas",
     attrs: {
       "width": "360",
       "height": "360"
@@ -6876,7 +6849,8 @@ const __vue2_script$3 = {
       starIdx: -1,
       centerMassVector: player.getCoord(),
       zoom: 1,
-      isMouseDown: false
+      isMouseDown: false,
+      playerCoord: new Vector(0, 0)
     };
   },
   computed: {},
@@ -6897,22 +6871,22 @@ const __vue2_script$3 = {
   methods: {
     setPlayerRot() {
       const mouseXYCoord = mouseCoord;
-      const playerCoord = xyToCanvas(player.getCoord(), stars.zoom, stars.centerMassVector, draw.getVH());
+      this.playerCoord = xyToCanvas(player.getCoord(), stars.zoom, stars.centerMassVector, draw.getVH());
       const oX = new Vector(1, 0);
-      const alfa = Vector.angle2V(oX, Vector.minus(playerCoord, mouseXYCoord));
+      const alfa = Vector.angle2V(oX, Vector.minus(this.playerCoord, mouseXYCoord));
       const rot = Vector.multDigit(Vector.mult(Vector.rotateVector(oX, new Vector(0, 0), alfa), new Vector(-1, 1)), PLAYER_SPEED_MULTIPLY);
       player.setRot(rot);
     },
-    onMouseUp(event2) {
+    onMouseUp() {
       this.isMouseDown = false;
       player.powerOff();
     },
-    onMouseDown(event2) {
+    onMouseDown() {
       this.isMouseDown = true;
       player.powerOn();
       this.setPlayerRot();
     },
-    onMouseMove(event2) {
+    onMouseMove() {
       if (this.isMouseDown) {
         this.setPlayerRot();
       }
@@ -6930,15 +6904,22 @@ const __vue2_script$3 = {
       this.zoom = zoom;
     },
     drawStars(starIdx, that) {
-      var _a, _b, _c;
+      var _a, _b;
       if (!((_b = (_a = that.$refs) == null ? void 0 : _a.canvas) == null ? void 0 : _b.offsetHeight))
         return;
       if (starIdx < 0)
         return;
       const vh = that.drawClass.getVH();
       const zoom = that.zoom;
-      drawTraking(vh, zoom, starIdx, that.drawClass, (_c = that.$refs) == null ? void 0 : _c.roketImg, "green");
+      this.playerCoord = xyToCanvas(player.getCoord(), stars.zoom, stars.centerMassVector, draw.getVH());
+      drawPlayerTraking(vh, zoom, starIdx, that.drawClass);
+      drawPlayerV(that.playerCoord, player.getVelocity(), draw, "green");
+      drawPlayerRect(that.playerCoord, draw, "green");
       drawPlayerRot(vh, that.drawClass, "green", player.getRot());
+      drawShip(vh, that.drawClass, that.$refs.roketImg);
+      if (that.isMouseDown) {
+        drawPlayerPower(that.playerCoord, mouseCoord, draw, "#e1e376");
+      }
     },
     draw(that) {
       if (!that)
@@ -25567,9 +25548,9 @@ const addSphereInit = () => {
   });
 };
 const mouseCoordInit = () => {
-  elem.onmousemove = (event2) => {
-    mouseCoord.x = event2.x;
-    mouseCoord.y = event2.y;
+  elem.onmousemove = (event) => {
+    mouseCoord.x = event.x;
+    mouseCoord.y = event.y;
   };
 };
 var style = "";
@@ -25601,7 +25582,6 @@ async function drawFrame() {
     calcStars();
   }
   drawStars();
-  drawMouseRect();
   player.tick();
   fpsMeter.finish();
   window.requestAnimationFrame(drawFrame);
@@ -25630,4 +25610,4 @@ main();
 new Vue({
   render: (h) => h(App)
 }).$mount("#app");
-//# sourceMappingURL=index-288b0f0b.js.map
+//# sourceMappingURL=index-a05edfbc.js.map

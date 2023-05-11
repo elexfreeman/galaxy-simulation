@@ -113,16 +113,16 @@ export default {
       );
       player.setRot(rot);
     },
-    onMouseUp(event) {
+    onMouseUp() {
       this.isMouseDown = false;
       player.powerOff();
     },
-    onMouseDown(event) {
+    onMouseDown() {
       this.isMouseDown = true;
       player.powerOn();
       this.setPlayerRot();
     },
-    onMouseMove(event) {
+    onMouseMove() {
       if (this.isMouseDown) {
         this.setPlayerRot();
       }
